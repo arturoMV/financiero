@@ -1,0 +1,149 @@
+*{
+	margin: 0;
+	font-family: "Arial", Helvetica, sans-serif;
+}
+
+
+body{
+	background-color: #f4f7fb;
+ }
+.link{
+	color:#444;
+	text-decoration: none;
+}
+
+.top-header{
+	float: left;
+	height: 80px;
+	width: 100%;
+	position: relative;
+	background-color: #fcfcfc; 
+	color: #444;
+}
+
+header{
+	float: left;
+	height: 150px;
+	width: 100%;
+	position: relative;
+	background-color: #4483c7; 
+	background-image: -webkit-linear-gradient(#2e8dd5 0%, #5bbbeb 100%);
+	background-image: -o-linear-gradient(#2e8dd5 0%, #5bbbeb 100%);
+	background-image: linear-gradient(#2e8dd5 0%, #5bbbeb 100%);
+	color: #FFF;
+}
+
+
+.heading{
+	float: left;
+	width: 40%;
+	position: relative;
+	text-align: left;
+	left: 1%;
+	top:29%;
+}
+
+.heading h1{
+	font-size: 25px;
+}
+.heading h3{
+	font-size: 30px;
+}
+
+.info{
+	float: right;
+	width: 30%;
+	position: relative;
+	text-align: left;
+	right: 15%;
+	top:15%;
+}
+
+aside{
+
+	float: left;
+	height: 515px;
+	width: 15%;
+	background-color: #fcfcfc;
+	position: relative;
+	box-shadow: 0 0px 4px rgba(0,0,0,0.075), 0 0 10px 0 rgba(0,0,0,0.01);
+	
+}
+
+aside ul{
+	padding: 0;
+	display: block;
+	list-style: none;
+	width: 100%;
+	text-align: center;
+}
+
+aside li{
+	padding: 15px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.075), 0 10px 0 rgba(0,0,0,0.01);
+}
+
+aside ul a{
+	color:#444;
+	text-decoration: none;
+}
+
+aside ul a:hover{
+	color:#777;
+}
+
+.container{
+	float: left;
+	height: 515px;
+	width: 85%;
+	background-color: ##f4f7fb;
+	position: relative
+	
+}
+
+#wrapper {
+  display: block;
+  width: 850px;
+  background: #fff;
+  margin: 0 auto;
+  padding: 10px 17px;
+}
+
+
+footer{	
+	float: left;
+	height: 115px;
+	width: 100%;
+	background-color: #fcfcfc;
+	position: relative;
+	text-align:center;
+}
+
+footer h5{
+	position: relative;
+	top: 40%;
+	color: #444;
+	font-size: 12px;
+}
+
+footer ul{
+	padding: 0;
+	position: relative;
+	margin-top: 20px;
+	text-align: center;
+	font-size: 12px;
+}
+
+footer li{
+	padding: 15px;
+	display: inline;
+}
+
+footer ul a{
+	color:#444;
+	text-decoration: none;
+}
+
+footer ul a:hover{
+	color:#777;
+}
