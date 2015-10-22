@@ -8,6 +8,7 @@
 
 	@section('content')
 	@parent
+  @if(Auth::user())
 	<section>
 	<div class="wrapper">
       	<form class="col-md-4" action="/partida/{{$partida->id}}/put" method="post">
@@ -60,6 +61,9 @@
   </form>
 	</div>
 	</section> 
+  @else
+    <h5> No tienes acceso a este contenido. Intenta <a  href="/auth/login" title="login">Iniciar Sesion</a> </h5>
+  @endif
 	@endsection
 
 </body>

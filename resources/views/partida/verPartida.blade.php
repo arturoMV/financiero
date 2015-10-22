@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-<!DOCTYPE html>
 @extends('/layouts.master')
 <html>
 <head>
@@ -48,7 +40,7 @@
     </div>
 
      <div class="col-md-4 form-group ">
-        <input type="submit" name="" class="btn btn-success pull-right" " value="Editar">
+        <input type="submit" name="" class="btn btn-success pull-right" value="Editar">
     </div> 
            
 	</form>

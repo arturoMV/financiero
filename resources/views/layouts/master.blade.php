@@ -30,8 +30,6 @@
 @endif
 	</div>
 	</div>
-
-
 	<header id="header" class="page-header" class="col-lg-12">
 		<div class="heading col-md-6">
 		<h1>Sistema de Financiero</h1>
@@ -41,8 +39,9 @@
 		<a href="/"><img src="http://oaf.ucr.ac.cr/sites/all/themes/bootstrap-business/logo.png" alt="UCR"></a>
 		<h3>Sede del Pacifico</h3>
 		</div>
-
 	</header>	
+	<section class="content">
+	@if(Auth::user() AND Auth::user()->tienePermiso('menu_ver', Auth::user()->id))
 		<aside class="col-md-3 ">
 			<nav >
 				<ul class="nav nav-stacked text-center">
@@ -58,7 +57,12 @@
 	<div class=" col-md-9">
 		@yield('content')
 	</div>
-
+	@else
+	<div class=" col-md-12">
+		@yield('content')
+	</div>
+	@endif
+	</section>
 
 		<footer class="col-md-12 text-center" >
 		<div class="col-md-2">

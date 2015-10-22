@@ -4,7 +4,15 @@
 <div class="col-md-2">
     
 </div >
-   <div class="wrapper col-md-4">   
+   <div class="wrapper col-md-4">
+   <div class="alert alert-danger">
+        <strong>Oops!</strong> Hay problemas con las entradas<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>   
     <form method="POST" action="/auth/login">
     {!! csrf_field() !!}
 

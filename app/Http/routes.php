@@ -12,8 +12,23 @@
 */
 
 
+Route::get('/algo', function () {
+
+abort(503);
+
+
+});
+
 Route::get('/', function () {
     return view('index');
+});
+
+
+Route::get('/prueba', function () {
+
+
+
+
 });
 
 Route::get('/home', function () {
