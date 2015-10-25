@@ -33,10 +33,10 @@
 						<td>{{partida.saldo}}</td>
 						<td>{{partida.descripcion}}</td>
 						<td>
-							<a href="/partida/{{partida.id}}"  class="btn btn-info" title="">Ver</a>
+							<a href="/partida/{{partida.id}}"  class="btn btn-success" title="">Ver</a>
 						</td>
 						<td>
-							<a href="/partida/{{partida.id}}/edit" class="btn btn-info" title="">Editar</a>
+							<a href="/partida/{{partida.id}}/edit" class="btn btn-danger" title="">Editar</a>
 						</td>
 					</tr>
 				</tbody>

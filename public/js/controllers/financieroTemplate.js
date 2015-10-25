@@ -1,5 +1,5 @@
 angular.module("financieroCtrl",[])
-.controller("financieroTemplate", function($scope, PartidasService, $http, PartidasFactory) {
+.controller("financieroTemplate", function($scope, PartidasService, $http) {
 	$scope.model = [];
 	var init = function() {
 		getAllPartidas();
@@ -7,8 +7,8 @@ angular.module("financieroCtrl",[])
 
 	var getAllPartidas = function() {
 		var promise = PartidasService.getPartidas();
-		promise.then(function(data){
-			$scope.model = data;
+		promise.then(function(partidas){
+			$scope.model = partidas.data;
 		});
 	};
 	$scope.orderTable = function(order) {
@@ -19,7 +19,6 @@ angular.module("financieroCtrl",[])
 		} else {
 			$scope.myOrder = order;
 		}
-		console.log($scope.myOrder)
 	};
 	init();
 });

@@ -1,12 +1,14 @@
 angular.module('financieroCtrl')
-.service('PartidasService', function() { 
+.service('PartidasService', function($http, $q) { 
 	var partidas = [];
-	/**
-	 * function to get current full task object
-	 * @return {[type]} [description]
-	 */
+	
+	partidas = $q.defer();
+	$http.get("/partidas").then(function(data){
+		partidas.resolve(data);
+	});
+
 	this.getPartidas=function(){
-		return partidas;
+		return partidas.promise;
 	};
 	this.setPartidas=function(items){
 		partidas = items;
