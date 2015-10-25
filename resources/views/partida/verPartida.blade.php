@@ -9,33 +9,33 @@
 	@parent
 	<section>
 	<div class="wrapper">
-      	<form class="col-md-7 form-horizontal" action="/partida/{{$partida->id}}/edit" method="get"> 
+      	<form class="col-md-7 form-horizontal" action="/partida/<%$partida->id%>/edit" method="get"> 
       <div class="form-group">
         <label class="col-md-4 control-label">ID Partida:</label>
-        <p class="col-md-2 form-control-static">{{$partida->idPartida}}</p>
+        <p class="col-md-2 form-control-static"><%$partida->idPartida%></p>
      
     </div >
 
     <div class="form-group">
       <label class="col-md-4 control-label">ID Presupuesto:</label>
-      <p class="col-md-2 form-control-static">{{$partida->idPresupuesto}}</p>
+      <p class="col-md-8 form-control-static"><%$partida->idPresupuesto%></p>
        
     </div>
 
        <div  class="form-group">
         <label class="col-md-4 control-label">Estado:</label>
-        <p class="col-md-2 form-control-static">{{$partida->estado}}</p>	    
+        <p class="col-md-8 form-control-static"><%$partida->estado%></p>	    
     </div>
 
     <div class="form-group">
       <label class="col-md-4 control-label">Saldo:</label>
-		<p class="col-md-2 form-control-static">{{$partida->saldo}}</p>
+		<p class="col-md-8 form-control-static"><%$partida->saldo%></p>
     </div>
 	
 
      <div class="form-group">
       <label class="col-md-4 control-label">Descripcion:</label>
-      	<p class="col-md-2 form-control-static">{{$partida->descripcion}}</p>
+      	<p class="col-md-8 form-control-static"><%$partida->descripcion%></p>
   
     </div>
 
