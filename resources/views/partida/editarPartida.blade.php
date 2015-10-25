@@ -58,8 +58,10 @@
 	</form>
 
   <form class="col-md-1" action="/partida/<%$partida->id%>/delete" method="post">
-  <input type="hidden" name="_token" value="<% csrf_token() %>">   
-      <input type="submit" class="btn btn-danger"name="delete" value="Eliminar">
+      <input type="hidden" name="_token" value="<% csrf_token() %>">
+      @if(Auth::user() AND Auth::user()->tienePermiso('partida_borrar', Auth::user()->id))
+       <input type="submit" class="btn btn-danger"name="delete" value="Eliminar">
+      @endif
   </form>
 	</div>
 	</section> 
