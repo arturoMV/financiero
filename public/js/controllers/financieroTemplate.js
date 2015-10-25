@@ -1,14 +1,14 @@
 angular.module("financieroCtrl",[])
-.controller("financieroTemplate", function($scope, PartidasService, $http, PartidasFactory) {
+.controller("financieroTemplate", function($scope, PartidasService, $http) {
 	$scope.model = [];
 	var init = function() {
+		getAllPartidas();
+	};
 
-		// PartidasService.setPartidas(PartidasFactory());
-		// PartidasService.setPartidas(PartidasFactory()); 
-			
-  //     	$scope.model = PartidasService.getPartidas();
-		$http.get("/partidas").success(function(data){
-			$scope.model = data;
+	var getAllPartidas = function() {
+		var promise = PartidasService.getPartidas();
+		promise.then(function(partidas){
+			$scope.model = partidas.data;
 		});
 	};
 	$scope.orderTable = function(order) {
@@ -19,7 +19,6 @@ angular.module("financieroCtrl",[])
 		} else {
 			$scope.myOrder = order;
 		}
-		console.log($scope.myOrder)
 	};
 	init();
 });

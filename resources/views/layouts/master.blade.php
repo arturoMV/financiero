@@ -19,7 +19,6 @@
 	<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" type="text/javascript"></script>
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/financieroTemplate.js') !!}"  type="text/javascript"></script>
-	<script src="{!! asset('js/factories/partidasFactory.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
 </html>
 	<title>Financiero - @yield('title')</title>
@@ -28,7 +27,7 @@
 <body>
 <div class="container-fluid">
 @if(Auth::user())
-<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-info" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
+<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-danger" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
 @else
 <a  href="/auth/login" title="login" class="pull-right btn btn-info login">Iniciar Sesion</a>
 @endif
