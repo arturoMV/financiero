@@ -7,13 +7,15 @@
 <body>
 	@section('content')
 	@parent
-	<section class="container-fluid" ng-controller="financieroTemplate">
-		<div class="container-fluid search-container">
-			<label for="partidaName" class="col-lg-12 col-md-12 col-xs-12 search">Search Partida:</label>
-			<input type="text" id="partidaName"  placeholder="escriba algo para buscar" ng-model="search">
+	@if(Auth::user() AND Auth::user()->tienePermiso('partida_ver', Auth::user()->id))
+	<section class="container-fluid" ng-controller="financieroTemplate"><br>
+		<div class="container-fluid search-container form-horizontal">
+			<div class="col-lg-4 col-md-4 col-xs-10 ">
+				<input type="text" id="partidaName"  class="form-control" placeholder="Digite para buscar" ng-model="search">
+			</div>
 		</div>
 		<div class="container-fluid table-responsive">
-			<table class="table table-striped">
+			<table class="table table-striped table-hover">
 				<tbody>
 					<tr >
 						<th ng-click="orderTable('idPartida')" style="cursor:pointer;">ID Partida</th>
@@ -31,16 +33,19 @@
 						<td>{{partida.saldo}}</td>
 						<td>{{partida.descripcion}}</td>
 						<td>
-							<button class="btn btn-success">Ver</button>
+							<a href="/partida/{{partida.id}}"  class="btn btn-info" title="">Ver</a>
 						</td>
 						<td>
-							<button class="btn btn-danger">Editar</button>
+							<a href="/partida/{{partida.id}}/edit" class="btn btn-info" title="">Editar</a>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</section>
+	@else
+		Debe estar autenticado y tener permisos para ver esta seccion
+	@endif
 	@endsection
 </body>
 </html>

@@ -1,12 +1,13 @@
 angular.module("financieroCtrl",[])
-.controller("financieroTemplate", function($scope, PartidasService, $http) {
-	$scope.model = {};
+.controller("financieroTemplate", function($scope, PartidasService, $http, PartidasFactory) {
+	$scope.model = [];
 	var init = function() {
-		// PartidasService.setPartidas(PartidasFactory());
-		/*PartidasService.setPartidas(PartidasFactory(function(data) {
-			$scope.model = PartidasService.getPartidas();
-        });*/
-		$http.get("/partidas").success(function(data){
+		getAllPartidas();
+	};
+
+	var getAllPartidas = function() {
+		var promise = PartidasService.getPartidas();
+		promise.then(function(data){
 			$scope.model = data;
 		});
 	};

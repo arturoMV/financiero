@@ -15,12 +15,12 @@
 			<input type="hidden" name="_token" value="<% csrf_token() %>">    
       <div class="form-group">
         <label>ID Partida</label>
-       <input type="text" class="form-control" name="idPartida" value="{{$partida->idPartida}}" placeholder="ID de Partida">
+       <input type="text" class="form-control" name="idPartida" value="<%$partida->idPartida%>" placeholder="ID de Partida">
     </div >
 
     <div class="form-group">
       <label for=>ID Presupuesto</label>
-          <input type="text" class="form-control" name="idPresupuesto" value="{{$partida->idPresupuesto}}" placeholder="ID del Presupuesto">
+          <input type="text" class="form-control" name="idPresupuesto" value="<%$partida->idPresupuesto%>" placeholder="ID del Presupuesto">
     </divname="" >
 
        <div  class="form-group">
@@ -40,13 +40,13 @@
 
     <div class="form-group">
       <label for=>Saldo</label>
-         <input type="" name="saldo" class="form-control" value="{{$partida->saldo}}" name="saldo"  placeholder="Saldo">
+         <input type="" name="saldo" class="form-control" value="<%$partida->saldo%>" name="saldo"  placeholder="Saldo">
     </div>
 	
 
      <div class="form-group">
       <label for=>Descripcion</label>
-        <input type="text" class="form-control"  value="{{$partida->descripcion}}" name="descripcion"  placeholder="Descripcion">
+        <input type="text" class="form-control"  value="<%$partida->descripcion%>" name="descripcion"  placeholder="Descripcion">
     </div>
 
      <div class="form-group">
@@ -55,8 +55,8 @@
            
 	</form>
 
-  <form class="col-md-1" action="/partida/{{$partida->id}}/delete" method="post">
-  <input type="hidden" name="_token" value="{{ csrf_token() }}">   
+  <form class="col-md-1" action="/partida/<%$partida->id%>/delete" method="post">
+  <input type="hidden" name="_token" value="<% csrf_token() %>">   
       <input type="submit" class="btn btn-danger"name="delete" value="Eliminar">
   </form>
 	</div>

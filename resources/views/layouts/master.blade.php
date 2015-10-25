@@ -28,7 +28,7 @@
 <body>
 <div class="container-fluid">
 @if(Auth::user())
-<h5>Bienvenido: <%Auth::user()->name  %> <br> <a class="link" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
+<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-info" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
 @else
 <a  href="/auth/login" title="login" class="pull-right btn btn-info login">Iniciar Sesion</a>
 @endif
@@ -58,11 +58,11 @@
 		</aside>
 
 
-	<div class=" col-md-9">
+	<div class="col-md-9">
 		@yield('content')
 	</div>
 	@else
-	<div class=" col-md-12">
+	<div class=" col-md-10 col-md-offset-1">
 		@yield('content')
 	</div>
 	@endif

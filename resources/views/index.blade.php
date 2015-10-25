@@ -8,7 +8,7 @@
 
 	@section('content')
 	@parent
-	<section>
+	<section class="contenido">
 		este es el contenido
 	</section> 
 	@endsection
