@@ -10,8 +10,9 @@
 	@if(Auth::user() AND Auth::user()->tienePermiso('partida_ver', Auth::user()->id))
 	<section class="container-fluid" ng-controller="financieroTemplate"><br>
 		<div class="container-fluid search-container form-horizontal">
-			<div class="col-lg-4 col-md-4 col-xs-10 ">
-				<input type="text" id="partidaName"  class="form-control" placeholder="Digite para buscar" ng-model="search">
+			<div class="container-fluid">
+				<input type="text" id="partidaName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
+				<button class="btn btn-success crear-partida pull-right">Nueva Partida</button>
 			</div>
 		</div>
 		<div class="container-fluid table-responsive">
@@ -33,10 +34,10 @@
 						<td>{{partida.saldo}}</td>
 						<td>{{partida.descripcion}}</td>
 						<td>
-							<a href="/partida/{{partida.id}}"  class="btn btn-success" title="">Ver</a>
+							<a href="/partida/{{partida.id}}"  class="btn btn-info" title="">Ver</a>
 						</td>
 						<td>
-							<a href="/partida/{{partida.id}}/edit" class="btn btn-danger" title="">Editar</a>
+							<a href="/partida/{{partida.id}}/edit" class="btn btn-warning" title="">Editar</a>
 						</td>
 					</tr>
 				</tbody>

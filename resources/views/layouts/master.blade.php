@@ -27,7 +27,7 @@
 <body>
 <div class="container-fluid">
 @if(Auth::user())
-<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-danger" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
+<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-danger pull-right cerrar" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
 @else
 <a  href="/auth/login" title="login" class="pull-right btn btn-info login">Iniciar Sesion</a>
 @endif
