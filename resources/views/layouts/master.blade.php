@@ -14,9 +14,13 @@
 <!-- Latest compiled and minified JavaScript -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"  type="text/javascript"></script>
 	{{-- // <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> --}}
-{{-- <script src="/js/bootstrap-table.js"></script> --}}
+	{{-- <script src="/js/bootstrap-table.js"></script> --}}
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" type="text/javascript"></script>
-	<script src="js/ordenar.js"  type="text/javascript"></script>
+	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/controllers/finansieroTemplate.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/factories/partidasFactory.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
 </html>
 	<title>Financiero - @yield('title')</title>
 
