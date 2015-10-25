@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="shortcut icon" href="http://oaf.ucr.ac.cr/sites/default/files/favicon.ico" type="image/vnd.microsoft.icon">
-	{{-- <link rel="stylesheet" type="text/css" href="/css/style.css"> --}}
+	<%-- <link rel="stylesheet" type="text/css" href="/css/style.css"> --%>
 <!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -13,12 +13,12 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
 <!-- Latest compiled and minified JavaScript -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"  type="text/javascript"></script>
-	{{-- // <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> --}}
-	{{-- <script src="/js/bootstrap-table.js"></script> --}}
+	<%-- // <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> --%>
+	<%-- <script src="/js/bootstrap-table.js"></script> --%>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js" type="text/javascript"></script>
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
-	<script src="{!! asset('js/controllers/finansieroTemplate.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/controllers/financieroTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/factories/partidasFactory.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
 </html>
@@ -26,25 +26,25 @@
 
 </head>
 <body>
-<div class="top-header">
+<div class="container-fluid">
 @if(Auth::user())
-<h5>Bienvenido: {{Auth::user()->name  }} <br> <a class="link" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
+<h5>Bienvenido: <%Auth::user()->name  %> <br> <a class="link" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
 @else
-<h5><a  href="/auth/login" title="login">Iniciar Sesion</a> </h5>
+<a  href="/auth/login" title="login" class="pull-right btn btn-info login">Iniciar Sesion</a>
 @endif
 	</div>
 	</div>
-	<header id="header" class="page-header" class="col-lg-12">
-		<div class="heading col-md-6">
+	<header id="header" class="container-fluid">
+		<div class="col-xs-12 col-md-6">
 		<h1>Sistema de Financiero</h1>
 		<h3>Movimientos Presupuestarios</h3>
 		</div>
-		<div class="info col-md-6">
-		<a href="/"><img src="http://oaf.ucr.ac.cr/sites/all/themes/bootstrap-business/logo.png" alt="UCR"></a>
+		<div class="col-xs-12 col-md-6">
+		<a href="/"><img src="http://oaf.ucr.ac.cr/sites/all/themes/bootstrap-business/logo.png" alt="UCR" class="img-responsive"></a>
 		<h3>Sede del Pacifico</h3>
 		</div>
 	</header>	
-	<section class="content">
+	<section>
 	@if(Auth::user() AND Auth::user()->tienePermiso('menu_ver', Auth::user()->id))
 		<aside class="col-md-3 ">
 			<nav >
