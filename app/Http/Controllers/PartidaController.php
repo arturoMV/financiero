@@ -17,7 +17,7 @@ class PartidaController extends Controller
     public function index(){
         $partida = Partida::all();
 
-        return view('partida', ['partida' => $partida]);
+        return $partida;
     }
 
     /**
