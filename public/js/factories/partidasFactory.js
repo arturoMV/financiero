@@ -1,8 +1,10 @@
 'use strict';
-angular.module('finansieroCtrl')
-.factory('PartidasFactory', function(PartidasService, $http) {
-	$http.get("/partida").success(function(data){
-		console.log(data)
-		return data;
-	});
+
+angular.module('financieroCtrl')
+.factory('PartidasFactory', function($http) {
+	this.getPartidasFactory = function() {
+		$http.get("/partida").success(function(data){
+			return data;
+		});
+	};
 });

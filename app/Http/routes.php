@@ -58,3 +58,5 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+Blade::setContentTags('<%', '%>'); // for variables and all things Blade
+Blade::setEscapedContentTags('<%%', '%%>'); // for escaped data

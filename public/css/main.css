@@ -16,7 +16,6 @@ aside{
 }
 
 header{
-	height: 150px;
 	position: relative;
 	background-color: #4483c7; 
 	background-image: -webkit-linear-gradient(#2e8dd5 0%, #5bbbeb 100%);
@@ -36,5 +35,21 @@ a{
 	color: #444;
 	font-size: 18px;
 }
-
-
+.login
+{
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+section
+{
+	width: 100%;
+	padding: 0;
+}
+.search
+{
+	padding-left: 0 !important; 
+}
+.search-container
+{
+	margin-bottom: 2%;
+}
