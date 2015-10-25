@@ -11,8 +11,8 @@
   @if(Auth::user())
 	<section>
 	<div class="wrapper">
-      	<form class="col-md-4" action="/partida/{{$partida->id}}/put" method="post">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">    
+      	<form class="col-md-4" action="/partida/<%$partida->id%>/put" method="post">
+			<input type="hidden" name="_token" value="<% csrf_token() %>">    
       <div class="form-group">
         <label>ID Partida</label>
        <input type="text" class="form-control" name="idPartida" value="{{$partida->idPartida}}" placeholder="ID de Partida">

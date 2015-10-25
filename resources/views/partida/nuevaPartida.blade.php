@@ -11,7 +11,7 @@
 	<section>
 	<div class="wrapper col-md-10">
 		<form action="/partida" class="form-horizontal col-md-6" method="post">
-			<input type="hidden" name="_token" value="{{ csrf_token() }}">  
+			<input type="hidden" name="_token" value="<% csrf_token() %>">  
 	<div class="form-group">
       <label class="col-md-12 control-label">ID Partida</label>
 		 <input type="text" class="form-control col-md-5" name="idPartida" placeholder="ID de Partida">

@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+use App\Partida;
 
 Route::get('/algo', function () {
 
@@ -24,12 +24,10 @@ Route::get('/', function () {
 });
 
 
-Route::get('/prueba', function () {
-
-
-
-
-});
+Route::get('/partidas', function () {
+	$partida = Partida::all();	
+    return $partida;	
+});	
 
 Route::get('/home', function () {
     return view('index');
