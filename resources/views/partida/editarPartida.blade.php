@@ -8,7 +8,7 @@
 
 	@section('content')
 	@parent
-  @if(Auth::user())
+  @if(Auth::user() AND Auth::user()->tienePermiso('partida_editar', Auth::user()->id))
 	<section>
 	<div class="wrapper">
       	<form class="col-md-4" action="/partida/<%$partida->id%>/put" method="post">
@@ -20,7 +20,8 @@
 
     <div class="form-group">
       <label for=>ID Presupuesto</label>
-          <input type="text" class="form-control" name="idPresupuesto" value="<%$partida->idPresupuesto%>" placeholder="ID del Presupuesto">
+          <input type="text" class="form-control" name="idPresupuesto" 
+          value="<%$partida->idPresupuesto%>" placeholder="ID del Presupuesto">
     </divname="" >
 
        <div  class="form-group">
@@ -46,7 +47,8 @@
 
      <div class="form-group">
       <label for=>Descripcion</label>
-        <input type="text" class="form-control"  value="<%$partida->descripcion%>" name="descripcion"  placeholder="Descripcion">
+        <input type="text" class="form-control"  value="<%$partida->descripcion%>" 
+        name="descripcion"  placeholder="Descripcion">
     </div>
 
      <div class="form-group">
@@ -62,7 +64,7 @@
 	</div>
 	</section> 
   @else
-    <h5> No tienes acceso a este contenido. Intenta <a  href="/auth/login" title="login">Iniciar Sesion</a> </h5>
+   Debe estar autenticado y tener permisos para ver esta seccion
   @endif
 	@endsection
 
