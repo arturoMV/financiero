@@ -11,6 +11,7 @@
 |
 */
 use App\Partida;
+use App\User;
 
 Route::get('/algo', function () {
 
@@ -29,6 +30,12 @@ Route::get('/partidas', function () {
     return $partida;	
 });	
 
+Route::get('/usuarios', function () {
+	$usuario = User::all();	
+    return $usuario;	
+});	
+
+
 Route::get('/home', function () {
     return view('index');
 });
@@ -42,6 +49,8 @@ Route::get('/about', function () {
 
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 
+
+Route::resource('usuario', 'UsuarioController');
 
 Route::resource('partida', 'PartidaController');
 

@@ -5,10 +5,12 @@
 	@section('title', 'Partida')
 </head>
 <body>
-
+  @section('partida')
+    class="active"
+  @endsection
 	@section('content')
 	@parent
-  @if(Auth::user() AND Auth::user()->tienePermiso('partida_editar', Auth::user()->id))
+  @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
 	<section>
 	<div class="wrapper">
       	<form class="col-md-4" action="/partida/<%$partida->id%>/put" method="post">
@@ -60,8 +62,26 @@
   <form class="col-md-1" action="/partida/<%$partida->id%>/delete" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">
       @if(Auth::user() AND Auth::user()->tienePermiso('partida_borrar', Auth::user()->id))
-       <input type="submit" class="btn btn-danger"name="delete" value="Eliminar">
-      @endif
+       
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Eliminarl</button>
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar</h4>
+              </div>
+              <div class="modal-body">
+                <p>Estas seguro de que quieres eliminar.</p>
+                 <input type="submit" class="btn btn-danger"name="delete" value="Eliminar">
+                <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Cancelar</button>
+
+              </div>
+            </div> 
+          </div>
+        </div> 
+        @endif
   </form>
 	</div>
 	</section> 

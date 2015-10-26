@@ -5,6 +5,9 @@
 	@section('title', 'Acerca de')
 </head>
 <body>
+	@section('about')
+		class="active"
+	@endsection
 	@section('content')
 	@parent
 	<section>

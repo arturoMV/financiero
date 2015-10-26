@@ -1,4 +1,4 @@
-angular.module('financieroCtrl')
+angular.module('partidaCtrl')
 .service('PartidasService', function($http, $q) { 
 	var partidas = [];
 	
@@ -10,8 +10,9 @@ angular.module('financieroCtrl')
 	this.getPartidas=function(){
 		return partidas.promise;
 	};
+
+
 	this.setPartidas=function(items){
 		partidas = items;
 	};
-
 });

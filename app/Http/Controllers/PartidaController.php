@@ -16,7 +16,7 @@ class PartidaController extends Controller
      */
     public function index(){
         $partida = Partida::all();
-         return view('partida');
+         return view('partida/partida');
     }
 
     /**
@@ -44,7 +44,7 @@ class PartidaController extends Controller
             ));
         $partida = Partida::all();
 
-        return view('partida', ['partida' => $partida]);
+        return view('partida/partida', ['partida' => $partida]);
 
     }
 
@@ -107,6 +107,6 @@ class PartidaController extends Controller
 
         $partida = Partida::all();
 
-        return view('partida', ['partida' => $partida]);
+        return view('partida/partida', ['partida' => $partida]);
     }
 }

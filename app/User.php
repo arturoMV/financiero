@@ -63,7 +63,7 @@ class User extends Model implements AuthenticatableContract,
             ->get();
 
         foreach ($resultado as $permiso) {
-         if($permiso->nombrePermiso == $validacion){
+             if($permiso->nombrePermiso == $validacion){
             return true;
          }
         }

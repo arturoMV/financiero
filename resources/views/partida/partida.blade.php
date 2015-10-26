@@ -1,18 +1,22 @@
-<!DOCTYPE html>
+
 @extends('layouts.master')
-<html ng-app="starter">
-<head>
-	@section('title', 'Partida')
-</head>
-<body>
+@section('title', 'Partida')
+
+	
+	@section('partida')
+		class="active"
+	@endsection
 	@section('content')
 	@parent
-	@if(Auth::user() AND Auth::user()->tienePermiso('partida_ver', Auth::user()->id))
-	<section class="container-fluid" ng-controller="financieroTemplate"><br>
+	<script src="{!! asset('js/controllers/partidaTemplate.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
+
+	@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
+	<section class="container-fluid" ng-controller="partidaTemplate"><br>
 		<div class="container-fluid search-container form-horizontal">
 			<div class="container-fluid">
 				<input type="text" id="partidaName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
-				<button class="btn btn-success crear-partida pull-right">Nueva Partida</button>
+				<a href="/partida/create" class="btn btn-success crear-partida pull-right">Nueva Partida</a>
 			</div>
 		</div>
 		<div class="container-fluid table-responsive">
@@ -27,7 +31,7 @@
 						<th></th>
 						<th></th>
 					</tr>
-					<tr ng-repeat="partida in model | filter : search | orderBy : myOrder track by $index">
+					<tr ng-repeat="partida in modelP | filter : search | orderBy : myOrder track by $index">
 						<td>{{partida.idPartida}}</td>
 						<td>{{partida.idPresupuesto}}</td>
 						<td>{{partida.estado}}</td>
@@ -48,5 +52,3 @@
 		Debe estar autenticado y tener permisos para ver esta seccion
 	@endif
 	@endsection
-</body>
-</html>

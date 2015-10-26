@@ -4,10 +4,12 @@
 	@section('title', 'Partida')
 </head>
 <body>
-
+  @section('partida')
+    class="active"
+  @endsection
 	@section('content')
 	@parent
-    @if(Auth::user() AND Auth::user()->tienePermiso('partida_ver', Auth::user()->id))
+    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
   	<section>
   	<div class="wrapper">
         	<form class="col-md-7 form-horizontal" action="/partida/<%$partida->id%>/edit" method="get"> 

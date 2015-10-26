@@ -5,7 +5,9 @@
 	@section('title', 'Inicio')
 </head>
 <body>
-
+	@section('index')
+		class="active"
+	@endsection
 	@section('content')
 	@parent
 	<section class="contenido">

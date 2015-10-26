@@ -5,7 +5,9 @@
 	@section('title', 'Presupuesto')
 </head>
 <body>
-
+	@section('presupuesto')
+		class="active"
+	@endsection
 	@section('content')
 	@parent
 	<section>
