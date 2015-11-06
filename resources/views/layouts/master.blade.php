@@ -4,7 +4,7 @@
 
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<link rel="shortcut icon" href="http://oaf.ucr.ac.cr/sites/default/files/favicon.ico" type="image/vnd.microsoft.icon">
+		<link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon">
 		<%-- <link rel="stylesheet" type="text/css" href="/css/style.css"> --%>
 	<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -40,7 +40,7 @@
 			<h3>Movimientos Presupuestarios</h3>
 			</div>
 			<div class="col-xs-12 col-md-6">
-			<a href="/"><img src="http://oaf.ucr.ac.cr/sites/all/themes/bootstrap-business/logo.png" alt="UCR" class="img-responsive"></a>
+			<a href="/"><img src="/img/logo.png" alt="UCR" class="img-responsive"></a>
 			<h3>Sede del Pacifico</h3>
 			</div>
 		</header>	

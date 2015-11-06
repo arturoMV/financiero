@@ -42,17 +42,22 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function getPermisos(){
-        $user=DB::table('tusuario')
-            ->join('trol', 'tusuario.trol_idRol', '=', 'trol.idRol')
-            ->join('trol_tiene_tpermiso', 'trol_tiene_tpermiso.trol_idRol', '=', 'trol.idRol')
+    public function verificarPermiso($nombreRol, $nombrePermiso){
+        $permisos =DB::table('trol_tiene_tpermiso')
+            ->join('trol', 'trol_tiene_tpermiso.trol_idRol', '=', 'trol.idRol')
             ->join('tpermiso', 'trol_tiene_tpermiso.tpermiso_idPermiso', '=', 'tpermiso.idPermiso')
-            ->select('tPermiso.nombrePermiso')
+            ->select('tpermiso.nombrePermiso')
+            ->where('trol.nombreRol','=',$nombreRol)
             ->get();
 
+        foreach ($permisos as $permiso) {
+            if($permiso->nombrePermiso == $nombrePermiso){
+                return true;
+            }
+        }
     }
 
-        public function tienePermiso($validacion,$id){
+    public function tienePermiso($validacion,$id){
       
        $resultado=DB::table('tusuario')
             ->join('trol', 'tusuario.trol_idRol', '=', 'trol.idRol')
@@ -67,11 +72,5 @@ class User extends Model implements AuthenticatableContract,
             return true;
          }
         }
-
     }
-
-
-
-
-
 }

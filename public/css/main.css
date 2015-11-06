@@ -3,7 +3,7 @@ body{
  }
 
 .contenido{
-	height: 500px;	
+	height: 400px;	
 }
 
 .content{
@@ -22,7 +22,8 @@ header{
 	background-image: linear-gradient(#2e8dd5 0%, #5bbbeb 100%);
 	color: #FFF;
 }
-input
+
+/*input
 {
 	display: block;
     height: 34px;
@@ -39,6 +40,10 @@ input
     -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
     -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}*/
+
+section{
+	height: 450px;
 }
 .crear-partida
 {

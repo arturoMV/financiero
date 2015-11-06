@@ -24,9 +24,9 @@
       <label for=>ID Presupuesto</label>
           <input type="text" class="form-control" name="idPresupuesto" 
           value="<%$partida->idPresupuesto%>" placeholder="ID del Presupuesto">
-    </divname="" >
+    </div>
 
-       <div  class="form-group">
+    <div  class="form-group">
         <label>Estado
         <select class="form-control" name="estado">
         		<option value="Activo" 
@@ -55,15 +55,14 @@
 
      <div class="form-group">
         <input type="submit" name="" class="btn btn-success col-md-3" value="Editar">
+        <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal">Eliminar</button>
     </div> 
            
 	</form>
 
   <form class="col-md-1" action="/partida/<%$partida->id%>/delete" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">
-      @if(Auth::user() AND Auth::user()->tienePermiso('partida_borrar', Auth::user()->id))
-       
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Eliminarl</button>
+      @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Partida', Auth::user()->id))
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog modal-sm">
             <!-- Modal content-->

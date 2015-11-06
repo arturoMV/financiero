@@ -40,7 +40,7 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return 'holi';
     }
 
     /**
@@ -77,8 +77,33 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
+    {   
+        $usuario = User::find($id);
+
+        $rolU =DB::table('tusuario')
+            ->join('trol', 'tusuario.trol_idRol', '=', 'trol.idRol')
+            ->select('trol.nombreRol')
+            ->where('tusuario.id', '=', $id)
+            ->first();
+
+        $rol =DB::table('tusuario')
+            ->join('trol', 'tusuario.trol_idRol', '=', 'trol.idRol')
+            ->select('trol.idRol','trol.nombreRol')
+            ->get();
+
+        $permisos =DB::table('trol_tiene_tpermiso')
+            ->join('trol', 'trol_tiene_tpermiso.trol_idRol', '=', 'trol.idRol')
+            ->join('tpermiso', 'trol_tiene_tpermiso.tpermiso_idPermiso', '=', 'tpermiso.idPermiso')
+            ->select('trol.nombreRol','trol.idRol','tpermiso.idPermiso','tpermiso.nombrePermiso')
+            ->get();
+
+        $permisoAll = DB::table('tpermiso')
+            ->select('tpermiso.idPermiso','tpermiso.nombrePermiso')
+            ->get();
+
+    
+        return view('usuario/editarRolUsuario', ['usuario' => $usuario], ['rol' => $rol,'rolU' => $rolU, 'permisos' => $permisos, 'permisoAll' => $permisoAll]);
+        
     }
 
     /**
