@@ -46,9 +46,9 @@
           </div>
 
           <!-- Ventana Modal de mensaje de confirmacion al seleccionar rol -->
-          <form class="col-md-1" action="/usuario" method="post">
+          <form class="col-md-1" action="/usuario/<% $usuario->id %>/cambiar" method="post">
             <input type="hidden" name="_token" value="<% csrf_token() %>">
-
+            <input type="hidden" name="idRol" value="<% $rl->idRol %>">
             <div class="modal fade" id="seleccionar<%$rl->idRol%>" role="dialog">
               <div class="modal-dialog modal-sm">
                 <!-- Modal content-->
@@ -70,7 +70,7 @@
           </form>
 
           <!-- Ventana Modal de edeitar permisos de rol -->
-          <form  class="form" action="" method="post">
+          <form  class="form" action="/usuario/<% $rl->idRol %>/put" method="post">
             <div class="modal fade" id="editar<%$rl->idRol%>" role="dialog">
               <div class="modal-dialog">
                 <!-- Modal content-->
@@ -81,17 +81,18 @@
                     <p> Tenga en cuenta que modificar los permisos de un rol, cambia los permisos de todos los usuarios con este rol asignado</p>
                   </div>
                   <div class="modal-body col-md-offset-2">
+                  {!! csrf_field() !!}
                     @foreach($permisoAll as $permiso)
-                    
                     <div>
                       <div class="col-sm-offset-2">
                         <div class="checkbox">
                           <label>
                            @if(Auth::user()->verificarPermiso($rl->nombreRol,$permiso->nombrePermiso)) 
-                           <input type="checkbox" checked value="<% $permiso->idPermiso %>">
+                           <input type="checkbox" checked value="<% $permiso->idPermiso %>" 
+                           name="<% $permiso->idPermiso %>">
                            <% $permiso->nombrePermiso %> 
                            @else 
-                           <input type="checkbox"  value="<% $permiso->idPermiso %>">
+                           <input type="checkbox"  value="<% $permiso->idPermiso %>" name="<% $permiso->idPermiso %>" >
                            <% $permiso->nombrePermiso %>                    
                            @endif
                          </label>
@@ -101,7 +102,7 @@
                    @endforeach
                  </div>
                  <div class="modal-footer">
-                  <input type="submit" class="btn btn-success"name="delete" value="Aceptar">
+                  <input type="submit" class="btn btn-success" value="Editar">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
               </div> 

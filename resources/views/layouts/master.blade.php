@@ -7,13 +7,13 @@
 		<link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon">
 		<%-- <link rel="stylesheet" type="text/css" href="/css/style.css"> --%>
 	<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
 
 		<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 	<!-- Latest compiled and minified JavaScript -->
 		<script src="//code.jquery.com/jquery-1.11.3.min.js"  type="text/javascript"></script>
-	 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> 
+	 	<script src="/js/bootstrap.min.js"></script> 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 		<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
@@ -31,7 +31,8 @@
 	@if(Auth::user())
 	<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-danger pull-right cerrar" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
 	@else
-	<a  href="/auth/login" title="login" class="pull-right btn btn-info login">Iniciar Sesion</a>
+	<a  href="/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
+	<a  href="/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
 	@endif
 		</div>
 		<header id="header" class="container-fluid">

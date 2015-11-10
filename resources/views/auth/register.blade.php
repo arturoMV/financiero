@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h3>Register</h3>
+
            
                 
 @if (count($errors) > 0)
@@ -16,6 +16,7 @@
 </div>
 @endif
 <div class="col-md-10">
+<h3>Registro</h3>
     <form method="POST" class="form-horizontal" action="/auth/register">
         <input type="hidden" name="_token" value="<% csrf_token() %>">
         <div class="form-group">
@@ -47,7 +48,7 @@
 
         <div class="col-md-4 col-md-offset-4">
             <button type="submit" class="btn btn-primary">
-                Register
+                Registrarse
             </button>
         </div>
     </form>

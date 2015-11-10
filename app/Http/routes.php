@@ -57,6 +57,10 @@ Route::resource('partida', 'PartidaController');
 Route::post('partida/{partida}/delete', 'PartidaController@destroy');
 Route::post('partida/{partida}/put', 'PartidaController@update');
 
+
+Route::post('usuario/{usuario}/put', 'UsuarioController@update');
+Route::post('usuario/{usuario}/cambiar', 'UsuarioController@cambiarRol');
+
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');

@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use DB;
+use Redirect;
 
 class UsuarioController extends Controller
 {
@@ -86,8 +87,7 @@ class UsuarioController extends Controller
             ->where('tusuario.id', '=', $id)
             ->first();
 
-        $rol =DB::table('tusuario')
-            ->join('trol', 'tusuario.trol_idRol', '=', 'trol.idRol')
+        $rol =DB::table('trol')
             ->select('trol.idRol','trol.nombreRol')
             ->get();
 
@@ -115,7 +115,28 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = $request->all();
+        $count=0;
+        DB::table('trol_tiene_tpermiso')->where('trol_idRol', '=', $id)->delete();
+        foreach ($input as $in) {
+             if($count>0){
+                DB::table('trol_tiene_tpermiso')->insert(
+                ['trol_idRol' => $id , 'tpermiso_idPermiso' => $in]);
+             } 
+             $count++;     
+        }
+      return Redirect::back();
+    }
+
+    public function cambiarRol(Request $request, $id)
+    {
+       $user = User::find($id);
+
+       $user->tRol_idRol = $request->input('idRol');
+
+       $user->save();
+
+       return Redirect::back();
     }
 
     /**
@@ -127,5 +148,10 @@ class UsuarioController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function crearRol(Request $request, $id){         
+        //
+
     }
 }
