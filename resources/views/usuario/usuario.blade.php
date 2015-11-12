@@ -15,7 +15,7 @@
 		<div class="container-fluid search-container form-horizontal">
 			<div class="container-fluid">
 				<input type="text" id="usuarioName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
-				<a href="#" class="btn btn-success crear-usuario pull-right">Nueva usuario</a>
+				
 			</div>
 		</div>
 		<div class="container-fluid table-responsive">

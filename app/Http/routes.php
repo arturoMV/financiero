@@ -43,6 +43,10 @@ Route::get('/presupuesto', function () {
     return view('presupuesto');
 });
 
+Route::get('/factura', function () {
+    return view('factura');
+});
+
 Route::get('/about', function () {
     return view('about');
 });

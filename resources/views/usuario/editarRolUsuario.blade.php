@@ -20,10 +20,10 @@
         <h3>Usuario seleccionado: <% $usuario->name %></h3>
         @foreach($rol as $rl)
         @if($rl->nombreRol == $rolU->nombreRol)
-        <div class="alert alert-success">
+        <div class="alert bg-success">
           <h3>El Usuario <% $usuario->name %> tiene este rol asignado</h3>
           @else
-          <div class="alert alert-info">
+          <div class="alert bg-info">
             @endif
             <div class="form-group">
               <label class="col-md-4 control-label">Rol:</label>

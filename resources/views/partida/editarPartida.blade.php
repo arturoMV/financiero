@@ -13,6 +13,7 @@
   @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
   <section>
     <div class="wrapper col-md-10">
+    <br>
       <form class="col-md-10 form-horizontal" action="/partida/<%$partida->id%>/put" method="post">
         <input type="hidden" name="_token" value="<% csrf_token() %>">    
 

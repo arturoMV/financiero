@@ -1,9 +1,6 @@
 @extends('/layouts.master')
-<html>
-<head>
 	@section('title', 'Partida')
-</head>
-<body>
+
   @section('partida')
     class="active"
   @endsection
@@ -43,7 +40,9 @@
       </div>
 
        <div class="col-md-4 form-group ">
+        @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
           <input type="submit" name="" class="btn btn-success pull-right" value="Editar">
+        @endif
       </div> 
              
   	</form>
@@ -53,5 +52,3 @@
       Debe estar autenticado y tener permisos para ver esta pagina
     @endif
   @endsection
- </body>
-</html>

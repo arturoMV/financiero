@@ -41,7 +41,9 @@
 							<a href="/partida/{{partida.id}}"  class="btn btn-info" title="">Ver</a>
 						</td>
 						<td>
+						@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
 							<a href="/partida/{{partida.id}}/edit" class="btn btn-warning" title="">Editar</a>
+						@endif
 						</td>
 					</tr>
 				</tbody>

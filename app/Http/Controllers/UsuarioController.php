@@ -151,7 +151,6 @@ class UsuarioController extends Controller
     }
 
     public function crearRol(Request $request, $id){         
-        //
-
+        
     }
 }
