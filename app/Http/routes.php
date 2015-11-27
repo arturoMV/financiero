@@ -24,16 +24,11 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/prueba', function () {
+    return view('prueba');
+});
 
-Route::get('/partidas', function () {
-	$partida = Partida::all();	
-    return $partida;	
-});	
 
-Route::get('/usuarios', function () {
-	$usuario = User::all();	
-    return $usuario;	
-});	
 
 
 Route::get('/home', function () {
@@ -74,4 +69,16 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 Blade::setContentTags('<%', '%>'); // for variables and all things Blade
-Blade::setEscapedContentTags('<%%', '%%>'); // for escaped data
+Blade::setEscapedContentTags('[[', ']]'); // for escaped data
+
+
+//angular model routes
+Route::get('/partidas', function () {
+	$partida = Partida::all();	
+    return $partida;	
+});	
+
+Route::get('/usuarios', function () {
+	$usuario = User::all();	
+    return $usuario;	
+});	

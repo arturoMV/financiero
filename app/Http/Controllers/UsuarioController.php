@@ -41,7 +41,22 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        return 'holi';
+        $input = $request->all();
+
+        $id = DB::table('tRol')->insertGetId(
+               ['nombreRol' => $request->nombreRol , 'descripcionRol' => $request->descripcionRol]);
+        $salida = "hola";
+        $count=0;
+        DB::table('trol_tiene_tpermiso')->where('trol_idRol', '=', $id)->delete();
+        foreach ($input as $in) {
+             if ($count>2) {
+                DB::table('trol_tiene_tpermiso')->insert(
+                ['trol_idRol' => $id , 'tpermiso_idPermiso' => $in]);
+             }     
+             $count++;
+        }
+
+        return $id;
     }
 
     /**

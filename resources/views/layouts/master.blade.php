@@ -14,14 +14,13 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"  type="text/javascript"></script>
 	<script src="/js/bootstrap.min.js"></script> 
-	<script src="/js/main.js"></script> 
-
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/partidaTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/usuarioTemplate.js') !!}"  type="text/javascript"></script>
-	<script src="{!! asset('js/services/usuarios.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/usuarios.js') !!}"  type="text/javascript">
+	</script><script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
 
 
 	<title>Financiero - @yield('title')</title>
@@ -63,10 +62,15 @@
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav nav-pills nav-stacked" >
 							<li @yield('index')><a href="/" title="Inicio">Inicio</a></li>
+							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Menu', Auth::user()->id))
+							<li @yield('coord')><a href="/coordinacion" title="Coordinaciones">Coordinación</a></li>
+							@endif
+							
 							<li @yield('presupuesto')><a href="/presupuesto" title="Presupuestos de Coordinacion">Presupuesto</a></li>
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
 							<li @yield('partida')><a href="/partida" title="Partidas de Presupuesto">Partidas</a></li>
 							@endif
+							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Administrar Usuarios', Auth::user()->id))
 							<li @yield('admU')><a href="/usuario" title="Acerca de">Administrar Usuarios</a></li>
 							@endif

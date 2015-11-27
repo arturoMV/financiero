@@ -16,20 +16,27 @@
   <!-- Contenido de editar rol Usuario -->
   <section>
     <div class="wrapper">
-      <div class=" col-md-7 form-horizontal">
+      <div class=" col-md-7 form-horizontal" ng-model ="<% $count = 0 %>" >
         <h3>Usuario seleccionado: <% $usuario->name %></h3>
         @foreach($rol as $rl)
+       
         @if($rl->nombreRol == $rolU->nombreRol)
         <div class="alert bg-success">
-          <h3>El Usuario <% $usuario->name %> tiene este rol asignado</h3>
+          <h5>El Usuario <% $usuario->name %> tiene este rol asignado</h5>
           @else
           <div class="alert bg-info">
             @endif
-            <div class="form-group">
+            <div class="form-group" ng-init="ver<% $count%> = false">
               <label class="col-md-4 control-label">Rol:</label>
-              <p class="col-md-8 form-control-static"><%$rl->nombreRol%></p> 
+              <p class="col-md-8 form-control-static"><%$rl->nombreRol%> 
+              <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!ver<%$count%>"
+               ng-click="ver<%$count%> = true">Ver</button>
+              <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%>"
+              ng-click="ver<%$count%> = false">Ocultar</button> 
+              </p> 
             </div >
-            <div class="form-group">
+            <div ng-if="ver<%$count%>" class="animated if">
+              <div class="form-group">
               <label class="col-md-4 control-label">Permisos:</label>
               <p class="col-md-8 form-control-static">
                 @foreach($permisos as $permiso)
@@ -37,12 +44,14 @@
                 <% $permiso->nombrePermiso %><br>
                 @endif
                 @endforeach
-
-              </p>
+                </p ng-model="<% $count++ %>">
             </div>
+            
+            
             <br>
             <button class="btn btn-success" data-toggle="modal" data-target="#seleccionar<%$rl->idRol%>">Seleccionar Rol</button>
             <button class="btn btn-warning" data-toggle="modal" data-target="#editar<%$rl->idRol%>">Editar Permisos</button>
+            </div>
           </div>
 
           <!-- Ventana Modal de mensaje de confirmacion al seleccionar rol -->
@@ -122,7 +131,8 @@
     </div>
 
     <!-- Ventana Modal de crear rol -->
-    <form  class="form-vertical" action="" method="post">
+    <form  class="form-vertical" action="/usuario" method="post">
+      {!! csrf_field() !!}
       <div class="modal fade" id="crear" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
@@ -141,12 +151,12 @@
                 <label>Descripcion:</label>
                 <input type="text" class="form-control" name="descripcionRol" placeholder="Descripcion del Rol">
               </div >
-              <div>
+              <div class="col-md-12">
                 @foreach($permisoAll as $permiso)
                 <div class="col-sm-offset-2">
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox"  value="<% $permiso->idPermiso %>">
+                      <input type="checkbox"  value="<% $permiso->idPermiso %>" name="<% $permiso->idPermiso %>">
                       <% $permiso->nombrePermiso %>                   
                     </label>
                   </div>
@@ -156,7 +166,7 @@
 
             </div>
             <div class="modal-footer col-md-12">
-              <input type="submit" class="btn btn-success"name="delete" value="Aceptar">
+              <input type="submit" class="btn btn-success">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
           </div> 
