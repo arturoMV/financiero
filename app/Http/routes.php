@@ -68,8 +68,14 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
-Blade::setContentTags('<%', '%>'); // for variables and all things Blade
-Blade::setEscapedContentTags('[[', ']]'); // for escaped data
+
+// Password reset link request routes...
+Route::get('password/email', 'Auth\PasswordController@getEmail');
+Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+// Password reset routes...
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 
 //angular model routes
@@ -82,3 +88,28 @@ Route::get('/usuarios', function () {
 	$usuario = User::all();	
     return $usuario;	
 });	
+
+
+//Modificacion de la sintaxis
+Blade::setContentTags('<%', '%>'); // for variables and all things Blade
+Blade::setEscapedContentTags('[[', ']]'); // for escaped data
+
+
+//prueba mail
+Route::get('/sendemail', function () {
+
+    $data = array(
+        'name' => "Learning Laravel",
+    );
+
+    Mail::send('emails.welcome', $data, function ($message) {
+
+        $message->from('r2robsr@gmail.com', 'Learning Laravel');
+
+        $message->to('r2robsr@gmail.com')->subject('Learning Laravel test email');
+
+    });
+
+    return "Your email has been sent successfully";
+
+});

@@ -4,7 +4,7 @@
 
 <div class="wrapper col-md-10">
     <br>
-    <h3>Inicio de sesion</h3>
+    <h3>Restablecer contraseña</h3>
     @if (count($errors) > 0)
     <div class="alert alert-danger">
         <strong>Oops!</strong> Hay problemas con las entradas<br><br>
@@ -15,42 +15,36 @@
         </ul>
     </div> 
     @endif  
-    <form method="POST" class="form-horizontal" action="/auth/login">
-        {!! csrf_field() !!}
+    <form method="POST"  class="form-horizontal" action="/password/reset">
+    {!! csrf_field() !!}
+    <input type="hidden" name="token" value="{{ $token }}">
 
-        <div class="form-group">
+    <div class="form-group">
             <label class="col-md-4 control-label">Email</label>
             <div class="col-md-4">
                 <input type="email" class="col-md-2 form-control" name="email" value="<% old('email') %>">
             </div>
-        </div>
-
-
-        <div class="form-group">
+    </div>
+    <div class="form-group">
             <label class="col-md-4 control-label">Contraseña</label>
             <div class="col-md-4">
                 <input type="password" class="col-md-2 col-lg-12 form-control" name="password">
             </div>
         </div>
 
-        <div class="checkbox col-md-4 col-md-offset-4">
-            <label class="control-label">
-                <input type="checkbox" name="remember"> Recuerdame!
-            </label>
-        </div>
-
-        <div class="checkbox col-md-4 col-md-offset-4">
-            <label class="control-label">
-            <a href="/password/email" class="link">¿Olvido su contraseña?</a>
-            </label>
+        <div class="form-group">
+            <label class="col-md-4 control-label">Confirmar Contraseña</label>
+            <div class="col-md-4">
+               <input type="password" class="col-md-2 form-control" name="password_confirmation">
+            </div>
         </div>
 
         <div class="col-md-4 col-md-offset-4">
             <button type="submit" class="btn btn-primary">
-                Iniciar Sesion
+                Restablecer Contraseña
             </button>
         </div>
-    </form>
+</form>
 </div>
 
 @endsection

@@ -6,10 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CrearPresupuesto' => $baseDir . '/database/migrations/2015_10_15_185644_crearPresupuesto.php',
+    'CoordinacionMigration' => $baseDir . '/database/migrations/2015_11_27_203536_coordinacionMigration.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'FacturaDetalleMigration' => $baseDir . '/database/migrations/2015_11_27_220723_facturaDetalleMigration.php',
+    'FacturaMigration' => $baseDir . '/database/migrations/2015_11_27_220654_facturaMigration.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
@@ -477,10 +479,8 @@ return array(
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
-    'Partida' => $baseDir . '/database/migrations/2015_10_14_230250_Partida.php',
-    'Permiso' => $baseDir . '/database/migrations/2015_10_21_191445_permiso.php',
-    'Rol' => $baseDir . '/database/migrations/2015_10_21_191433_rol.php',
-    'RolPermiso' => $baseDir . '/database/migrations/2015_10_21_191507_rol_permiso.php',
+    'PartidaMigration' => $baseDir . '/database/migrations/2015_11_27_220600_partidaMigration.php',
+    'PresupuestoMigration' => $baseDir . '/database/migrations/2015_11_27_203547_presupuestoMigration.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
     'SebastianBergmann\\Comparator\\ComparisonFailure' => $vendorDir . '/sebastian/comparator/src/ComparisonFailure.php',
