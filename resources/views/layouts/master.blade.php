@@ -33,8 +33,8 @@
 		@if(Auth::user())
 		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-danger pull-right cerrar" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
 		@else
-		<a  href="/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
-		<a  href="/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
+		<a  href="/financiero/public/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
+		<a  href="/financiero/public/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
 		@endif
 	</div>
 	<header id="header" class="container-fluid">
@@ -65,18 +65,18 @@
 						<ul class="nav nav-pills nav-stacked" >
 							<li @yield('index')><a href="/" title="Inicio">Inicio</a></li>
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion', Auth::user()->id))
-							<li @yield('coord')><a href="/coordinacion" title="Coordinaciones">Coordinación</a></li>
+							<li @yield('coord')><a href="/financiero/public/coordinacion" title="Coordinaciones">Coordinación</a></li>
 							@endif
 							
-							<li @yield('presupuesto')><a href="/presupuesto" title="Presupuestos de Coordinacion">Presupuesto</a></li>
+							<li @yield('presupuesto')><a href="/financiero/public/presupuesto" title="Presupuestos de Coordinacion">Presupuesto</a></li>
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
-							<li @yield('partida')><a href="/partida" title="Partidas de Presupuesto">Partidas</a></li>
+							<li @yield('partida')><a href="/financiero/public/partida" title="Partidas de Presupuesto">Partidas</a></li>
 							@endif
 							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Administrar Usuarios', Auth::user()->id))
-							<li @yield('admU')><a href="/usuario" title="Acerca de">Administrar Usuarios</a></li>
+							<li @yield('admU')><a href="/financiero/public/usuario" title="Acerca de">Administrar Usuarios</a></li>
 							@endif
-							<li @yield('about')><a href="/about" title="Acerca de">Acerca De</a></li>					
+							<li @yield('about')><a href="/financiero/public/about" title="Acerca de">Acerca De</a></li>					
 						</ul>
 					</div>
 				</div>
@@ -113,7 +113,7 @@
 							<li><a href="/" title="index">Inicio</a></li>
 							<li><a href="/docs" title="presupuesto">Documentacion</a></li>
 							<li><a href="/map" title="partidas">Mapa del Sito</a></li>
-							<li><a href="/contact" title="about">Contactenos</a></li>
+							<li><a href="/financiero/public/contact" title="about">Contactenos</a></li>
 						</ul>
 					</div>
 
