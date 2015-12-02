@@ -13,7 +13,6 @@ class PartidaMigration extends Migration
     public function up()
     {
         Schema::create('tPartida',function(Blueprint $table){
-            $table->integer('id');
             $table->string('idPartida');
             $table->string('tPresupuesto_idPresupuesto');
             $table->string('estado');

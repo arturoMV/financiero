@@ -13,7 +13,6 @@ class PresupuestoMigration extends Migration
     public function up()
     {
         Schema::create('tPresupuesto',function(Blueprint $table){
-            $table->integer('id');
             $table->string('idPresupuesto')->unique();
             $table->string('tCoordinacion_idCoordinacion');
             $table->string('vNombrePresupuesto');

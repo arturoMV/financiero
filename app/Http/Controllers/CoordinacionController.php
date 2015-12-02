@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Coordinacion;
 class CoordinacionController extends Controller
 {
     /**
@@ -15,7 +15,7 @@ class CoordinacionController extends Controller
      */
     public function index()
     {
-        //
+        return view('/coordinacion/coordinacion');
     }
 
     /**
@@ -25,7 +25,7 @@ class CoordinacionController extends Controller
      */
     public function create()
     {
-        //
+        return view('/coordinacion/nuevaCoordinacion');
     }
 
     /**
@@ -36,7 +36,12 @@ class CoordinacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $coordinacion = Coordinacion::create(array(
+            'idCoordinacion'=> $request->input('idCoordinacion'),
+            'vNombreCoordinacion'=>$request->input('vNombreCoordinacion'),
+            ));
+        return view('/coordinacion/coordinacion');
+
     }
 
     /**
@@ -47,7 +52,11 @@ class CoordinacionController extends Controller
      */
     public function show($id)
     {
-        //
+        $coordinacion = Coordinacion::find($id);
+
+        $presupuestos = $coordinacion->presupuestos()->orderby('idPresupuesto')->get();
+
+        return view('/coordinacion/verCoordinacion',['coordinacion'=>$coordinacion],['presupuestos'=> $presupuestos]);
     }
 
     /**
@@ -58,7 +67,9 @@ class CoordinacionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $coordinacion = Coordinacion::find($id);
+
+        return view('coordinacion/editarCoordinacion', ['coordinacion' => $coordinacion]);
     }
 
     /**
@@ -69,8 +80,17 @@ class CoordinacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {        
+        $coordinacion = Coordinacion::find($id);
+        $coordinacion->idCoordinacion= $request->input('idCoordinacion');
+        $coordinacion->vNombreCoordinacion=$request->input('vNombreCoordinacion');
+        
+
+        $coordinacion->save();
+
+        $presupuestos = $coordinacion->presupuestos()->orderby('idPresupuesto')->get();
+
+        return view('/coordinacion/verCoordinacion',['coordinacion'=>$coordinacion],['presupuestos'=> $presupuestos]);    
     }
 
     /**
@@ -81,6 +101,8 @@ class CoordinacionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Coordinacion::where('idCoordinacion', '=', $id)->delete();
+
+        return view('coordinacion/coordinacion');    
     }
 }

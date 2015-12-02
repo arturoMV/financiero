@@ -13,7 +13,6 @@ class FacturaDetalleMigration extends Migration
     public function up()
     {
         Schema::create('tFacturaDetalle', function (Blueprint $table) {
-            $table->integer('id');
             $table->string('tFactura_idFactura')->unique();
             $table->integer('iLinea');
             $table->string('vDetalle');

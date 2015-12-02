@@ -32,7 +32,7 @@
               <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!ver<%$count%>"
                ng-click="ver<%$count%> = true">Ver</button>
               <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%>"
-              ng-click="ver<%$count%> = false">Ocultar</button> 
+              ng-click="ver<%$count%> = false">Ocultar</button>
               </p> 
             </div >
             <div ng-if="ver<%$count%>" class="animated if">

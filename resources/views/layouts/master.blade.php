@@ -16,11 +16,13 @@
 	<script src="/js/bootstrap.min.js"></script> 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/controllers/coordinacionTemplate.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/coordinacion.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/partidaTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/usuarioTemplate.js') !!}"  type="text/javascript"></script>
-	<script src="{!! asset('js/services/usuarios.js') !!}"  type="text/javascript">
-	</script><script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/usuarios.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
 
 
 	<title>Financiero - @yield('title')</title>
@@ -62,7 +64,7 @@
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav nav-pills nav-stacked" >
 							<li @yield('index')><a href="/" title="Inicio">Inicio</a></li>
-							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Menu', Auth::user()->id))
+							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion', Auth::user()->id))
 							<li @yield('coord')><a href="/coordinacion" title="Coordinaciones">Coordinación</a></li>
 							@endif
 							

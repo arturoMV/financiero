@@ -13,7 +13,6 @@ class FacturaMigration extends Migration
     public function up()
     {
         Schema::create('tFactura', function (Blueprint $table) {
-            $table->integer('id');
             $table->string('idFactura')->unique();
             $table->string('tPartida_idPartida');
             $table->string('vTipoFactura');

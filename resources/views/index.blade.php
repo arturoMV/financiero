@@ -11,7 +11,7 @@
 	@section('content')
 	@parent
 	<section class="contenido">
-		este es el contenido
+		Este repositorio esta actualizado
 	</section> 
 	@endsection
 

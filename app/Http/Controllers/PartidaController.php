@@ -15,7 +15,7 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $partida = Partida::all();
+      //  $partida = Partida::all();
          return view('partida/partida');
     }
 
@@ -37,14 +37,13 @@ class PartidaController extends Controller
     public function store(Request $request){
         $partida = Partida::create(array(
                 'idPartida'=> $request->input('idPartida'),
-                'idPresupuesto'=>$request->input('idPresupuesto'),
+                'tPresupuesto_idPresupuesto'=>$request->input('idPresupuesto'),
                 'estado'=>$request->input('estado'),
                 'saldo'=> $request->input('saldo'),
                 'descripcion'=> $request->input('descripcion'),
             ));
-        $partida = Partida::all();
 
-        return view('partida/partida', ['partida' => $partida]);
+        return view('partida/partida');
 
     }
 
@@ -85,7 +84,7 @@ class PartidaController extends Controller
          $partida = Partida::find($id);
 
          $partida->idPartida= $request->input('idPartida');
-         $partida->idPresupuesto=$request->input('idPresupuesto');
+         $partida->tpresupuesto_idPresupuesto=$request->input('idPresupuesto');
          $partida->estado=$request->input('estado');
          $partida->saldo=$request->input('saldo');
          $partida->descripcion=$request->input('descripcion');
@@ -103,9 +102,7 @@ class PartidaController extends Controller
      */
     public function destroy($id)
     {   
-        $partida  = Partida::where('id', '=', $id)->delete();
-
-        $partida = Partida::all();
+        $partida  = Partida::where('idPartida', '=', $id)->delete();
 
         return view('partida/partida', ['partida' => $partida]);
     }

@@ -9,7 +9,7 @@
     @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
   	<section>
   	<div class="wrapper">
-        	<form class="col-md-7 form-horizontal" action="/partida/<%$partida->id%>/edit" method="get"> 
+        	<form class="col-md-7 form-horizontal" action="/partida/<%$partida->idPartida%>/edit" method="get"> 
         <div class="form-group">
           <label class="col-md-4 control-label">ID Partida:</label>
           <p class="col-md-2 form-control-static"><%$partida->idPartida%></p>
@@ -18,7 +18,7 @@
 
       <div class="form-group">
         <label class="col-md-4 control-label">ID Presupuesto:</label>
-        <p class="col-md-8 form-control-static"><%$partida->idPresupuesto%></p>
+        <p class="col-md-8 form-control-static"><%$partida->tPresupuesto_idPresupuesto%></p>
          
       </div>
 

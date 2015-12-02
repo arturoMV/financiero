@@ -13,7 +13,6 @@ class CoordinacionMigration extends Migration
     public function up()
     {
         Schema::create('tCoordinacion', function (Blueprint $table) {
-            $table->integer('id');
             $table->string('idCoordinacion')->unique();
             $table->string('vNombreCoordinacion');
             $table->timestamps();

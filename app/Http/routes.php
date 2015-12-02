@@ -10,8 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\Coordinacion;
 use App\Partida;
 use App\User;
+
 
 Route::get('/algo', function () {
 
@@ -35,7 +37,7 @@ Route::get('/home', function () {
     return view('index');
 });
 Route::get('/presupuesto', function () {
-    return view('presupuesto');
+    return view('/presupuesto/presupuesto');
 });
 
 Route::get('/factura', function () {
@@ -49,14 +51,17 @@ Route::get('/about', function () {
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 
 
-Route::resource('usuario', 'UsuarioController');
+//Coordinacion routes...
+Route::resource('coordinacion', 'CoordinacionController');
+Route::post('coordinacion/{coordinacion}/delete', 'CoordinacionController@destroy');
+Route::post('coordinacion/{coordinacion}/put', 'CoordinacionController@update');
 
+//Partida routes...
 Route::resource('partida', 'PartidaController');
-
 Route::post('partida/{partida}/delete', 'PartidaController@destroy');
 Route::post('partida/{partida}/put', 'PartidaController@update');
-
-
+//User routes...
+Route::resource('usuario', 'UsuarioController');
 Route::post('usuario/{usuario}/put', 'UsuarioController@update');
 Route::post('usuario/{usuario}/cambiar', 'UsuarioController@cambiarRol');
 
@@ -87,7 +92,12 @@ Route::get('/partidas', function () {
 Route::get('/usuarios', function () {
 	$usuario = User::all();	
     return $usuario;	
-});	
+});
+
+Route::get('/coordinaciones', function () {
+    $coordinacion = Coordinacion::all(); 
+    return $coordinacion;    
+});
 
 
 //Modificacion de la sintaxis
@@ -95,21 +105,3 @@ Blade::setContentTags('<%', '%>'); // for variables and all things Blade
 Blade::setEscapedContentTags('[[', ']]'); // for escaped data
 
 
-//prueba mail
-Route::get('/sendemail', function () {
-
-    $data = array(
-        'name' => "Learning Laravel",
-    );
-
-    Mail::send('emails.welcome', $data, function ($message) {
-
-        $message->from('r2robsr@gmail.com', 'Learning Laravel');
-
-        $message->to('r2robsr@gmail.com')->subject('Learning Laravel test email');
-
-    });
-
-    return "Your email has been sent successfully";
-
-});
