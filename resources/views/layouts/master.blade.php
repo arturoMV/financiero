@@ -4,16 +4,15 @@
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<link rel="shortcut icon" href="img/favicon.ico" type="image/vnd.microsoft.icon">
-	<%-- <link rel="stylesheet" type="text/css" href="/css/style.css"> --%>
+	<link rel="shortcut icon" href="/financiero/public/img/favicon.ico" type="image/vnd.microsoft.icon">
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/financiero/public/css/bootstrap.min.css">
 
-	<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/financiero/public/css/main.css">
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"  type="text/javascript"></script>
-	<script src="/js/bootstrap.min.js"></script> 
+	<script src="/financiero/public/js/bootstrap.min.js"></script> 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/coordinacionTemplate.js') !!}"  type="text/javascript"></script>
@@ -43,7 +42,7 @@
 			<h3>Movimientos Presupuestarios</h3>
 		</div>
 		<div class="col-xs-12 col-md-6">
-			<a href="/"><img src="/img/logo.png" alt="UCR" class="img-responsive"></a>
+			<a href="/"><img src="/financiero/public/img/logo.png" alt="UCR" class="img-responsive"></a>
 			<h3>Sede del Pacifico</h3>
 		</div>
 	</header>	
