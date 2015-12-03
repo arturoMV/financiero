@@ -17,7 +17,7 @@
 			<div class="container-fluid">
 				<input type="text" id="partidaName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
 				@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id))
-				<a href="/partida/create" class="btn btn-success crear-partida pull-right">Nueva Partida</a>
+				<a href="/financiero/public/partida/create" class="btn btn-success crear-partida pull-right">Nueva Partida</a>
 				@endif
 			</div>
 		</div>
@@ -40,11 +40,11 @@
 						<td>{{partida.saldo}}</td>
 						<td>{{partida.descripcion}}</td>
 						<td>
-							<a href="/partida/{{partida.idPartida}}"  class="btn btn-info" title="">Ver</a>
+							<a href="/financiero/public/partida/{{partida.idPartida}}"  class="btn btn-info" title="">Ver</a>
 						</td>
 						<td>
 						@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
-							<a href="/partida/{{partida.idPartida}}/edit" class="btn btn-warning" title="">Editar</a>
+							<a href="/financiero/public/partida/{{partida.idPartida}}/edit" class="btn btn-warning" title="">Editar</a>
 						@endif
 						</td>
 					</tr>

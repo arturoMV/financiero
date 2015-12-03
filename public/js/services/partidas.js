@@ -3,7 +3,7 @@ angular.module('partidaCtrl')
 	var partidas = [];
 	
 	partidas = $q.defer();
-	$http.get("/partidas").then(function(data){
+	$http.get("/financiero/public/partidas").then(function(data){
 		partidas.resolve(data);
 	});
 

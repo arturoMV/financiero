@@ -9,7 +9,7 @@
     @if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion', Auth::user()->id))
   	<section>
   	<div class="wrapper">
-        	<form class="col-md-7 form-horizontal" action="/coordinacion/<%$coordinacion->idCoordinacion%>/edit" method="get"> 
+        	<form class="col-md-7 form-horizontal" action="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>/edit" method="get"> 
         <div class="form-group">
           <label class="col-md-4 control-label">ID Coordinacion:</label>
           <p class="col-md-2 form-control-static"><%$coordinacion->idCoordinacion%></p>

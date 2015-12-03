@@ -14,11 +14,11 @@ class Partida extends Model
 
     public function presupuesto()
     {
-    	return this->belongsTo('App\Presupuesto');
+    	return $this->belongsTo('App\Presupuesto');
     }
 
     public function factura()
     {
-    	return this->hasMany('App\Factura');
+    	return $this->hasMany('App\Factura');
     }
 }

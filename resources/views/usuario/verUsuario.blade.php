@@ -13,7 +13,7 @@
   	<section>
   	<div class="wrapper">
     <br>
-        <form class="col-md-7 form-horizontal" action="/usuario/<%$usuario->id%>/edit" method="get"> 
+        <form class="col-md-7 form-horizontal" action="/financiero/public/usuario/<%$usuario->id%>/edit" method="get"> 
           <div class="form-group">
             <label class="col-md-4 control-label">Nombre de Usuario:</label>
             <p class="col-md-8 form-control-static"><% $usuario->name %></p>

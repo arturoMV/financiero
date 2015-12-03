@@ -30,7 +30,7 @@
 <body>
 	<div class="container-fluid">
 		@if(Auth::user())
-		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-danger pull-right cerrar" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
+		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-danger pull-right cerrar" href="/financiero/public/auth/logout" title="login">Cerrar Sesion</a> </h5>
 		@else
 		<a  href="/financiero/public/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
 		<a  href="/financiero/public/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
@@ -62,7 +62,7 @@
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav nav-pills nav-stacked" >
-							<li @yield('index')><a href="/" title="Inicio">Inicio</a></li>
+							<li @yield('index')><a href="/financiero/public/" title="Inicio">Inicio</a></li>
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion', Auth::user()->id))
 							<li @yield('coord')><a href="/financiero/public/coordinacion" title="Coordinaciones">Coordinación</a></li>
 							@endif
@@ -109,9 +109,9 @@
 				</div>
 					<div id="navbar2"  class="navbar-collapse collapse">
 						<ul class="nav-justified">
-							<li><a href="/" title="index">Inicio</a></li>
-							<li><a href="/docs" title="presupuesto">Documentacion</a></li>
-							<li><a href="/map" title="partidas">Mapa del Sito</a></li>
+							<li><a href="/financiero/public/" title="index">Inicio</a></li>
+							<li><a href="/financiero/public/docs" title="presupuesto">Documentacion</a></li>
+							<li><a href="/financiero/public/map" title="partidas">Mapa del Sito</a></li>
 							<li><a href="/financiero/public/contact" title="about">Contactenos</a></li>
 						</ul>
 					</div>

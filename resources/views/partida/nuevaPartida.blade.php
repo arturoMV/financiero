@@ -9,7 +9,7 @@ class="active"
   <div class="wrapper col-md-10">
     <br>
     @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id))
-    <form action="/partida" class="form-horizontal" method="post">
+    <form action="/financiero/public/partida" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">ID Partida</label>

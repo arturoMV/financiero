@@ -9,12 +9,12 @@
     @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
   	<section>
   	<div class="wrapper">
-        	<form class="col-md-7 form-horizontal" action="/partida/<%$partida->idPartida%>/edit" method="get"> 
+      <form class="col-md-7 form-horizontal" action="/financiero/public/partida/<%$partida->idPartida%>/edit" method="get"> 
         <div class="form-group">
           <label class="col-md-4 control-label">ID Partida:</label>
           <p class="col-md-2 form-control-static"><%$partida->idPartida%></p>
        
-      </div >
+       </div >
 
       <div class="form-group">
         <label class="col-md-4 control-label">ID Presupuesto:</label>

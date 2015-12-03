@@ -40,7 +40,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Voveremos en un momentok.</div>
+                <div class="title">Voveremos en un momentos.</div>
             </div>
         </div>
     </body>

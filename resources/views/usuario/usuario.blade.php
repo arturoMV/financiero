@@ -33,10 +33,10 @@
 						<td>{{usuario.email}}</td>
 				
 						<td>
-							<a href="/usuario/{{usuario.id}}"  class="btn btn-info" title="">Ver</a>
+							<a href="/financiero/public/usuario/{{usuario.id}}"  class="btn btn-info" title="">Ver</a>
 						</td>
 						<td>
-							<a href="/usuario/{{usuario.id}}/edit" class="btn btn-warning" title="">Editar</a>
+							<a href="/financiero/public/usuario/{{usuario.id}}/edit" class="btn btn-warning" title="">Editar</a>
 						</td>
 					</tr>
 				</tbody>

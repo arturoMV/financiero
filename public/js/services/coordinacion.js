@@ -3,7 +3,7 @@ angular.module('coordinacionCtrl')
 	var coordinaciones = [];
 	
 	coordinaciones = $q.defer();
-	$http.get("/coordinaciones").then(function(data){
+	$http.get("/financiero/public/coordinaciones").then(function(data){
 		coordinaciones.resolve(data);
 	});
 

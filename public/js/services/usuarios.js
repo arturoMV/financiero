@@ -3,7 +3,7 @@ angular.module('usuarioCtrl')
 	var usuarios = [];
 	
 	usuarios = $q.defer();
-	$http.get("/usuarios").then(function(data){
+	$http.get("/financiero/public/usuarios").then(function(data){
 		usuarios.resolve(data);
 	});
 	

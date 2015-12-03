@@ -15,7 +15,7 @@
         </ul>
     </div> 
     @endif  
-    <form method="POST" class="form-horizontal" action="/password/email">
+    <form method="POST" class="form-horizontal" action="/financiero/public/password/email">
         {!! csrf_field() !!}
 
         <div class="form-group">

@@ -9,7 +9,7 @@
 <section>
   <div class="wrapper col-md-10">
     <br>
-    <form class="col-md-10 form-horizontal" action="/coordinacion/<%$coordinacion->idCoordinacion%>/put" method="post">
+    <form class="col-md-10 form-horizontal" action="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>/put" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">    
 
       <div class="form-group">
@@ -37,7 +37,7 @@
 
       </form>
 
-      <form class="col-md-1" action="/coordinacion/<%$coordinacion->idCoordinacion%>/delete" method="post">
+      <form class="col-md-1" action="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>/delete" method="post">
         <input type="hidden" name="_token" value="<% csrf_token() %>">
         @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Coordinacion', Auth::user()->id))
         <div class="modal fade" id="myModal" role="dialog">
