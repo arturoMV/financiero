@@ -11,15 +11,13 @@
 |
 */
 use App\Coordinacion;
+use App\Presupuesto;
 use App\Partida;
 use App\User;
 
 
 Route::get('/algo', function () {
-
 abort(503);
-
-
 });
 
 Route::get('/', function () {
@@ -27,18 +25,13 @@ Route::get('/', function () {
 });
 
 Route::get('/prueba', function () {
-    return view('prueba');
+    return view('emails/password');
 });
-
-
-
 
 Route::get('/home', function () {
     return view('index');
 });
-Route::get('/presupuesto', function () {
-    return view('/presupuesto/presupuesto');
-});
+
 
 Route::get('/factura', function () {
     return view('factura');
@@ -48,13 +41,28 @@ Route::get('/about', function () {
     return view('about');
 });
 
-Route::post('auth/login', 'Auth\AuthController@postLogin');
+//rutas de configuracion del sistema
+Route::get('/configuracion', function(){
+   
+   $config = DB::table('tConfiguracion')
+    ->select('iValor')
+    ->where('vConfiguracion','=','Periodo')
+    ->first();
+    return view('/config/config',['config'=> $config, 'cambio' => false]);
+});
+
+Route::post('/configuracion', 'UsuarioController@cambiarConfig');
 
 
 //Coordinacion routes...
 Route::resource('coordinacion', 'CoordinacionController');
 Route::post('coordinacion/{coordinacion}/delete', 'CoordinacionController@destroy');
 Route::post('coordinacion/{coordinacion}/put', 'CoordinacionController@update');
+
+//Presupuesto routes...
+Route::resource('presupuesto', 'PresupuestoController');
+Route::post('presupuesto/{presupuesto}/delete', 'PresupuestoController@destroy');
+Route::post('presupuesto/{presupuesto}/put', 'PresupuestoController@update');
 
 //Partida routes...
 Route::resource('partida', 'PartidaController');
@@ -97,6 +105,11 @@ Route::get('/usuarios', function () {
 Route::get('/coordinaciones', function () {
     $coordinacion = Coordinacion::all(); 
     return $coordinacion;    
+});
+
+Route::get('/presupuestos', function () {
+    $presupuesto = Presupuesto::all(); 
+    return $presupuesto;    
 });
 
 

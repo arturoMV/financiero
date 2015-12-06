@@ -44,7 +44,7 @@
 				</tbody>
 			</table>
 		</div>
-	</section>
+</section>
 	@else
 		Debe estar autenticado y tener permisos para ver esta seccion
 	@endif

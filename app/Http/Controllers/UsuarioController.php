@@ -165,7 +165,22 @@ class UsuarioController extends Controller
         //
     }
 
-    public function crearRol(Request $request, $id){         
+    public function cambiarConfig(Request $request){  
+
+        $config  = $request->input('iValor');  
+
+        DB::table('tConfiguracion')
+        ->where('vConfiguracion', 'Periodo')
+        ->update(['iValor' => $config]);
+
+
+        $config = DB::table('tConfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','=','Periodo')
+        ->first();
+
+
+        return view('/config/config', ['config'=> $config, 'cambio'=>true]);     
         
     }
 }

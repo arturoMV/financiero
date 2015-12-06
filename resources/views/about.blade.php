@@ -1,10 +1,5 @@
-<!DOCTYPE html>
 @extends('layouts.master')
-<html>
-<head>
-	@section('title', 'Acerca de')
-</head>
-<body>
+@section('title', 'Acerca de')
 	@section('about')
 		class="active"
 	@endsection
@@ -17,6 +12,3 @@
 		<p><h4>Miguel Castro</h4></p>
 	</section> 
 	@endsection
-
-</body>
-</html>

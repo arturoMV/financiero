@@ -14,6 +14,6 @@ class Coordinacion extends Model
 
     public function presupuestos()
     {
-    	return $this->hasMany('App\Presupuesto', 'tCoordinacion_idCoordinacion');
+    	return $this->hasMany('App\Presupuesto', 'tCoordinacion_idCoordinacion', 'idCoordinacion');
     }
 }

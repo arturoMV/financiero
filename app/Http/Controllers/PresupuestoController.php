@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Coordinacion;
+use App\Presupuesto;
+use Redirect;
+use DB;
+
 
 class PresupuestoController extends Controller
 {
@@ -15,7 +20,7 @@ class PresupuestoController extends Controller
      */
     public function index()
     {
-        //
+        return view('/presupuesto/presupuesto');
     }
 
     /**
@@ -25,7 +30,14 @@ class PresupuestoController extends Controller
      */
     public function create()
     {
-        //
+        $coordinaciones = Coordinacion::all();
+
+        $config = DB::table('tConfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','Periodo')
+        ->first();
+
+        return view('presupuesto/nuevoPresupuesto',['coordinaciones' => $coordinaciones],['config' => $config]);
     }
 
     /**
@@ -36,7 +48,37 @@ class PresupuestoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+        if($request->tCoordinacion_idCoordinacion ==0){
+            return Redirect::back()
+            ->withErrors(['error', 'Debe seleccionar una Coordinacion válida'])
+            ->withInput();
+        }
+        $coordinaciones = Coordinacion::all();
+        
+        $config = DB::table('tConfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','Periodo')
+        ->first();
+        $presupueto = new Presupuesto;
+
+
+        $presupueto->idPresupuesto = $request->idPresupuesto;
+        $presupueto->anno = $request->anno;
+        $presupueto->tCoordinacion_idCoordinacion = $request->tCoordinacion_idCoordinacion;
+        $presupueto->vNombrePresupuesto = $request->vNombrePresupuesto;
+        $presupueto->iPresupuestoInicial = 0;
+
+        $presupueto->save();
+
+        return view('/presupuesto/presupuesto');
+    } catch(\Illuminate\Database\QueryException $ex){ 
+        return view('/presupuesto/nuevoPresupuesto',
+            ['coordinaciones' => $coordinaciones,
+            'config' => $config])
+            ->withErrors(['error', 'Error al insertar, identificador duplicado']);
+
+    }
     }
 
     /**
@@ -46,8 +88,11 @@ class PresupuestoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
+    {   
+        $presupuesto = Presupuesto::find($id);
+
+        $coordinacion = Presupuesto::find($id)->coordinacion;
+        return view('/presupuesto/verPresupuesto',['presupuesto' => $presupuesto],['coordinacion' => $coordinacion]);
     }
 
     /**
@@ -58,9 +103,11 @@ class PresupuestoController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        $presupuesto = Presupuesto::find($id);
+        $coordinaciones = Coordinacion::all();
 
+        return view('/presupuesto/editarPresupuesto',['presupuesto' => $presupuesto], ['coordinaciones' => $coordinaciones]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -70,7 +117,13 @@ class PresupuestoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    try{
+
+    }catch(Exception $e){
+        return Redirect::back()
+            ->withErrors(['error', 'Error al agregar'])
+            ->withInput();
+    }
     }
 
     /**
@@ -81,6 +134,18 @@ class PresupuestoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $presupuesto = Presupuesto::find($id);
+
+            $presupuesto->delete($id);
+
+            return view('/presupuesto/presupuesto');
+}       catch (QueryException $e) {
+
+
+            return Redirect::back()
+            ->withErrors(['error', 'Error al eliminar'])
+            ->withInput();
+    }
     }
 }

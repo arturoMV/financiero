@@ -17,6 +17,8 @@
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/coordinacionTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/coordinacion.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/controllers/presupuestoTemplate.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/presupuesto.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/partidaTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/usuarioTemplate.js') !!}"  type="text/javascript"></script>
@@ -30,7 +32,8 @@
 <body>
 	<div class="container-fluid">
 		@if(Auth::user())
-		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br> <a class="btn btn-danger pull-right cerrar" href="/financiero/public/auth/logout" title="login">Cerrar Sesion</a> </h5>
+		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br>
+		 <a class="btn btn-danger pull-right cerrar" href="/financiero/public/auth/logout" title="login">Cerrar Sesion</a> </h5>
 		@else
 		<a  href="/financiero/public/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
 		<a  href="/financiero/public/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
@@ -42,13 +45,13 @@
 			<h3>Movimientos Presupuestarios</h3>
 		</div>
 		<div class="col-xs-12 col-md-6">
-			<a href="/"><img src="/financiero/public/img/logo.png" alt="UCR" class="img-responsive"></a>
+			<a href="/financiero/public"><img src="/financiero/public/img/logo.png" alt="UCR" class="img-responsive"></a>
 			<h3>Sede del Pacifico</h3>
 		</div>
 	</header>	
 	<section>
 		@if(Auth::user() AND Auth::user()->tienePermiso('Ver Menu', Auth::user()->id))
-		<aside class="col-md-3">
+		<aside class="col-md-3 container fluid text-center col-md-offset-0">
 			<nav class="nav navbar-default">
 				<div class="container-fluid">
 					<div class="navbar-header">
@@ -67,13 +70,20 @@
 							<li @yield('coord')><a href="/financiero/public/coordinacion" title="Coordinaciones">Coordinación</a></li>
 							@endif
 							
-							<li @yield('presupuesto')><a href="/financiero/public/presupuesto" title="Presupuestos de Coordinacion">Presupuesto</a></li>
+						    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto', Auth::user()->id))
+							<li @yield('presupuesto')><a href="/financiero/public/presupuesto" title="Presupuestos de Unidad">Presuspuestos</a></li>
+							@endif
+							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
 							<li @yield('partida')><a href="/financiero/public/partida" title="Partidas de Presupuesto">Partidas</a></li>
 							@endif
 							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Administrar Usuarios', Auth::user()->id))
 							<li @yield('admU')><a href="/financiero/public/usuario" title="Acerca de">Administrar Usuarios</a></li>
+							@endif
+
+							@if(Auth::user() AND Auth::user()->tienePermiso('Configurar Sistema', Auth::user()->id))
+							<li @yield('config')><a href="/financiero/public/configuracion" title="Configurar periodo">Configuracion de Sistema</a></li>
 							@endif
 							<li @yield('about')><a href="/financiero/public/about" title="Acerca de">Acerca De</a></li>					
 						</ul>
@@ -84,11 +94,21 @@
 
 
 		<div class="col-md-9">
-			@yield('content')
-		</div>
+			@section('content')<br>
+				<div class="col-md-12">
+    		  		<a href="<%URL::previous()%>" title="Volver" class="btn btn-info pull- left">Volver</a>  
+   			 	</div>
+   			 	<br><br>
+   			@show
+			</div>
 		@else
 		<div class=" col-md-10 col-md-offset-1">
-			@yield('content')
+			@section('content')
+				<div class="col-md-12">
+    		  		<a href="<%URL::previous()%>" title="Volver" class="btn btn-info pull- left">Volver</a>  
+   			 	</div>
+   			@show
+ 
 		</div>
 		@endif
 	</section>

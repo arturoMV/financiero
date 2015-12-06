@@ -9,7 +9,6 @@
 		class="active"
 	@endsection
 	@section('content')
-	@parent
 	<section class="contenido">
 		Este repositorio esta actualizado
 	</section> 

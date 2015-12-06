@@ -13,7 +13,7 @@ class FacturaDetalleMigration extends Migration
     public function up()
     {
         Schema::create('tFacturaDetalle', function (Blueprint $table) {
-            $table->string('tFactura_idFactura')->unique();
+            $table->integer('tFactura_idFactura');
             $table->integer('iLinea');
             $table->string('vDetalle');
             $table->integer('iPrecio');
@@ -23,8 +23,7 @@ class FacturaDetalleMigration extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->primary('tFactura_idFactura');
-            $table->foreign('tFactura_idFactura')->references('idFactura')->on('tFactura');
+            $table->primary(['tFactura_idFactura', 'iLinea']);
   
         });
     }

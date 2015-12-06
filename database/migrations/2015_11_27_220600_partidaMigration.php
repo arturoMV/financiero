@@ -15,14 +15,17 @@ class PartidaMigration extends Migration
         Schema::create('tPartida',function(Blueprint $table){
             $table->string('idPartida');
             $table->string('tPresupuesto_idPresupuesto');
-            $table->string('estado');
+            $table->integer('tPresupuesto_anno');
+            $table->integer('gasto');
             $table->integer('saldo');
             $table->string('descripcion');
             $table->timestamps();
             $table->softDeletes();
          
-            $table->primary('idPartida');  
-            $table->foreign('tPresupuesto_idPresupuesto')->references('idPresupuesto')->on('tPresupuesto');
+            $table->primary('idPartida');
+            $table->foreign(['tPresupuesto_idPresupuesto', 'tPresupuesto_anno'])->references(['idPresupuesto','anno'])->on('tPresupuesto');
+
+
         });
     }
 

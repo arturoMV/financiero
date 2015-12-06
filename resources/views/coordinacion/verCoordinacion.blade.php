@@ -1,7 +1,7 @@
 @extends('/layouts.master')
 	@section('title', 'Partida')
 
-  @section('partida')
+  @section('coord')
     class="active"
   @endsection
 	@section('content')
@@ -11,13 +11,13 @@
   	<div class="wrapper">
         	<form class="col-md-7 form-horizontal" action="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>/edit" method="get"> 
         <div class="form-group">
-          <label class="col-md-4 control-label">ID Coordinacion:</label>
+          <label class="col-md-4 control-label">ID Unidad:</label>
           <p class="col-md-2 form-control-static"><%$coordinacion->idCoordinacion%></p>
        
       </div >
 
       <div class="form-group">
-        <label class="col-md-4 control-label">Nombre Coordinacion:</label>
+        <label class="col-md-4 control-label">Nombre Unidad:</label>
         <p class="col-md-8 form-control-static"><%$coordinacion->vNombreCoordinacion%></p> 
       </div>
 

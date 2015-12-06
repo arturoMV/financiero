@@ -1,14 +1,18 @@
+
+
+
+
 @extends('/layouts.master')
-	@section('title', 'Partida')
+  @section('title', 'Partida')
 
   @section('partida')
     class="active"
   @endsection
-	@section('content')
-	@parent
+  @section('content')
+  @parent
     @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
-  	<section>
-  	<div class="wrapper">
+    <section>
+    <div class="wrapper">
       <form class="col-md-7 form-horizontal" action="/financiero/public/partida/<%$partida->idPartida%>/edit" method="get"> 
         <div class="form-group">
           <label class="col-md-4 control-label">ID Partida:</label>
@@ -24,18 +28,18 @@
 
          <div  class="form-group">
           <label class="col-md-4 control-label">Estado:</label>
-          <p class="col-md-8 form-control-static"><%$partida->estado%></p>	    
+          <p class="col-md-8 form-control-static"><%$partida->estado%></p>      
       </div>
 
       <div class="form-group">
         <label class="col-md-4 control-label">Saldo:</label>
-  		<p class="col-md-8 form-control-static"><%$partida->saldo%></p>
+      <p class="col-md-8 form-control-static"><%$partida->saldo%></p>
       </div>
-  	
+    
 
        <div class="form-group">
         <label class="col-md-4 control-label">Descripcion:</label>
-        	<p class="col-md-8 form-control-static"><%$partida->descripcion%></p>
+          <p class="col-md-8 form-control-static"><%$partida->descripcion%></p>
     
       </div>
 
@@ -45,9 +49,9 @@
         @endif
       </div> 
              
-  	</form>
-  	</div>
-  	</section> 
+    </form>
+    </div>
+      </section> 
     @else
       Debe estar autenticado y tener permisos para ver esta pagina
     @endif

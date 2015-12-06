@@ -8,8 +8,6 @@
 	@endsection
 	@section('content')
 	@parent
-	<script src="{!! asset('js/controllers/partidaTemplate.js') !!}"  type="text/javascript"></script>
-	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
 
 	@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
 	<section class="container-fluid" ng-controller="partidaTemplate"><br>

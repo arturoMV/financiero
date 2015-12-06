@@ -53,6 +53,5 @@ class="active"
       @else
       Debe estar autenticado y tener permisos para ver esta pagina
       @endif
-    </div>	
   </section> 
   @endsection

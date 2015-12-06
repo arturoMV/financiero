@@ -14,15 +14,18 @@ class PresupuestoMigration extends Migration
     {
         Schema::create('tPresupuesto',function(Blueprint $table){
             $table->string('idPresupuesto')->unique();
+            $table->integer('anno');
             $table->string('tCoordinacion_idCoordinacion');
             $table->string('vNombrePresupuesto');
 
     
             $table->timestamps();
             $table->softDeletes();
-         
-            $table->primary('idPresupuesto');  
+
+             
+            $table->primary(['idPresupuesto','anno']);  
             $table->foreign('tCoordinacion_idCoordinacion')->references('idCoordinacion')->on('tCoordinacion');
+
         });
     }
 

@@ -13,7 +13,7 @@ class FacturaMigration extends Migration
     public function up()
     {
         Schema::create('tFactura', function (Blueprint $table) {
-            $table->string('idFactura')->unique();
+            $table->increments('idFactura');
             $table->string('tPartida_idPartida');
             $table->string('vTipoFactura');
             $table->date('dFechaFactura');
@@ -22,8 +22,7 @@ class FacturaMigration extends Migration
             
             $table->timestamps();
             $table->softDeletes();
-
-            $table->primary('idFactura');
+                    
             $table->foreign('tPartida_idPartida')->references('idPartida')->on('tPartida');
   
         });

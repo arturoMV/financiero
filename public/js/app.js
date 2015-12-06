@@ -1,4 +1,4 @@
 'use strict'
-angular.module("starter",['coordinacionCtrl','partidaCtrl','usuarioCtrl', 'facturaCtrl'])
+angular.module("starter",['coordinacionCtrl','presupuestoCtrl','partidaCtrl','usuarioCtrl', 'facturaCtrl'])
 .controller("mainCtrl", function($scope, $http) {
 });
