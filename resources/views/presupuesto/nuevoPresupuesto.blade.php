@@ -54,9 +54,17 @@ class="active"
         <div class="form-group">
           <label class="col-md-4 control-label">Presupuesto Inicial</label>
           <div class="col-md-6">
-            <input type="text" class="form-control" name="iPresupuestoInicial" required placeholder="Agregue partidas para modificar el total presupuestado" readonly>
+            <input type="text" class="form-control" name="iPresupuestoInicial" ng-model="presupuestoI" 
+            required placeholder="Agregue partidas para modificar el total presupuestado">
           </div>
         </div>
+           <div class="form-group">
+          <label class="col-md-4 control-label">Presupuesto Modificado</label>
+          <div class="col-md-6">
+            <input type="number" class="form-control"  value="{{presupuestoI}}" name="iPresupuestoModificado" placeholder="Cambios en el presupuestado" readonly>
+          </div>
+        </div>
+
         
         <div class="form-group">
           <div class="col-md-4 col-md-offset-4">

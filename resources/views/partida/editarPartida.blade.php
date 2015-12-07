@@ -1,4 +1,4 @@
-@extends('/layouts.master')>
+@extends('/layouts.master')
 @section('title', 'Partida')
 @section('partida')
   class="active"
@@ -7,66 +7,81 @@
 @parent
 @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
 <section>
-  <div class="wrapper col-md-10">
+  <div class="wrapper">
     <br>
-    <form class="col-md-10 form-horizontal" action="/financiero/public/partida/<%$partida->idPartida%>/put" 
+    <form class="col-md-12 form-horizontal" action="/financiero/public/partida/<%$partida->idPartida%>/put" 
     method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">    
 
-      <div class="form-group">
+<div class="form-group">
         <label class="col-md-4 control-label">ID Partida</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" name="idPartida" value="<%$partida->idPartida%>" placeholder="ID de Partida">
+        <div class="col-md-6">
+          <input type="number" class="form-control" name="idPartida" value="<%$partida->idPartida%>" placeholder="ID de Partida" maxlength="7">
         </div>
       </div>
-
       <div class="form-group">
-        <label class="col-md-4 control-label">ID Presupuesto</label>
-        <div class="col-md-4">
-          <input type="text" class="form-control" name="idPresupuesto" value="<%$partida->idPresupuesto%>" placeholder="ID del Presupuesto">
+        <label class="col-md-4 control-label">Coordinacion</label>
+        <div class="col-md-6">
+          <select name="tPresupuesto_idPresupuesto" class="form-control" required>
+            <option value="0">Selecione a que Presupuestpo pertenece la Partida</option>
+            @foreach($presupuestos as $presupuesto)
+              <option 
+                @if($presupuesto->idPresupuesto == $partida->tPresupuesto_idPresupuesto)
+                  selected
+                @endif
+                value="<% $presupuesto->idPresupuesto %>"><% $presupuesto->idPresupuesto %> - <% $presupuesto->vNombrePresupuesto %></option>
+            @endforeach
+          </select>
         </div>
-      </div>
-
-      <div  class="form-group">
-        <label class="col-md-4 control-label">Estado  </label>
-        <div class="col-md-4">
-          <select class="form-control" name="estado">
-            <option value="Activo" 
-            @if($partida->estado === "Activo")
-            selected
-            @endif
-            >Activo</option>
-            <option value="Inactivo" @if($partida->estado === "Inactivo")
-              selected
-              @endif>Inactivo</option>
-            </select>
+        </div>
+      
+        <div class="form-group">
+          <label class="col-md-4 control-label">Año</label>
+          <div class="col-md-6">
+            <input type="number" class="form-control" name="tPresupuesto_anno" value="<%$partida->tPresupuesto_anno%>" readonly maxlength="4">
           </div>
         </div>
 
         <div class="form-group">
-          <label class="col-md-4 control-label">Saldo</label>
-          <div class="col-md-4">
-            <input type="text" class="form-control" value="<%$partida->saldo%>" name="saldo"  placeholder="Saldo">
+          <label class="col-md-4 control-label">Nombre de Partida</label>
+          <div class="col-md-6">
+            <input type="text" class="form-control"  name="vNombrePartida" value="<%$partida->vNombrePartida%>" placeholder="Nombre de la partida">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Presupuesto Inicial</label>
+          <div class="col-md-6">
+            <input type="number" class="form-control" value="<%$partida->iPresupuestoInicial%>" name="iPresupuestoInicial" placeholder="Monto presupuestado" readonly>
           </div>
         </div>
 
         <div class="form-group">
-          <label class="col-md-4 control-label">Descripcion</label>
-          <div class="col-md-4">
-            <input type="text" class="form-control" value="<%$partida->descripcion%>" 
-            name="descripcion"  placeholder="Descripcion">
+          <label class="col-md-4 control-label">Presupuesto Modificado</label>
+          <div class="col-md-6">
+            <input type="number" class="form-control" value="<%$partida->iPresupuestoModificado%>" name="iPresupuestoModificado" placeholder="Monto presupuestado">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label">Gasto de la  Partida</label>
+          <div class="col-md-6">
+            <input type="number" class="form-control" name="gasto" value="<%$partida->gasto%>" placeholder="El gasto aumenta con las transacciones" readonly>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="col-md-4 control-label">Saldo de la Partida</label>
+          <div class="col-md-6">
+            <input type="number" class="form-control" name="saldo" value="<%$partida->saldo%>" readonly placeholder="El saldo se calcula con el gasto">
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-md-4 col-md-offset-3">
             <input type="submit" name="" class="btn btn-warning" value="Editar">
-
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Eliminar</button>
-
           </div>
-        </div> 
-
+        </div>
       </form>
 
       <form class="col-md-1" action="/financiero/public/partida/<%$partida->idPartida%>/delete" method="post">

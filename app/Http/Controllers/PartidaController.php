@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Partida;
+use DB;
+use App\Presupuesto;
+use Redirect;
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -15,8 +19,7 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-      //  $partida = Partida::all();
-         return view('partida/partida');
+        return view('partida/partida');
     }
 
     /**
@@ -25,7 +28,15 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-       return view('partida/nuevaPartida');
+        $config = DB::table('tConfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','=','Periodo')
+        ->first();
+
+        $presupuestos = Presupuesto::all()
+        ->where('anno', $config->iValor);
+
+        return view('partida/nuevaPartida', ['presupuestos' => $presupuestos, 'config' => $config]);
     }
 
     /**
@@ -35,16 +46,41 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request){
-        $partida = Partida::create(array(
-                'idPartida'=> $request->input('idPartida'),
-                'tPresupuesto_idPresupuesto'=>$request->input('idPresupuesto'),
-                'estado'=>$request->input('estado'),
-                'saldo'=> $request->input('saldo'),
-                'descripcion'=> $request->input('descripcion'),
-            ));
+        try{
+            if($request->tPresupuesto_idPresupuesto == 0){
+                return Redirect::back()
+                ->withErrors(['error', 'Debe seleccionar un Presupuesto válido'])
+                ->withInput();
+            }
+             $config = DB::table('tConfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','=','Periodo')
+            ->first();
 
-        return view('partida/partida');
+            $presupuestos = Presupuesto::all()
+            ->where('anno', $config->iValor);
 
+            $partida = new Partida;
+
+            $partida->idPartida = $request->idPartida;
+            $partida->tPresupuesto_idPresupuesto = $request->tPresupuesto_idPresupuesto;
+            $partida->tPresupuesto_anno = $request->tPresupuesto_anno;
+            $partida->vNombrePartida = $request->vNombrePartida;
+            $partida->iPresupuestoInicial = $request->iPresupuestoInicial;
+            $partida->iPresupuestoModificado = $request->iPresupuestoModificado;
+            $partida->gasto = 0;
+            $partida->saldo = $request->saldo;
+
+            $partida->save();
+
+            return view('/partida/partida');
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            return view('/partida/nuevaPartida',
+                ['presupuestos' => $presupuestos,
+                'config' => $config])
+                ->withErrors(['error', 'Error al insertar, ya existe una partida con ese identificador']);
+
+        }
     }
 
     /**
@@ -55,8 +91,10 @@ class PartidaController extends Controller
      */
     public function show($id){
         $partida = Partida::find($id);
+        $partida->calcularSaldo();
+        $presupuesto = $partida->presupuesto;
 
-        return view('partida/verPartida', ['partida' => $partida]);
+        return view('partida/verPartida', ['partida' => $partida, 'presupuesto' => $presupuesto]);
     }
 
     /**
@@ -68,8 +106,16 @@ class PartidaController extends Controller
     public function edit($id)
     {
         $partida = Partida::find($id);
+        
+        $config = DB::table('tConfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','=','Periodo')
+            ->first();
+       
+        $presupuestos = Presupuesto::all()
+        ->where('anno', $config->iValor);       
 
-        return view('partida/editarPartida', ['partida' => $partida]);
+        return view('partida/editarPartida', ['partida' => $partida, 'presupuestos' => $presupuestos]);
     }
 
     /**
@@ -81,17 +127,40 @@ class PartidaController extends Controller
      */
     public function update(Request $request, $id)
     {
-         $partida = Partida::find($id);
+        try{
+            if($request->tPresupuesto_idPresupuesto == 0){
+                return Redirect::back()
+                ->withErrors(['error', 'Debe seleccionar un Presupuesto válido'])
+                ->withInput();
+            }
+             $config = DB::table('tConfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','=','Periodo')
+            ->first();
 
-         $partida->idPartida= $request->input('idPartida');
-         $partida->tpresupuesto_idPresupuesto=$request->input('idPresupuesto');
-         $partida->estado=$request->input('estado');
-         $partida->saldo=$request->input('saldo');
-         $partida->descripcion=$request->input('descripcion');
+            $presupuestos = Presupuesto::all()
+            ->where('anno', $config->iValor);
 
-         $partida->save();
+            $partida = Partida::find($id);
 
-        return view('partida/verPartida', ['partida' => $partida]);
+            $partida->idPartida = $request->idPartida;
+            $partida->tPresupuesto_idPresupuesto = $request->tPresupuesto_idPresupuesto;
+            $partida->tPresupuesto_anno = $request->tPresupuesto_anno;
+            $partida->vNombrePartida = $request->vNombrePartida;
+            $partida->iPresupuestoInicial = $request->iPresupuestoInicial;
+            $partida->iPresupuestoModificado = $request->iPresupuestoModificado ;
+
+
+            $partida->save();
+
+            return view('/partida/partida');
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            return view('/partida/$id/edit',
+                ['presupuestos' => $presupuestos,
+                'partida' => $partida])
+                ->withErrors(['error', 'Error al insertar, ya existe una partida con ese identificador']);
+
+        }
     }
 
     /**

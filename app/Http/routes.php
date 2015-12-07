@@ -93,8 +93,19 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 //angular model routes
 Route::get('/partidas', function () {
-	$partida = Partida::all();	
-    return $partida;	
+    $config = DB::table('tConfiguracion')
+    ->select('iValor')
+    ->where('vConfiguracion','=','Periodo')
+    ->first();
+
+	$partidas = Partida::all()
+    ->where('tPresupuesto_anno', $config->iValor);
+    foreach ($partidas as $partida) {
+        $partida->presupuestoModificado();
+        $partida->calcularSaldo();
+    }
+
+    return $partidas;	
 });	
 
 Route::get('/usuarios', function () {
@@ -108,8 +119,18 @@ Route::get('/coordinaciones', function () {
 });
 
 Route::get('/presupuestos', function () {
-    $presupuesto = Presupuesto::all(); 
-    return $presupuesto;    
+    $config = DB::table('tConfiguracion')
+    ->select('iValor')
+    ->where('vConfiguracion','=','Periodo')
+    ->first();
+
+
+
+    $partidas = DB::table('tpresupuesto')
+    ->where('anno','=',$config->iValor)
+    ->get();
+
+    return $partidas;   
 });
 
 

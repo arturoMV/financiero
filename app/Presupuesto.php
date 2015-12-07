@@ -9,7 +9,7 @@ class Presupuesto extends Model
 {
     protected $table = 'tpresupuesto';
     protected $primaryKey = 'idPresupuesto';
-    protected $fillable = ['idPresupuesto', 'tCoordinacion_idCoordinacion', 'vNombrePresupuesto', 'iPresupuestoInicial'];
+    protected $fillable = ['idPresupuesto', 'tCoordinacion_idCoordinacion', 'vNombrePresupuesto', 'iPresupuestoInicial','iPresupuestoModificado'];
     public $timestamps = true;
     protected $dates = ['deleted_at'];
     use SoftDeletes;
@@ -19,8 +19,8 @@ class Presupuesto extends Model
     	return $this->belongsTo('App\Coordinacion','tCoordinacion_idCoordinacion', 'idCoordinacion');
     }
 
-    public function partida()
+    public function partidas()
     {
-    	return $this->hasMany('App\Partida');
+    	return $this->hasMany('App\Partida', 'tPresupuesto_idPresupuesto', 'idPresupuesto');
     }
 }

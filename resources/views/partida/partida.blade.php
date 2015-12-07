@@ -23,20 +23,22 @@
 			<table class="table table-striped table-hover">
 				<tbody>
 					<tr >
-						<th ng-click="orderTable('idPartida')" style="cursor:pointer;">ID Partida</th>
-						<th ng-click="orderTable('idPresupuesto')" style="cursor:pointer;">ID Presupuesto</th>
-						<th ng-click="orderTable('estado')" style="cursor:pointer;">Estado</th>
+						<th ng-click="orderTable('idPartida')" style="cursor:pointer;">Partida</th>
+						<th ng-click="orderTable('tPresupuesto_idPresupuesto')" style="cursor:pointer;">Presupuesto</th>
+						<th ng-click="orderTable('vNombrePartida')" style="cursor:pointer;">Nombre</th>
+						<th ng-click="orderTable('iPresupuestoModificado')" style="cursor:pointer;">Monto Presupuestado</th>
+						<th ng-click="orderTable('saldo')" style="cursor:pointer;">Gasto</th>
 						<th ng-click="orderTable('saldo')" style="cursor:pointer;">Saldo</th>
-						<th ng-click="orderTable('descripcion')" style="cursor:pointer;">Descripción</th>
 						<th></th>
 						<th></th>
 					</tr>
 					<tr ng-repeat="partida in modelP | filter : search | orderBy : myOrder track by $index">
 						<td>{{partida.idPartida}}</td>
-						<td>{{partida.tPresupuesto_idPresupuesto}}</td>
-						<td>{{partida.estado}}</td>
-						<td>{{partida.saldo}}</td>
-						<td>{{partida.descripcion}}</td>
+						<td>{{partida.tPresupuesto_idPresupuesto}}-{{partida.tPresupuesto_anno}} </td>
+						<td>{{partida.vNombrePartida}}</td>
+						<td>{{partida.iPresupuestoModificado | currency: "₡":0}}</td>
+						<td>{{partida.gasto | currency: "₡":0}}</td>
+						<td>{{partida.saldo | currency: "₡":0}}</td>
 						<td>
 							<a href="/financiero/public/partida/{{partida.idPartida}}"  class="btn btn-info" title="">Ver</a>
 						</td>

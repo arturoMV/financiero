@@ -68,6 +68,7 @@ class PresupuestoController extends Controller
         $presupueto->tCoordinacion_idCoordinacion = $request->tCoordinacion_idCoordinacion;
         $presupueto->vNombrePresupuesto = $request->vNombrePresupuesto;
         $presupueto->iPresupuestoInicial = 0;
+        $presupueto->iPresupuestoModificado = 0;
 
         $presupueto->save();
 
@@ -90,9 +91,11 @@ class PresupuestoController extends Controller
     public function show($id)
     {   
         $presupuesto = Presupuesto::find($id);
+ 
+        $partidas = $presupuesto->partidas;
 
         $coordinacion = Presupuesto::find($id)->coordinacion;
-        return view('/presupuesto/verPresupuesto',['presupuesto' => $presupuesto],['coordinacion' => $coordinacion]);
+        return view('/presupuesto/verPresupuesto',['presupuesto' => $presupuesto],['coordinacion' => $coordinacion, 'partidas' => $partidas]);
     }
 
     /**
@@ -119,6 +122,29 @@ class PresupuestoController extends Controller
     {
     try{
 
+        if($request->tCoordinacion_idCoordinacion ==0){
+            return Redirect::back()
+            ->withErrors(['error', 'Debe seleccionar una Coordinacion válida'])
+            ->withInput();
+        }
+        $coordinaciones = Coordinacion::all();
+        
+        $config = DB::table('tConfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','Periodo')
+        ->first();
+        $presupueto = Presupuesto::find($id);
+
+
+        $presupueto->idPresupuesto = $request->idPresupuesto;
+        $presupueto->anno = $request->anno;
+        $presupueto->tCoordinacion_idCoordinacion = $request->tCoordinacion_idCoordinacion;
+        $presupueto->vNombrePresupuesto = $request->vNombrePresupuesto;
+        $presupueto->iPresupuestoModificado = $request->iPresupuestoModificado;
+
+        $presupueto->save();
+
+        return view('/presupuesto/presupuesto');
     }catch(Exception $e){
         return Redirect::back()
             ->withErrors(['error', 'Error al agregar'])

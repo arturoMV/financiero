@@ -23,7 +23,7 @@ class="active"
       <div class="form-group">
       <label class="col-md-4 control-label">Año</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" name="vNombrePresupuesto" value="<%$presupuesto->anno%>" readonly>
+          <input type="text" class="form-control" name="anno" value="<%$presupuesto->anno%>" readonly>
         </div>
       </div>
       <div class="form-group">
@@ -47,14 +47,22 @@ class="active"
           <input type="text" class="form-control" value="<%$presupuesto->vNombrePresupuesto%>" name="vNombrePresupuesto"  placeholder="Saldo">
         </div>
       </div>
-
+      
       <div class="form-group">
         <label class="col-md-4 control-label">Monto de Presupustado</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" value="<%$presupuesto->idPresupuestoInicial%>" 
-          name="descripcion"  placeholder="Descripcion" readonly>
+          <input type="text" class="form-control" value="<%$presupuesto->iPresupuestoInicial%>" 
+          name="descripcion"  placeholder="" readonly>
         </div>
       </div>
+
+         <div class="form-group">
+          <label class="col-md-4 control-label">Presupuesto Modificado</label>
+          <div class="col-md-6">
+            <input type="number" class="form-control"  value="<%$presupuesto->iPresupuestoInicial%>" name="iPresupuestoModificado" placeholder="Cambios en el presupuestado">
+          </div>
+        </div>
+
 
       <div class="form-group">
         <div class="col-md-4 col-md-offset-3">
