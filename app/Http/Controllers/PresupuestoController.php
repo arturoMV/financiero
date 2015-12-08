@@ -32,7 +32,7 @@ class PresupuestoController extends Controller
     {
         $coordinaciones = Coordinacion::all();
 
-        $config = DB::table('tConfiguracion')
+        $config = DB::table('tconfiguracion')
         ->select('iValor')
         ->where('vConfiguracion','Periodo')
         ->first();
@@ -56,7 +56,7 @@ class PresupuestoController extends Controller
         }
         $coordinaciones = Coordinacion::all();
         
-        $config = DB::table('tConfiguracion')
+        $config = DB::table('tconfiguracion')
         ->select('iValor')
         ->where('vConfiguracion','Periodo')
         ->first();
@@ -129,7 +129,7 @@ class PresupuestoController extends Controller
         }
         $coordinaciones = Coordinacion::all();
         
-        $config = DB::table('tConfiguracion')
+        $config = DB::table('tconfiguracion')
         ->select('iValor')
         ->where('vConfiguracion','Periodo')
         ->first();

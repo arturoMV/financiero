@@ -28,7 +28,7 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $config = DB::table('tConfiguracion')
+        $config = DB::table('tconfiguracion')
         ->select('iValor')
         ->where('vConfiguracion','=','Periodo')
         ->first();
@@ -52,7 +52,7 @@ class PartidaController extends Controller
                 ->withErrors(['error', 'Debe seleccionar un Presupuesto válido'])
                 ->withInput();
             }
-             $config = DB::table('tConfiguracion')
+             $config = DB::table('tconfiguracion')
             ->select('iValor')
             ->where('vConfiguracion','=','Periodo')
             ->first();
@@ -108,7 +108,7 @@ class PartidaController extends Controller
     {
         $partida = Partida::find($id);
         
-        $config = DB::table('tConfiguracion')
+        $config = DB::table('tconfiguracion')
             ->select('iValor')
             ->where('vConfiguracion','=','Periodo')
             ->first();
@@ -134,7 +134,7 @@ class PartidaController extends Controller
                 ->withErrors(['error', 'Debe seleccionar un Presupuesto válido'])
                 ->withInput();
             }
-             $config = DB::table('tConfiguracion')
+             $config = DB::table('tconfiguracion')
             ->select('iValor')
             ->where('vConfiguracion','=','Periodo')
             ->first();
