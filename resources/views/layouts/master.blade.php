@@ -4,10 +4,11 @@
 
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<link rel="shortcut icon" href="/financiero/public/img/favicon.ico" type="image/vnd.microsoft.icon">
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="/financiero/public/css/bootstrap.min.css">
-
 	<link rel="stylesheet" type="text/css" href="/financiero/public/css/main.css">
 
 	<!-- Latest compiled and minified JavaScript -->
@@ -138,7 +139,7 @@
 
 			</nav>
 		</div>
-		<h5 class="col-md-8 col-md-offset-2 text-center"> © 2014 Oficina de Administración Financiera - Universidad de Costa Rica</h5>
+		<h5 class="col-md-8 col-md-offset-2 text-center"> © 2015 Oficina de Administración Financiera - Universidad de Costa Rica</h5>
 	</footer>
 
 </body>

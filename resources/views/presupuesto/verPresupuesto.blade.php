@@ -48,7 +48,7 @@ class="active"
         <input type="submit" name="" class="btn btn-warning" value="Editar">
         @endif
         @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id))
-        <input type="submit" name="" class="btn btn-primary" value="Agregar Partida">
+        <a href="" class="btn btn-primary">Agregar Partida</a>
         @endif
       </div> 
     </form>
@@ -85,19 +85,19 @@ class="active"
               <div class="progress">
                 <div class="progress-bar progress-bar-warning" style="width: <% $partida->calcularGastoPorcentaje() %>%">
                   <span class="sr-only"></span>
-                  <% $partida->calcularGastoPorcentaje() %>%
+                  <% round($partida->calcularGastoPorcentaje(),2) %>%
                 </div>
                 <div class="progress-bar progress-bar-success" style="width: <% $partida->calcularSaldoPorcentaje()%>%">
                   <span class="sr-only"></span>
-                  <% $partida->calcularSaldoPorcentaje() %>%
+                  <% round($partida->calcularSaldoPorcentaje(),2) %>%
                 </div>
               </div>
               <div class="alert alert-warning col-md-1 col-md-offset-4">
-                Gasto: <% $partida->calcularGastoPorcentaje() %>% <br>
+                Gasto: <%round( $partida->calcularGastoPorcentaje(),2) %>% <br>
               </div>
 
               <div class="alert alert-success col-md-1 col-md-offset-1">
-                Saldo: <% $partida->calcularSaldoPorcentaje() %>%
+                Saldo: <%round( $partida->calcularSaldoPorcentaje(),2) %>%
               </div>
               <a href="/financiero/public/partida/<%$partida->idPartida%>" class="btn btn-info pull-right">Ver Más</a>
             </div>

@@ -23,8 +23,8 @@
 			<table class="table table-striped table-hover">
 				<tbody>
 					<tr >
+						<th ng-click="orderTable('tCoordinacion_idCoordinacion')" style="cursor:pointer;">Presupuesto</th>
 						<th ng-click="orderTable('idPartida')" style="cursor:pointer;">Partida</th>
-						<th ng-click="orderTable('tPresupuesto_idPresupuesto')" style="cursor:pointer;">Presupuesto</th>
 						<th ng-click="orderTable('vNombrePartida')" style="cursor:pointer;">Nombre</th>
 						<th ng-click="orderTable('iPresupuestoModificado')" style="cursor:pointer;">Monto Presupuestado</th>
 						<th ng-click="orderTable('saldo')" style="cursor:pointer;">Gasto</th>
@@ -33,8 +33,8 @@
 						<th></th>
 					</tr>
 					<tr ng-repeat="partida in modelP | filter : search | orderBy : myOrder track by $index">
+						<td>{{partida.tCoordinacion_idCoordinacion}}-{{partida.tPresupuesto_anno}}-{{partida.vNombrePresupuesto}} </td>
 						<td>{{partida.idPartida}}</td>
-						<td>{{partida.tPresupuesto_idPresupuesto}}-{{partida.tPresupuesto_anno}} </td>
 						<td>{{partida.vNombrePartida}}</td>
 						<td>{{partida.iPresupuestoModificado | currency: "₡":0}}</td>
 						<td>{{partida.gasto | currency: "₡":0}}</td>

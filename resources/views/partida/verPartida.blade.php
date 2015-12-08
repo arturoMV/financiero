@@ -22,7 +22,8 @@
 
       <div class="form-group">
         <label class="col-md-4 control-label">ID Presupuesto</label>
-        <p class="col-md-8 form-control-static"><a href="/financiero/public/presupuesto/<%$partida->tPresupuesto_idPresupuesto%>" title=""><%$partida->tPresupuesto_idPresupuesto%>-<%$partida->tPresupuesto_anno%> - 
+        <p class="col-md-8 form-control-static">
+        <a href="/financiero/public/presupuesto/<%$partida->tPresupuesto_idPresupuesto%>" title=""><%$presupuesto->tCoordinacion_idCoordinacion%>-<%$partida->tPresupuesto_anno%> - 
         <%$presupuesto->vNombrePresupuesto%></a></p>
          
       </div>
@@ -34,7 +35,7 @@
       @if($partida->descripcion!="")
        <div class="form-group">
         <label class="col-md-4 control-label">Descripcion:</label>
-          <p class="col-md-12 form-control-static"><%$partida->descripcion%></p>
+          <p class="col-md-8 form-control-static"><%$partida->descripcion%></p>
       </div>
       @endif
 
@@ -44,7 +45,7 @@
         @endif
 
          @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
-         <a href="#" name="" class="btn btn-primary">Agregar Transacción</a>
+         <a href="/financiero/public/transaccion/create/<%$partida->idPartida%>" name="" class="btn btn-primary">Agregar Transaccion</a>
         @endif
       </div> 
              
@@ -59,11 +60,11 @@
   Saldo: <small>{{<%$partida->saldo%> | currency: "₡":0}}</small></h4>
 </div>
 <div class="progress">
-  <div class="progress-bar progress-bar-warning" style="width: <% $partida->calcularGastoPorcentaje() %>%">
+  <div class="progress-bar progress-bar-danger" style="width: <% $partida->calcularGastoPorcentaje() %>%">
     <span class="sr-only"></span>
     <% round($partida->calcularGastoPorcentaje(),2) %>%
   </div>
-  <div class="progress-bar progress-bar-success" style="width: <% $partida->calcularSaldoPorcentaje()%>%">
+  <div class="progress-bar progress-bar-primary" style="width: <% $partida->calcularSaldoPorcentaje()%>%">
     <span class="sr-only"></span>
     <% round($partida->calcularSaldoPorcentaje(),2) %>%
   </div>

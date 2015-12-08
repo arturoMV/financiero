@@ -22,12 +22,7 @@ class="active"
     @endif 
     <form action="/financiero/public/presupuesto" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
-      <div class="form-group">
-        <label class="col-md-4 control-label">ID Presupusto</label>
-        <div class="col-md-6">
-          <input type="text" class="form-control" name="idPresupuesto" placeholder="Id de Presupuesto">
-        </div>
-      </div>
+      
       <div class="form-group">
         <label class="col-md-4 control-label">Año</label>
         <div class="col-md-6">
@@ -54,7 +49,7 @@ class="active"
         <div class="form-group">
           <label class="col-md-4 control-label">Presupuesto Inicial</label>
           <div class="col-md-6">
-            <input type="text" class="form-control" name="iPresupuestoInicial" ng-model="presupuestoI" 
+            <input type="text" class="form-control" readonly name="iPresupuestoInicial" ng-model="presupuestoI" 
             required placeholder="Agregue partidas para modificar el total presupuestado">
           </div>
         </div>

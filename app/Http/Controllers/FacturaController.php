@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Partida;
+use App\Factura;
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -23,9 +26,21 @@ class FacturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $partida = Partida::find($id);
+
+        $numFactura = DB::table('tfactura')
+        ->max('idFactura');
+
+        if($numFactura == null){
+            $ret  = 1;
+        }else{
+            $numFactura++;
+        }
+
+        return view('factura',['partida'=>$partida,'numFactura' =>$numFactura]);
+        
     }
 
     /**
@@ -36,7 +51,55 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $facturaid = DB::table('tfactura')->insertGetId([
+            'tPartida_idPartida' => $request->tPartida_idPartida,
+            'vTipoFactura' => $request->vTipoFactura,
+            'dFechaFactura' => $request->dFechaFactura,
+            'vDescripcionFactura' => $request->vDescripcionFactura,
+            'iMontoFactura' => $request->iMontoFactura
+            ]);
+       
+        $input= $request->all();
+        $count = 0;
+        $linea = 0;
+        $campo = 1;
+        $detalle = "";
+        $precio = "";
+        $cantidad = ""; 
+        $total = "";
+        $salida = "";
+
+        foreach($input as $in){
+            if($count > 6){
+                if($campo == 1){
+                    $linea++;
+                    $detalle = $in;
+                }
+                if($campo == 2){
+                    $precio = $in;
+                }
+                if($campo == 3){
+                    $cantidad = $in;
+                }
+                if($campo == 4){
+                    $total = $in;
+                    $factura = DB::table('tfacturadetalle')->insert([
+                        'tFactura_idFactura' => $facturaid,
+                        'iLinea' => $linea,
+                        'vDetalle' => $detalle,
+                        'iPrecio' => $precio,
+                        'iCantidad' => $cantidad,
+                        'iTotalLinea' => $total
+                        ]);
+                    $campo = 0;
+                }
+                $campo++;
+            }
+            $count++;
+        }
+        return 'correcto';
+
     }
 
     /**
@@ -47,7 +110,20 @@ class FacturaController extends Controller
      */
     public function show($id)
     {
-        //
+
+    $partida = Partida::find($id);
+
+    $numFactura = DB::table('tfactura')
+    ->max('idFactura');
+
+    if($numFactura == null){
+        $ret  = 1;
+    }else{
+        $numFactura++;
+    }
+
+    return view('factura',['partida'=>$partida,'numFactura' =>$numFactura]);
+        
     }
 
     /**

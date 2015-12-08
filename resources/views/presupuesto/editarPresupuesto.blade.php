@@ -16,7 +16,7 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">ID Presupuesto</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" name="idPresupuesto" value="<%$presupuesto->idPresupuesto%>" placeholder="ID de Presupuesto">
+          <input type="text" class="form-control" name="idPresupuesto" value="<%$presupuesto->idPresupuesto%>" readonly placeholder="ID de Presupuesto">
         </div>
       </div>
 

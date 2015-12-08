@@ -33,9 +33,20 @@ Route::get('/home', function () {
 });
 
 
-Route::get('/factura', function () {
-    return view('factura');
-});
+// Route::get('/transaccion/{id}', function ($id) {
+//     $partida = Partida::find($id);
+
+//     $numFactura = DB::table('tfactura')
+//     ->max('idFactura');
+
+//     if($numFactura == null){
+//         $ret  = 1;
+//     }else{
+//         $numFactura++;
+//     }
+
+//     return view('factura',['partida'=>$partida,'numFactura' =>$numFactura]);
+// });
 
 Route::get('/about', function () {
     return view('about');
@@ -68,6 +79,13 @@ Route::post('presupuesto/{presupuesto}/put', 'PresupuestoController@update');
 Route::resource('partida', 'PartidaController');
 Route::post('partida/{partida}/delete', 'PartidaController@destroy');
 Route::post('partida/{partida}/put', 'PartidaController@update');
+
+//Factura routes...
+Route::resource('transaccion', 'FacturaController');
+Route::get('transaccion/create/{id}', 'FacturaController@create');
+Route::post('transaccion/{partida}/delete', 'FacturaController@destroy');
+Route::post('transaccion/{partida}/put', 'FacturaController@update');
+
 //User routes...
 Route::resource('usuario', 'UsuarioController');
 Route::post('usuario/{usuario}/put', 'UsuarioController@update');
@@ -98,14 +116,21 @@ Route::get('/partidas', function () {
     ->where('vConfiguracion','=','Periodo')
     ->first();
 
-	$partidas = Partida::all()
+    $calculos = Partida::all()
     ->where('tPresupuesto_anno', $config->iValor);
-    foreach ($partidas as $partida) {
-        $partida->presupuestoModificado();
-        $partida->calcularSaldo();
+
+
+	$partidas = DB::table('tPartida')
+    ->join('tpresupuesto', 'idPresupuesto','=','tPresupuesto_idPresupuesto')
+    ->where('tPresupuesto_anno', $config->iValor)
+    ->get();
+    
+    foreach ($calculos as $calculo) {
+        $calculo->presupuestoModificado();
+        $calculo->calcularSaldo();
     }
 
-    return $partidas;	
+    return $calculos;	
 });	
 
 Route::get('/usuarios', function () {

@@ -93,8 +93,9 @@ class PartidaController extends Controller
         $partida = Partida::find($id);
         $partida->calcularSaldo();
         $presupuesto = $partida->presupuesto;
+        $coordinacion = $presupuesto->coordinacion;
 
-        return view('partida/verPartida', ['partida' => $partida, 'presupuesto' => $presupuesto]);
+        return view('partida/verPartida', ['partida' => $partida, 'presupuesto' => $presupuesto,'coordinacion' => $coordinacion]);
     }
 
     /**

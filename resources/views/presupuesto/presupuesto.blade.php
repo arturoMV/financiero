@@ -23,14 +23,12 @@
 				<tbody>
 					<tr >
 						<th ng-click="orderTable('idPresupuesto')" style="cursor:pointer;">ID Presupuesto</th>
-						<th ng-click="orderTable('tCoordinacion_idCoodinacion')" style="cursor:pointer;">Unidad Perteneciente<a href=""></a></th>
 						<th ng-click="orderTable('vNombrePresupuesto')" style="cursor:pointer;">Nombre</th>
 						<th></th>
 						<th></th>
 					</tr>
 					<tr ng-repeat="presupuesto in modelPr | filter : search | orderBy : myOrder track by $index">
-						<td>{{presupuesto.idPresupuesto}}-{{presupuesto.anno}}</td>
-						<td>{{presupuesto.tCoordinacion_idCoordinacion}}</td>
+						<td>{{presupuesto.tCoordinacion_idCoordinacion}}-{{presupuesto.anno}}</td>
 						<td>{{presupuesto.vNombrePresupuesto}}</td>
 						<td>
 							<a href="/financiero/public/presupuesto/{{presupuesto.idPresupuesto}}"  class="btn btn-info" title="">Ver</a>

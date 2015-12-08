@@ -45,7 +45,6 @@ class UsuarioController extends Controller
 
         $id = DB::table('tRol')->insertGetId(
                ['nombreRol' => $request->nombreRol , 'descripcionRol' => $request->descripcionRol]);
-        $salida = "hola";
         $count=0;
         DB::table('trol_tiene_tpermiso')->where('trol_idRol', '=', $id)->delete();
         foreach ($input as $in) {
