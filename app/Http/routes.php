@@ -107,7 +107,7 @@ Route::get('/partidas', function () {
     $presupuestoPartida = DB::table('tpresupuesto_tpartida')
     ->join('tpresupuesto', 'idPresupuesto', '=', 'tPresupuesto_idPresupuesto')
     ->join('tpartida', 'idPartida', '=', 'tPartida_idPartida')
-    ->join('tCoordinacion', 'idCoordinacion', '=', 'tCoordinacion_idCoordinacion')
+    ->join('tcoordinacion', 'idCoordinacion', '=', 'tCoordinacion_idCoordinacion')
     ->select('idCoordinacion','anno','vNombreCoordinacion','vNombrePresupuesto','codPartida','vNombrePartida','idPartida','id')
     ->where('anno','=',$config->iValor)
     ->get();
