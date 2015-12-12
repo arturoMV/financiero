@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Partida;
 use DB;
+use App\Coordinacion;
 use App\Presupuesto;
+use App\Presupuesto_Partida;
+use App\Factura;
 use Redirect;
 
 use Illuminate\Http\Request;
@@ -19,7 +22,7 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('partida/partida');
+        return view('partida/partida',['mensaje'=>false,'error' => true]);
     }
 
     /**
@@ -28,15 +31,9 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        $config = DB::table('tconfiguracion')
-        ->select('iValor')
-        ->where('vConfiguracion','=','Periodo')
-        ->first();
+        
 
-        $presupuestos = Presupuesto::all()
-        ->where('anno', $config->iValor);
-
-        return view('partida/nuevaPartida', ['presupuestos' => $presupuestos, 'config' => $config]);
+        return view('partida/nuevaPartida');
     }
 
     /**
@@ -47,33 +44,17 @@ class PartidaController extends Controller
      */
     public function store(Request $request){
         try{
-            if($request->tPresupuesto_idPresupuesto == 0){
-                return Redirect::back()
-                ->withErrors(['error', 'Debe seleccionar un Presupuesto válido'])
-                ->withInput();
-            }
-             $config = DB::table('tconfiguracion')
-            ->select('iValor')
-            ->where('vConfiguracion','=','Periodo')
-            ->first();
-
-            $presupuestos = Presupuesto::all()
-            ->where('anno', $config->iValor);
 
             $partida = new Partida;
 
-            $partida->idPartida = $request->idPartida;
-            $partida->tPresupuesto_idPresupuesto = $request->tPresupuesto_idPresupuesto;
-            $partida->tPresupuesto_anno = $request->tPresupuesto_anno;
+            $partida->codPartida = $request->codPartida;
             $partida->vNombrePartida = $request->vNombrePartida;
-            $partida->iPresupuestoInicial = $request->iPresupuestoInicial;
-            $partida->iPresupuestoModificado = $request->iPresupuestoModificado;
-            $partida->gasto = 0;
-            $partida->saldo = $request->saldo;
+            $partida->vDescripcion = $request->vDescripcion;
+            
 
             $partida->save();
 
-            return view('/partida/partida');
+            return view('/partida/partida',['mensaje'=>true]);
         } catch(\Illuminate\Database\QueryException $ex){ 
             return view('/partida/nuevaPartida',
                 ['presupuestos' => $presupuestos,
@@ -90,12 +71,28 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
-        $partida = Partida::find($id);
-        $partida->calcularSaldo();
-        $presupuesto = $partida->presupuesto;
-        $coordinacion = $presupuesto->coordinacion;
 
-        return view('partida/verPartida', ['partida' => $partida, 'presupuesto' => $presupuesto,'coordinacion' => $coordinacion]);
+
+        $presupuesto_partida = Presupuesto_Partida::find($id);
+
+        $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
+
+        $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
+
+        $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+        $transacciones = Factura::all()
+        ->where('tPartida_idPartida',$presupuesto_partida->id);
+        $presupuesto_partida->presupuestoModificado();
+
+        $presupuesto_partida->calcularSaldo();
+        $presupuesto_partida->calcularGasto();
+
+        return view('partida/verPartida',['presupuesto_partida' => $presupuesto_partida,
+         'partida' => $partida,
+         'transacciones' => $transacciones,
+         'presupuesto' => $presupuesto,
+         'coordinacion' => $coordinacion]);
     }
 
     /**
@@ -107,16 +104,8 @@ class PartidaController extends Controller
     public function edit($id)
     {
         $partida = Partida::find($id);
-        
-        $config = DB::table('tconfiguracion')
-            ->select('iValor')
-            ->where('vConfiguracion','=','Periodo')
-            ->first();
        
-        $presupuestos = Presupuesto::all()
-        ->where('anno', $config->iValor);       
-
-        return view('partida/editarPartida', ['partida' => $partida, 'presupuestos' => $presupuestos]);
+        return view('partida/editarPartida', ['partida' => $partida,'mensaje'=>false]);
     }
 
     /**
@@ -129,37 +118,20 @@ class PartidaController extends Controller
     public function update(Request $request, $id)
     {
         try{
-            if($request->tPresupuesto_idPresupuesto == 0){
-                return Redirect::back()
-                ->withErrors(['error', 'Debe seleccionar un Presupuesto válido'])
-                ->withInput();
-            }
-             $config = DB::table('tconfiguracion')
-            ->select('iValor')
-            ->where('vConfiguracion','=','Periodo')
-            ->first();
-
-            $presupuestos = Presupuesto::all()
-            ->where('anno', $config->iValor);
 
             $partida = Partida::find($id);
 
-            $partida->idPartida = $request->idPartida;
-            $partida->tPresupuesto_idPresupuesto = $request->tPresupuesto_idPresupuesto;
-            $partida->tPresupuesto_anno = $request->tPresupuesto_anno;
+            $partida->codPartida = $request->codPartida;
             $partida->vNombrePartida = $request->vNombrePartida;
-            $partida->iPresupuestoInicial = $request->iPresupuestoInicial;
-            $partida->iPresupuestoModificado = $request->iPresupuestoModificado ;
-
-
+            $partida->vDescripcion = $request->vDescripcion;
+            
             $partida->save();
 
-            return view('/partida/partida');
+            return view('partida/editarPartida', ['partida' => $partida,'mensaje'=>"false"]);
         } catch(\Illuminate\Database\QueryException $ex){ 
-            return view('/partida/$id/edit',
-                ['presupuestos' => $presupuestos,
-                'partida' => $partida])
-                ->withErrors(['error', 'Error al insertar, ya existe una partida con ese identificador']);
+            return Redirect::back()
+            ->withErrors(['errors'=> 'Error al editar los datos de la partida']);
+        
 
         }
     }
@@ -172,8 +144,86 @@ class PartidaController extends Controller
      */
     public function destroy($id)
     {   
-        $partida  = Partida::where('idPartida', '=', $id)->delete();
+        try{
+            $partida = Partida::find($id);
+            $partida->forceDelete();
 
-        return view('partida/partida', ['partida' => $partida]);
+            return view('partida/partida', ['partida' => $partida,'mensaje'=>false]);
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            $partida = Partida::find($id);
+
+        return Redirect::back()
+            ->withErrors(['errors'=> 'El partida esta asignada a un presupuesto']);
+        
+        }
+
     }
+
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function agregarPartida($id)
+    {   
+        try{
+
+            $presupuesto = Presupuesto::find($id);
+            $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+            $partida = Partida::all();
+
+            return view('presupuesto/agregarPresupuestoPartida',
+                ['partida' => $partida,
+                'coordinacion' => $coordinacion,
+                'presupuesto' => $presupuesto, 
+                'mensaje'=>null]);
+
+        } catch(\Illuminate\Database\QueryException $ex){ 
+
+        return Redirect::back()
+            ->withErrors(['errors'=> 'Error al agregar la partida   ']);
+        
+        }
+
+    }
+
+        public function asignarPartida($id, Request $request)
+    {   
+        try{
+            $presupuesto_partida = new Presupuesto_Partida;
+
+            $presupuesto_partida->tPresupuesto_idPresupuesto = $id;
+            $presupuesto_partida->tPartida_idPartida = $request->tPartida_idPartida;
+            $presupuesto_partida->iPresupuestoInicial = $request->iPresupuestoInicial;
+            $presupuesto_partida->iPresupuestoModificado = $request->iPresupuestoInicial;
+            $presupuesto_partida->presupuestoModificado();
+            $presupuesto_partida->calcularSaldo();
+            $presupuesto_partida->calcularGasto();
+            $presupuesto_partida->save();
+
+            $presupuesto = Presupuesto::find($id);
+            $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+            $partida = Partida::all();
+
+            return view('presupuesto/agregarPresupuestoPartida',
+                ['partida' => $partida,
+                'coordinacion' => $coordinacion,
+                'presupuesto' => $presupuesto, 
+                'mensaje'=>false]);
+
+        } catch(\Illuminate\Database\QueryException $ex){ 
+
+        return Redirect::back()
+            ->withErrors(['errors'=> 'El partida esta asignada a un presupuesto']);
+        
+        }
+
+    }
+
+
+
 }

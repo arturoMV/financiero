@@ -21,7 +21,7 @@
         <div class="form-group">
             <label class="col-md-4 control-label">Email</label>
             <div class="col-md-4">
-                <input type="email" class="col-md-2 form-control" name="email" value="<% old('email') %>">
+                <input type="email" class="col-md-2 form-control" name="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@ucr.ac.cr"value="<% old('email') %>" title="El email debe ser del dominio @ucr.ac.cr">
             </div>
         </div>
 

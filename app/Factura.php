@@ -12,13 +12,13 @@ class Factura extends Model
     public $timestamps = true;
     protected $dates = ['deleted_at'];
 
-    public function presupuesto()
+    public function presupuestoPartida()
     {
-    	return $this->belongsTo('App\Presupuesto');
+    	return $this->belongsTo('App\Presupuesto','tPartida_idPartida','id');
     }
 
-    public function factura()
+    public function facturaDetalle()
     {
-    	return $this->hasMany('App\Factura');
+    	return $this->hasMany('App\Factura_Detalle','idFactura', 'tFactura_idFactura');
     }
 }

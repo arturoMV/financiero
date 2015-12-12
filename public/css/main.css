@@ -23,7 +23,9 @@ header{
 	color: #FFF;
 }
 
-
+textarea{
+	resize:none;
+}
 section{
 	min-height: 350px;
 }

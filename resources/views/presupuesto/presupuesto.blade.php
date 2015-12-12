@@ -28,8 +28,8 @@
 						<th></th>
 					</tr>
 					<tr ng-repeat="presupuesto in modelPr | filter : search | orderBy : myOrder track by $index">
-						<td>{{presupuesto.tCoordinacion_idCoordinacion}}-{{presupuesto.anno}}</td>
-						<td>{{presupuesto.vNombrePresupuesto}}</td>
+						<td>{{presupuesto.tCoordinacion_idCoordinacion}}-{{presupuesto.vNombreCoordinacion}}</td>
+						<td>{{presupuesto.vNombrePresupuesto}}-{{presupuesto.anno}}</td>
 						<td>
 							<a href="/financiero/public/presupuesto/{{presupuesto.idPresupuesto}}"  class="btn btn-info" title="">Ver</a>
 						</td>

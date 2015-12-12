@@ -55,7 +55,7 @@ class UsuarioController extends Controller
              $count++;
         }
 
-        return $id;
+        return view('/usuario/usuario',['mensaje'=> 'Nuevo rol de usuario creado']);
     }
 
     /**

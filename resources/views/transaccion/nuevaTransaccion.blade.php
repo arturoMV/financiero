@@ -11,14 +11,34 @@ class="active"
 
 <section class="container-fluid">
   <br>
+  @if (count($errors) > 0)
+    <div class="alert alert-danger col-md-6">
+        <strong>Oops!</strong> Error en la transaccion<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li><% $error %></li>
+            @endforeach
+        </ul>
+    </div> 
+    @endif
   <form class="col-md-10 col-md-offset-1 alert bg-info container-fluid table-responsive form-horizontal" method="post" action="/financiero/public/transaccion" >
-    <br>
     {!!csrf_field()!!}
+    <div class="col-md-12">
+      <h4>
+        Unidad Ejecutora: <small><%$coordinacion->vNombreCoordinacion%></small><br><br>
+        Presupuesto: <small><%$presupuesto->vNombrePresupuesto%>-<%$presupuesto->anno%></small><br><br>
+
+      </h4>
+    </div>
+
+    <input type="hidden" name="iSaldo" value="<%$presupuesto_partida->iSaldo%>">
+    <input type="hidden" name="tPartida_idPartida" value="<%$presupuesto_partida->id%>">
+
     <div class="container-fluid col-md-7 ">
       <div class="form-group">
         <label class="col-md-6 control-label">Partida:</label>
         <div class="col-md-6">
-          <input type="text"  class="form-control" readonly  name="tPartida_idPartida" required value="<%$partida->idPartida%>">
+          <input type="text"  class="form-control" readonly  name="tPartida_idPartidas" required value="<%$partida->codPartida%>">
         </div>      
       </div >
 
@@ -37,39 +57,36 @@ class="active"
             <option value="Otros">Otros</option>
           </select>
         </div>
-
       </div>
     </div>
 
     <div class="container-fluid col-md-5">
-
-      <div class="form-group text-left">
-        <label class="col-md-5 control-label"># de Factura:</label>
-        <div class="col-md-7">
-          <input type="text"  class="form-control" readonly value="<%$numFactura%>">
-        </div>
-      </div >
-
-      <div class="form-group">
+  <div class="form-group">
         <label class="col-md-5 control-label">Fecha:</label>
         <div class="col-md-7">
           <input type="date"  class="form-control" name="dFechaFactura" required> 
         </div>
       </div>
 
+
+      <div class="form-group text-left">
+        <label class="col-md-6 control-label">Num. Documento:</label>
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="vDocumento" value="No Aplica">
+        </div>
+      </div >
     </div>
-    <div class="form-group">
+<div class="form-group">
         <label class="col-md-3 control-label">Descripcion:</label>
         <div class="col-md-8">
-          <input type="text" name="vDescripcion" class="form-control">
+          <textarea name="vDescripcionFactura" class="form-control" rows="2"></textarea> 
         </div>
       </div>
-
-
     <div class="container-fluid table-responsive"  ng-controller="facturaTemplate">
+          <input type="number" name="iMontoFactura" hidden value="{{calcularFactura()}}">
+
 
         <table  class="table table-condensed text-center">
-
           <thead>
             <tr>
               <th class="col-md-1 text-center">#</th>
@@ -77,12 +94,11 @@ class="active"
               <th class="col-md-3 text-center">Monto</th>
               <th class="col-md-1 text-center">Cantidad</th>
               <th class="col-md-3 text-center">Total</th>
-
             </tr>
           </thead>
           <tbody id="factura">
             <tr ng-repeat="x in factura">
-              <td>{{$index+1}}<input type="number" name="linea{{$index+1}}" hidden value="{{$index+1}}" placeholder=""></td>
+              <td>{{$index+1}}</td>
               <td><input type="text" name="detalle{{$index+1}}" value="{{x.detalle}}" required class="form-control"></td>
               <td>
                 <div class="input-group">
@@ -99,19 +115,20 @@ class="active"
             </tr> 
             <tr>
               <td></td>
-              <td></td>
-              <td></td>
+              <th class="text-right">Saldo Disponible:</th>
+              <td >{{<%$presupuesto_partida->iSaldo%> | currency:"₡":0  }}
+              </td>
               <th class="text-right">Total:</th>
               <td >{{calcularFactura()| currency:"₡":0}}</td>
-              <input type="number" name="iMontoFactura" hidden value="{{calcularFactura()}}" placeholder="">
-
             </tr>
-
+          </tbody>
           </table>
+
           <div class="form-group">
             <input type="submit" value="Agregar"  class="btn btn-primary pull-right">
           </div>
         </form>
+
         <button class="btn btn-primary btn-xs" ng-click="agregarFila()">+</button>
 
       </div>

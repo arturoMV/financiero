@@ -17,7 +17,7 @@ trait ResetsPasswords
      */
     public function getEmail()
     {
-        return view('auth.password');
+        return view('auth.password', ['status' => null]);
     }
 
     /**
@@ -36,10 +36,10 @@ trait ResetsPasswords
 
         switch ($response) {
             case Password::RESET_LINK_SENT:
-                return redirect()->back()->with('status', trans($response));
+                return view('auth/password',['status' => 'Se envio un correo para reestablecer su contraseña']);
 
             case Password::INVALID_USER:
-                return redirect()->back()->withErrors(['email' => trans($response)]);
+                return redirect()->back()->withErrors(['email' => 'Ese correro no pretenece a nuestors usuarios']);
         }
     }
 

@@ -12,13 +12,16 @@ class="active"
     <form class="col-md-10 form-horizontal" action="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>/put" 
       method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">    
-
-      <div class="form-group">
-        <label class="col-md-4 control-label">ID Presupuesto</label>
-        <div class="col-md-6">
-          <input type="text" class="form-control" name="idPresupuesto" value="<%$presupuesto->idPresupuesto%>" readonly placeholder="ID de Presupuesto">
-        </div>
-      </div>
+      @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <strong>Oops!</strong> Error al eliminar<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li><% $error %></li>
+            @endforeach
+        </ul>
+    </div> 
+    @endif  
 
       <div class="form-group">
       <label class="col-md-4 control-label">Año</label>

@@ -25,7 +25,7 @@
 			<table class="table table-striped table-hover">
 				<tbody>
 					<tr >
-						<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">ID Coordinacon</th>
+						<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">Unidad Ejecutora</th>
 						<th ng-click="orderTable('vNombreCoordinacion')" style="cursor:pointer;">Nombre</th>
 					</tr>
 					<tr ng-repeat="coordinacion in modelC | filter : search | orderBy : myOrder track by $index">

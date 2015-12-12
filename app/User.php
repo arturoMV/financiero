@@ -63,7 +63,7 @@ class User extends Model implements AuthenticatableContract,
             ->join('trol', 'tusuario.trol_idRol', '=', 'trol.idRol')
             ->join('trol_tiene_tpermiso', 'trol_tiene_tpermiso.trol_idRol', '=', 'trol.idRol')
             ->join('tpermiso', 'trol_tiene_tpermiso.tpermiso_idPermiso', '=', 'tpermiso.idPermiso')
-            ->select('tPermiso.nombrePermiso')
+            ->select('tpermiso.nombrePermiso')
             ->where('tusuario.id',"=", $id)
             ->get();
 

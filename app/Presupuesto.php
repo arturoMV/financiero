@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Presupuesto extends Model
 {
@@ -21,6 +22,54 @@ class Presupuesto extends Model
 
     public function partidas()
     {
-    	return $this->hasMany('App\Partida', 'tPresupuesto_idPresupuesto', 'idPresupuesto');
+    	return $this->hasMany('App\Presupuesto_Partida', 'tPresupuesto_idPresupuesto', 'idPresupuesto');
+    }
+
+    public function calcularPresupuestoInicial(){
+        $presupuesto = DB::table('tpresupuesto_tpartida')
+                    ->where('tPresupuesto_idPresupuesto','=', $this->idPresupuesto)
+                    ->sum('iPresupuestoInicial');
+        $this->iPresupuestoInicial = $presupuesto;
+        $this->save();
+    }
+
+    public function calcularPresupuestoModificado(){
+        $presupuesto = DB::table('tpresupuesto_tpartida')
+                    ->where('tPresupuesto_idPresupuesto','=', $this->idPresupuesto)
+                    ->sum('iPresupuestoModificado');
+        $this->iPresupuestoModificado = $presupuesto;
+        $this->save();
+    }
+    public function calcularSaldo(){
+        $this->iSaldo = $this->iPresupuestoModificado - $this->iGasto;
+        $this->save();
+    }
+
+    public function calcularGasto(){      
+      $gasto = DB::table('tpresupuesto_tpartida')
+        ->where('tPresupuesto_idPresupuesto','=', $this->idPresupuesto)
+        ->sum('iGasto');
+
+        $this->iGasto = $gasto ;
+        $this->save();
+    }
+
+    public function calcularSaldoPorcentaje(){
+        if($this->iPresupuestoModificado == 0)
+            return 0;
+        $porcentajeSaldo = ($this->iSaldo/$this->iPresupuestoModificado)*100;
+        return $porcentajeSaldo;
+    }
+
+    public function calcularGastoPorcentaje(){
+        if($this->iPresupuestoModificado == 0)
+            return 0;
+        $porcentajeGasto = ($this->iGasto/$this->iPresupuestoModificado)*100;
+        return $porcentajeGasto;
+    }
+
+    public function presupuestoModificado(){
+        $this->iPresupuestoModificado = $this->iPresupuestoInicial;
+        $this->save();
     }
 }

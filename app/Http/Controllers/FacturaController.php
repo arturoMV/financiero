@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Partida;
 use App\Factura;
+use App\Presupuesto_Partida;
+use App\Presupuesto;
+use App\Coordinacion;
+use App\Factura_Detalle;
 use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -28,7 +32,18 @@ class FacturaController extends Controller
      */
     public function create($id)
     {
-        $partida = Partida::find($id);
+        $presupuesto_partida = Presupuesto_Partida::find($id);
+
+        $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
+        
+        $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
+      //  return dd($presupuesto);
+        $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+
+        $presupuesto_partida->calcularSaldo();
+        $presupuesto_partida->calcularGasto();
+        $presupuesto_partida->presupuestoModificado();
 
         $numFactura = DB::table('tfactura')
         ->max('idFactura');
@@ -39,7 +54,12 @@ class FacturaController extends Controller
             $numFactura++;
         }
 
-        return view('factura',['partida'=>$partida,'numFactura' =>$numFactura]);
+        return view('transaccion/nuevaTransaccion',
+            ['presupuesto_partida'=>$presupuesto_partida,
+            'partida'=>$partida,
+            'presupuesto'=>$presupuesto,
+            'coordinacion'=>$coordinacion,
+            'numFactura' =>$numFactura]);
         
     }
 
@@ -50,16 +70,27 @@ class FacturaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        if($request->iMontoFactura==0){
+            return redirect()->back()->withErrors('No se puede agregar una transaccion sin monto');
+        }else if($request->iSaldo<$request->iMontoFactura){
+            return redirect()->back()->withErrors('El monto de la transaccion no puede ser mayor al saldo disponible de la partida');
+        }
 
-        $facturaid = DB::table('tfactura')->insertGetId([
-            'tPartida_idPartida' => $request->tPartida_idPartida,
-            'vTipoFactura' => $request->vTipoFactura,
-            'dFechaFactura' => $request->dFechaFactura,
-            'vDescripcionFactura' => $request->vDescripcionFactura,
-            'iMontoFactura' => $request->iMontoFactura
-            ]);
+        $factura = new Factura;
+
+        $factura->tPartida_idPartida = $request->tPartida_idPartida;
+        $factura->vTipoFactura = $request->vTipoFactura;
+        $factura->vDocumento = $request->vDocumento;        
+        $factura->dFechaFactura = $request->dFechaFactura;
+        $factura->vDescripcionFactura = $request->vDescripcionFactura;
+        $factura->iMontoFactura = $request->iMontoFactura;
+
+        $factura->save();
+
        
+        $facturaid = $factura->idFactura;
+
         $input= $request->all();
         $count = 0;
         $linea = 0;
@@ -71,7 +102,7 @@ class FacturaController extends Controller
         $salida = "";
 
         foreach($input as $in){
-            if($count > 6){
+            if($count > 8){
                 if($campo == 1){
                     $linea++;
                     $detalle = $in;
@@ -98,7 +129,8 @@ class FacturaController extends Controller
             }
             $count++;
         }
-        return 'correcto';
+
+        return $this->show($facturaid);
 
     }
 
@@ -110,20 +142,37 @@ class FacturaController extends Controller
      */
     public function show($id)
     {
+        try{
+            $factura = Factura::find($id);
 
-    $partida = Partida::find($id);
+            $detalles = DB::table('tfacturadetalle')
+            ->join('tfactura', 'idFactura','=','tFactura_idFactura')
+            ->select('iLinea','vDetalle','iPrecio','iCantidad','iTotalLinea')
+            ->where('tFactura_idFactura',$id)
+            ->get();
 
-    $numFactura = DB::table('tfactura')
-    ->max('idFactura');
+            $presupuesto_partida = Presupuesto_Partida::find($factura->tPartida_idPartida);
 
-    if($numFactura == null){
-        $ret  = 1;
-    }else{
-        $numFactura++;
-    }
+            $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
 
-    return view('factura',['partida'=>$partida,'numFactura' =>$numFactura]);
-        
+            $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
+
+            $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+        $presupuesto_partida->calcularSaldo();
+        $presupuesto_partida->calcularGasto();
+        $presupuesto_partida->presupuestoModificado();
+
+            return view('transaccion/verTransaccion',
+                ['factura'=>$factura,
+                'detalles'=>$detalles,
+                'presupuesto_partida'=>$presupuesto_partida,
+                'partida'=>$partida,
+                'presupuesto'=>$presupuesto,
+                'coordinacion'=>$coordinacion]); 
+        }catch(\Illuminate\Database\QueryException $ex){ 
+            return view('/transaccion/verTransaccion/');
+        }       
     }
 
     /**

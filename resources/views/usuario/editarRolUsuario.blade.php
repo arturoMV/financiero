@@ -16,35 +16,47 @@
   <!-- Contenido de editar rol Usuario -->
   <section>
     <div class="wrapper">
-      <div class=" col-md-7 form-horizontal" ng-model ="<% $count = 0 %>" >
+      <div class=" col-md-7 form-horizontal <% $count = 0 %>">
         <h3>Usuario seleccionado: <% $usuario->name %></h3>
         @foreach($rol as $rl)
        
         @if($rl->nombreRol == $rolU->nombreRol)
-        <div class="alert bg-success">
-          <h5>El Usuario <% $usuario->name %> tiene este rol asignado</h5>
+        <div class="panel panel-success">
           @else
-          <div class="alert bg-info">
+          <div class="panel panel-primary">
             @endif
-            <div class="form-group" ng-init="ver<% $count%> = false">
-              <label class="col-md-4 control-label">Rol:</label>
-              <p class="col-md-8 form-control-static"><%$rl->nombreRol%> 
+            <div class="panel-heading form-horizontal" style="height: 45px"  ng-init="ver<% $count%> = false">
+              <div ng-show="!ver<%$count%>">
+                <label class="pull-left control-label">Rol:
+                  <small><%$rl->nombreRol%> </small>
+                </label>
+                @if($rl->nombreRol == $rolU->nombreRol)
+                <label class="col-md-5 control-label">
+                  <small>Rol asignado al usuario</small>
+                </label> 
+                @endif
+              </div> 
               <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!ver<%$count%>"
-               ng-click="ver<%$count%> = true">Ver</button>
+               ng-click="ver<%$count%> = true">+</button>
               <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%>"
-              ng-click="ver<%$count%> = false">Ocultar</button>
-              </p> 
+              ng-click="ver<%$count%> = false">-</button>
+              
             </div >
-            <div ng-if="ver<%$count%>" class="animated if">
+            <div ng-if="ver<%$count %>" class="panel-body form-horizontal">  
               <div class="form-group">
+              <label class="col-md-4 control-label">Rol:</label>
+              <p class="col-md-8 form-control-static">
+                <%$rl->nombreRol%>
+                </p class="<% $count++ %>">
+            </div><div class="form-group">
               <label class="col-md-4 control-label">Permisos:</label>
               <p class="col-md-8 form-control-static">
                 @foreach($permisos as $permiso)
                 @if($rl->idRol == $permiso->idRol) 
-                <% $permiso->nombrePermiso %><br>
+                  <% $permiso->nombrePermiso %><br>
                 @endif
                 @endforeach
-                </p ng-model="<% $count++ %>">
+                </p class="<% $count++ %>">
             </div>
             
             
@@ -131,7 +143,7 @@
     </div>
 
     <!-- Ventana Modal de crear rol -->
-    <form  class="form-vertical" action="/financiero/public/usuario" method="post">
+    <form  class="form-vertical" action="/financiero/public/usuario/rol/<% $usuario->id %>" method="post">
       {!! csrf_field() !!}
       <div class="modal fade" id="crear" role="dialog">
         <div class="modal-dialog">

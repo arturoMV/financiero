@@ -16,9 +16,6 @@ use App\Partida;
 use App\User;
 
 
-Route::get('/algo', function () {
-abort(503);
-});
 
 Route::get('/', function () {
     return view('index');
@@ -33,21 +30,6 @@ Route::get('/home', function () {
 });
 
 
-// Route::get('/transaccion/{id}', function ($id) {
-//     $partida = Partida::find($id);
-
-//     $numFactura = DB::table('tfactura')
-//     ->max('idFactura');
-
-//     if($numFactura == null){
-//         $ret  = 1;
-//     }else{
-//         $numFactura++;
-//     }
-
-//     return view('factura',['partida'=>$partida,'numFactura' =>$numFactura]);
-// });
-
 Route::get('/about', function () {
     return view('about');
 });
@@ -55,7 +37,7 @@ Route::get('/about', function () {
 //rutas de configuracion del sistema
 Route::get('/configuracion', function(){
    
-   $config = DB::table('tConfiguracion')
+   $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vConfiguracion','=','Periodo')
     ->first();
@@ -79,6 +61,10 @@ Route::post('presupuesto/{presupuesto}/put', 'PresupuestoController@update');
 Route::resource('partida', 'PartidaController');
 Route::post('partida/{partida}/delete', 'PartidaController@destroy');
 Route::post('partida/{partida}/put', 'PartidaController@update');
+Route::get('partida/{id}/agregar', 'PartidaController@agregarPartida');
+Route::post('partida/{id}/agregar', 'PartidaController@asignarPartida');
+
+
 
 //Factura routes...
 Route::resource('transaccion', 'FacturaController');
@@ -90,6 +76,8 @@ Route::post('transaccion/{partida}/put', 'FacturaController@update');
 Route::resource('usuario', 'UsuarioController');
 Route::post('usuario/{usuario}/put', 'UsuarioController@update');
 Route::post('usuario/{usuario}/cambiar', 'UsuarioController@cambiarRol');
+Route::post('usuario/rol/{usuario}', 'UsuarioController@store');
+
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -111,26 +99,20 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 
 //angular model routes
 Route::get('/partidas', function () {
-    $config = DB::table('tConfiguracion')
+    $config = DB::table('tconfiguracion')
     ->select('iValor')
-    ->where('vConfiguracion','=','Periodo')
+    ->where('vconfiguracion','=','Periodo')
     ->first();
 
-    $calculos = Partida::all()
-    ->where('tPresupuesto_anno', $config->iValor);
-
-
-	$partidas = DB::table('tPartida')
-    ->join('tpresupuesto', 'idPresupuesto','=','tPresupuesto_idPresupuesto')
-    ->where('tPresupuesto_anno', $config->iValor)
+    $presupuestoPartida = DB::table('tpresupuesto_tpartida')
+    ->join('tpresupuesto', 'idPresupuesto', '=', 'tPresupuesto_idPresupuesto')
+    ->join('tpartida', 'idPartida', '=', 'tPartida_idPartida')
+    ->join('tCoordinacion', 'idCoordinacion', '=', 'tCoordinacion_idCoordinacion')
+    ->select('idCoordinacion','anno','vNombreCoordinacion','vNombrePresupuesto','codPartida','vNombrePartida','idPartida','id')
+    ->where('anno','=',$config->iValor)
     ->get();
     
-    foreach ($calculos as $calculo) {
-        $calculo->presupuestoModificado();
-        $calculo->calcularSaldo();
-    }
-
-    return $calculos;	
+    return $presupuestoPartida;	
 });	
 
 Route::get('/usuarios', function () {
@@ -144,7 +126,7 @@ Route::get('/coordinaciones', function () {
 });
 
 Route::get('/presupuestos', function () {
-    $config = DB::table('tConfiguracion')
+    $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vConfiguracion','=','Periodo')
     ->first();
@@ -152,12 +134,18 @@ Route::get('/presupuestos', function () {
 
 
     $partidas = DB::table('tpresupuesto')
+    ->join('tcoordinacion','tCoordinacion_idCoordinacion','=','idCoordinacion')
     ->where('anno','=',$config->iValor)
     ->get();
 
     return $partidas;   
 });
 
+
+Route::get('/coordinaciones', function () {
+    $coordinacion = Coordinacion::all(); 
+    return $coordinacion;    
+});
 
 //Modificacion de la sintaxis
 Blade::setContentTags('<%', '%>'); // for variables and all things Blade

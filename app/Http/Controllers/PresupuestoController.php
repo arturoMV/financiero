@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Coordinacion;
 use App\Presupuesto;
+use App\Presupuesto_Partida;
+use App\Partida;
 use Redirect;
 use DB;
 
@@ -91,9 +93,18 @@ class PresupuestoController extends Controller
     public function show($id)
     {   
         $presupuesto = Presupuesto::find($id);
- 
+        $presupuesto->calcularPresupuestoInicial();
+        $presupuesto->calcularPresupuestoModificado();
+        $presupuesto->calcularGasto();
+        $presupuesto->calcularSaldo();
+
+
+
         $partidas = $presupuesto->partidas;
 
+        foreach ($partidas as $partida) {
+            $partida->calcularSaldo();   
+        }
         $coordinacion = Presupuesto::find($id)->coordinacion;
         return view('/presupuesto/verPresupuesto',['presupuesto' => $presupuesto],['coordinacion' => $coordinacion, 'partidas' => $partidas]);
     }
@@ -163,15 +174,14 @@ class PresupuestoController extends Controller
         try{
             $presupuesto = Presupuesto::find($id);
 
-            $presupuesto->delete($id);
+            $presupuesto->forceDelete($id);
 
             return view('/presupuesto/presupuesto');
-}       catch (QueryException $e) {
-
+}       catch (\Illuminate\Database\QueryException $e) {
 
             return Redirect::back()
-            ->withErrors(['error', 'Error al eliminar'])
-            ->withInput();
+            ->withErrors(['errors'=> 'El presupuesto tiene partidas asignadas']);
+        
     }
     }
 }

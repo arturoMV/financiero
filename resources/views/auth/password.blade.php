@@ -14,14 +14,23 @@
             @endforeach
         </ul>
     </div> 
-    @endif  
+    @endif
+
+    @if (count($status) > 0)
+    <div class="alert alert-success">
+        <strong>Bien!</strong> <br><br>
+        <ul>
+            <li><% $status %></li>
+        </ul>
+    </div> 
+    @endif
     <form method="POST" class="form-horizontal" action="/financiero/public/password/email">
         {!! csrf_field() !!}
 
         <div class="form-group">
             <label class="col-md-4 control-label">Email</label>
             <div class="col-md-4">
-                <input type="email" class="col-md-2 form-control" name="email" value="<% old('email') %>">
+                <input type="email" class="col-md-2 form-control" name="email" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@ucr.ac.cr" title="El email debe ser del dominio @ucr.ac.cr" value="<% old('email') %>">
             </div>
         </div>
       

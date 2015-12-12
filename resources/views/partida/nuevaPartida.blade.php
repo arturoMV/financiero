@@ -20,67 +20,29 @@ class="active"
         </ul>
     </div> 
     @endif 
+
     <form action="/financiero/public/partida" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
-        <label class="col-md-4 control-label">ID Partida</label>
-        <div class="col-md-6">
-          <input type="number" class="form-control" name="idPartida" placeholder="ID de Partida" maxlength="7">
+        <label class="col-md-4 control-label">Codigo de Paritda</label>
+        <div class="col-md-4">
+          <input type="text" class="form-control" name="codPartida" required placeholder="0-00-00-00">
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-4 control-label">Coordinacion</label>
-        <div class="col-md-6">
-          <select name="tPresupuesto_idPresupuesto" class="form-control" required>
-            <option value="0">Selecione a que Presupuestpo pertenece la Partida</option>
-            @foreach($presupuestos as $presupuesto)
-              <option value="<% $presupuesto->idPresupuesto %>"><% $presupuesto->idPresupuesto %> - <% $presupuesto->vNombrePresupuesto %></option>
-            @endforeach
-          </select>
+        <label class="col-md-4 control-label">Nombre de Partida</label>
+        <div class="col-md-4">
+            <input type="text" class="form-control" name="vNombrePartida" required placeholder="Nombre que identifica el gasto">
         </div>
         </div>
       
         <div class="form-group">
-          <label class="col-md-4 control-label">Año</label>
+          <label class="col-md-4 control-label">Descripcion</label>
           <div class="col-md-6">
-            <input type="number" class="form-control" name="tPresupuesto_anno" value="<% $config->iValor %>" readonly maxlength="4">
+            <textarea class="form-control" rows="5" required name="vDescripcion"></textarea>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="col-md-4 control-label">Nombre de Partida</label>
-          <div class="col-md-6">
-            <input type="text" class="form-control"  name="vNombrePartida" placeholder="Nombre de la partida">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-md-4 control-label">Presupuesto Inicial</label>
-          <div class="col-md-6">
-            <input type="number" class="form-control" ng-model="saldo" name="iPresupuestoInicial" placeholder="Monto presupuestado">
-          </div>
-        </div>
-
-                <div class="form-group">
-          <label class="col-md-4 control-label">Presupuesto Modificado</label>
-          <div class="col-md-6">
-            <input type="number" class="form-control"  value="{{saldo}}" name="iPresupuestoModificado" placeholder="Cambios en el presupuestado" readonly>
-          </div>
-        </div>
-
-
-        <div class="form-group">
-          <label class="col-md-4 control-label">Gasto de la  Partida</label>
-          <div class="col-md-6">
-            <input type="number" class="form-control" name="gasto" placeholder="El gasto aumenta con las transacciones" readonly>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="col-md-4 control-label">Saldo de la Partida</label>
-          <div class="col-md-6">
-            <input type="number" class="form-control" name="saldo" value="{{saldo}}" readonly placeholder="El saldo se calcula con el gasto">
-          </div>
-        </div>
 
         <div class="form-group">
           <div class="col-md-4 col-md-offset-4">
