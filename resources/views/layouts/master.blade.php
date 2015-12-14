@@ -24,6 +24,8 @@
 	<script src="{!! asset('js/services/partidas.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/usuarioTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/usuarios.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/controllers/transferenciaTemplate.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/transferencia.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
 
 
@@ -77,6 +79,10 @@
 							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
 							<li @yield('partida')><a href="/financiero/public/partida" title="Partidas de Presupuesto">Partidas</a></li>
+							@endif
+
+							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Transferencia', Auth::user()->id))
+							<li @yield('transferencia')><a href="/financiero/public/transferencia" title="Acerca de">Transferencias</a></li>
 							@endif
 							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Administrar Usuarios', Auth::user()->id))

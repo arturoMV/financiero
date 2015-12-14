@@ -8,7 +8,7 @@ class="active"
 <section>
   <div class="wrapper col-md-10">
     <br>
-    @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id))
+    @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 
     @if (count($errors) > 0)
     <div class="alert alert-danger">

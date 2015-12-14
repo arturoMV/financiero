@@ -24,7 +24,7 @@
 					<tr >
 						<th ng-click="orderTable('name')" style="cursor:pointer;">Nombre</th>
 						<th ng-click="orderTable('email')" style="cursor:pointer;">Email</th>
-					
+						<th></th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -36,7 +36,10 @@
 							<a href="/financiero/public/usuario/{{usuario.id}}"  class="btn btn-info" title="">Ver</a>
 						</td>
 						<td>
-							<a href="/financiero/public/usuario/{{usuario.id}}/edit" class="btn btn-warning" title="">Editar</a>
+							<a href="/financiero/public/usuario/{{usuario.id}}/edit" class="btn btn-warning" title="">Editar Rol</a>
+						</td>
+						<td>
+							<a href="/financiero/public/usuario/{{usuario.id}}/coordinacion" class="btn btn-warning" title="">Editar Coordinaciones</a>
 						</td>
 					</tr>
 				</tbody>

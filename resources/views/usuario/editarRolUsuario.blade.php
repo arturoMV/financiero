@@ -90,7 +90,7 @@
             </div> 
           </form>
 
-          <!-- Ventana Modal de edeitar permisos de rol -->
+          <!-- Ventana Modal de editar permisos de rol -->
           <form  class="form" action="/financiero/public/usuario/<% $rl->idRol %>/put" method="post">
             <div class="modal fade" id="editar<%$rl->idRol%>" role="dialog">
               <div class="modal-dialog">

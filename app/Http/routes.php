@@ -26,9 +26,9 @@ Route::get('/prueba', function () {
 });
 
 Route::get('/home', function () {
+
     return view('index');
 });
-
 
 Route::get('/about', function () {
     return view('about');
@@ -63,7 +63,15 @@ Route::post('partida/{partida}/delete', 'PartidaController@destroy');
 Route::post('partida/{partida}/put', 'PartidaController@update');
 Route::get('partida/{id}/agregar', 'PartidaController@agregarPartida');
 Route::post('partida/{id}/agregar', 'PartidaController@asignarPartida');
+Route::post('/transferencia/verificar', 'PartidaController@transferencia');
+Route::get('/transferencia/{transferencia}', 'PartidaController@verTransferencia');
 
+
+Route::get('/transferencia', function () {
+    return view('transferencia/transferencia');});
+
+Route::get('/create/transferencia', function () {
+    return view('transferencia/nuevaTransferencia');});
 
 
 //Factura routes...
@@ -77,6 +85,8 @@ Route::resource('usuario', 'UsuarioController');
 Route::post('usuario/{usuario}/put', 'UsuarioController@update');
 Route::post('usuario/{usuario}/cambiar', 'UsuarioController@cambiarRol');
 Route::post('usuario/rol/{usuario}', 'UsuarioController@store');
+Route::get('usuario/{usuario}/coordinacion', 'UsuarioController@editarCoordinacion');
+Route::post('usuario/{usuario}/coordinacion/put', 'UsuarioController@cambiarCoordinacion');
 
 
 // Authentication routes...
@@ -108,7 +118,11 @@ Route::get('/partidas', function () {
     ->join('tpresupuesto', 'idPresupuesto', '=', 'tPresupuesto_idPresupuesto')
     ->join('tpartida', 'idPartida', '=', 'tPartida_idPartida')
     ->join('tcoordinacion', 'idCoordinacion', '=', 'tCoordinacion_idCoordinacion')
-    ->select('idCoordinacion','anno','vNombreCoordinacion','vNombrePresupuesto','codPartida','vNombrePartida','idPartida','id')
+    ->join('tusuario_tcoordinacion','tCoordi_idCoordinacion', '=' , 'idCoordinacion')
+    ->select('idCoordinacion','anno','vNombreCoordinacion','vNombrePresupuesto','codPartida','vNombrePartida',
+    'idPartida','id','tPresupuesto_idPresupuesto','tpresupuesto_tpartida.iPresupuestoInicial',
+    'tpresupuesto_tpartida.iPresupuestoModificado','tpresupuesto_tpartida.iGasto', 'tpresupuesto_tpartida.iSaldo')
+    ->where('tUsuario_idUsuario', '=' , Auth::user()->id)
     ->where('anno','=',$config->iValor)
     ->get();
     
@@ -121,7 +135,10 @@ Route::get('/usuarios', function () {
 });
 
 Route::get('/coordinaciones', function () {
-    $coordinacion = Coordinacion::all(); 
+    $coordinacion = DB::table('tcoordinacion')
+    ->join('tusuario_tcoordinacion','tCoordi_idCoordinacion', '=' , 'idCoordinacion')
+    ->where('tUsuario_idUsuario', '=' , Auth::user()->id)
+    ->get(); 
     return $coordinacion;    
 });
 
@@ -133,19 +150,30 @@ Route::get('/presupuestos', function () {
 
 
 
-    $partidas = DB::table('tpresupuesto')
+    $presupuestos = DB::table('tpresupuesto')
     ->join('tcoordinacion','tCoordinacion_idCoordinacion','=','idCoordinacion')
+    ->join('tusuario_tcoordinacion','tCoordi_idCoordinacion', '=' , 'idCoordinacion')
+    ->where('tUsuario_idUsuario', '=' , Auth::user()->id)
     ->where('anno','=',$config->iValor)
     ->get();
 
-    return $partidas;   
+    return $presupuestos;   
+});
+
+Route::get('/transferencias', function (){
+    $transferencias = DB::table('ttranferencia_partida')
+    ->join('tpresupuesto_tpartida', 'tPresupuestoPartidaA', '=', 'id')
+    ->join('tpresupuesto', 'tPresupuesto_idPresupuesto', '=', 'idPresupuesto')
+    ->join('tpartida', 'tPartida_idPartida', '=', 'idPartida')
+    ->join('tcoordinacion', 'tCoordinacion_idCoordinacion', '=', 'idCoordinacion')
+    ->select('idTransferencia', 'vDocumento','iMontoTransferencia', 'idCoordinacion', 
+    'vNombreCoordinacion', 'vNombrePresupuesto', 'anno', 'codPartida')
+    ->get();
+
+    return $transferencias;
 });
 
 
-Route::get('/coordinaciones', function () {
-    $coordinacion = Coordinacion::all(); 
-    return $coordinacion;    
-});
 
 //Modificacion de la sintaxis
 Blade::setContentTags('<%', '%>'); // for variables and all things Blade

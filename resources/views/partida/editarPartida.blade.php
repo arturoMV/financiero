@@ -5,7 +5,7 @@ class="active"
 @endsection
 @section('content')
 @parent
-@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
+@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida')AND Auth::user())
 <section>
   <div class="wrapper">
     <br>

@@ -20,7 +20,8 @@ class="active"
     </ul>
   </div> 
   @endif
-  <div class="col-md-10 col-md-offset-1 panel panel-primary container-fluid table-responsive form-horizontal" method="post" action="/financiero/public/transaccion" >
+  <div class="col-md-11 container-fluid table-responsive form-horizontal">
+  <div class="panel panel-primary" method="post" action="/financiero/public/transaccion" >
     <div class="panel panel-heading">
       <label> Unidad Ejecutora: <small><%$coordinacion->vNombreCoordinacion%></small></label>
       <label> Presupuesto: <small><%$presupuesto->vNombrePresupuesto%>-<%$presupuesto->anno%></small></label>
@@ -61,12 +62,14 @@ class="active"
           </div>
         </div >
       </div>
+      @if($factura->vDescripcionFactura!="")
       <div class="form-group">
         <label class="col-md-3 control-label">Descripcion:</label>
         <div class="col-md-8">
-          <textarea name="vDescripcionFactura" class="form-control" rows="2" readonly><% $factura->vDescripcionFactura%></textarea> 
+          <textarea name="vDescripcionFactura" class="form-control" rows="2" readonly><% $factura->vDescripcionFactura%></textarea>
         </div>
       </div>
+      @endif
       <div class="container-fluid table-responsive">
         <table  class="table table-condensed text-center" ng-controller="facturaTemplate">
           <thead>
@@ -111,6 +114,7 @@ class="active"
         </div>
       </div>
     </div>
+  </div>
   </div>
 
 </section>

@@ -65,7 +65,18 @@ class Presupuesto_Partida extends Model
     }
 
     public function presupuestoModificado(){
-        $this->iPresupuestoModificado = $this->iPresupuestoInicial;
+
+
+        $transferenciasAumentar = DB::table('ttranferencia_partida')
+        ->where('tPresupuestoPartidaA',"=",$this->id)
+        ->sum('iMontoTransferencia');
+
+
+        $transferenciasDisminuir = DB::table('ttranferencia_partida')
+        ->where('tPresupuestoPartidaDe',"=",$this->id)
+        ->sum('iMontoTransferencia');
+
+        $this->iPresupuestoModificado = $this->iPresupuestoInicial + $transferenciasAumentar - $transferenciasDisminuir;
         $this->save();
     }
 }

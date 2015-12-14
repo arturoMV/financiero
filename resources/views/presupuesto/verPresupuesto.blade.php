@@ -6,7 +6,7 @@ class="active"
 @endsection
 @section('content')
 @parent
-@if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto', Auth::user()->id))
+@if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 <section>
   <div class="wrapper">
     <form class="col-md-12 form-horizontal" action="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>/edit" method="get"> 
@@ -112,7 +112,7 @@ class="active"
               <div class="alert alert-info col-md-1 col-md-offset-1">
                 Saldo: <%round( $partida->calcularSaldoPorcentaje(),2) %>%
               </div>
-              <a href="/financiero/public/partida/<%$partida->tPartida_idPartida%>" class="btn btn-info pull-right">Ver Más</a>
+              <a href="/financiero/public/partida/<%$partida->id%>" class="btn btn-info pull-right">Ver Más</a>
             </div>
           </div class="<%$count++%>">
           @endforeach

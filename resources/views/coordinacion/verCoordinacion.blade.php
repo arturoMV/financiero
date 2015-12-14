@@ -6,7 +6,7 @@
   @endsection
 	@section('content')
 	@parent
-    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion', Auth::user()->id))
+    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
   	<section>
   	<div class="wrapper">
         	<form class="col-md-7 form-horizontal" action="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>/edit" method="get"> 

@@ -8,7 +8,7 @@ class="active"
 <section>
   <div class="wrapper col-md-10">
     <br>
-    @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion', Auth::user()->id))
+    @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion'))
     <form action="/financiero/public/coordinacion" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">

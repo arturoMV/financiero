@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 @parent
-@if(Auth::user() AND Auth::user()->tienePermiso('Editar Coordinacion', Auth::user()->id))
+@if(Auth::user() AND Auth::user()->tienePermiso('Editar Coordinacion') AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 <section>
   <div class="wrapper col-md-10">
     <br>

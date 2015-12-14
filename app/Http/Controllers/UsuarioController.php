@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use DB;
 use Redirect;
+use App\Coordinacion;
 
 class UsuarioController extends Controller
 {
@@ -165,21 +166,51 @@ class UsuarioController extends Controller
     }
 
     public function cambiarConfig(Request $request){  
-
         $config  = $request->input('iValor');  
 
         DB::table('tConfiguracion')
         ->where('vConfiguracion', 'Periodo')
         ->update(['iValor' => $config]);
 
-
         $config = DB::table('tConfiguracion')
         ->select('iValor')
         ->where('vConfiguracion','=','Periodo')
         ->first();
+        return view('/config/config', ['config'=> $config, 'cambio'=>true]);
+    }
 
+    public function editarCoordinacion($id)
+    {   
+        $usuario = User::find($id);
 
-        return view('/config/config', ['config'=> $config, 'cambio'=>true]);     
-        
+        $coordinaciones = Coordinacion::all();
+
+        return view('usuario/editarUsuarioCoordinacion', 
+            ['usuario' => $usuario, 
+            'coordinaciones' => $coordinaciones,
+            'errors' => null]);
+    }
+
+    public function cambiarCoordinacion(Request $request, $id)
+    {   
+        $input = $request->all();
+        $count=0;
+        DB::table('tusuario_tcoordinacion')->where('tUsuario_idUsuario', '=', $id)->delete();
+        foreach ($input as $in) {
+             if($count>0){
+                DB::table('tusuario_tcoordinacion')->insert(
+                ['tUsuario_idUsuario' => $id , 'tCoordi_idCoordinacion' => $in]);
+             } 
+             $count++;     
+        }
+
+        $usuario = User::find($id);
+
+        $coordinaciones = Coordinacion::all();
+
+        return view('usuario/editarUsuarioCoordinacion', 
+            ['usuario' => $usuario, 
+            'coordinaciones' => $coordinaciones,
+            'errors' => 'Se realizaron cambios en las coordinaciones de este usuario']);
     }
 }

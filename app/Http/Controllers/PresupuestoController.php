@@ -98,12 +98,13 @@ class PresupuestoController extends Controller
         $presupuesto->calcularGasto();
         $presupuesto->calcularSaldo();
 
-
-
         $partidas = $presupuesto->partidas;
 
         foreach ($partidas as $partida) {
-            $partida->calcularSaldo();   
+            $partida->presupuestoModificado();
+            $partida->calcularSaldo();  
+            $partida->calcularSaldo();  
+
         }
         $coordinacion = Presupuesto::find($id)->coordinacion;
         return view('/presupuesto/verPresupuesto',['presupuesto' => $presupuesto],['coordinacion' => $coordinacion, 'partidas' => $partidas]);
@@ -177,11 +178,13 @@ class PresupuestoController extends Controller
             $presupuesto->forceDelete($id);
 
             return view('/presupuesto/presupuesto');
-}       catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Illuminate\Database\QueryException $e) {
 
             return Redirect::back()
             ->withErrors(['errors'=> 'El presupuesto tiene partidas asignadas']);
         
+        }
     }
-    }
+
+    
 }

@@ -9,7 +9,7 @@
 	@section('content')
 	@parent
 
-	@if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion', Auth::user()->id))
+	@if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion'))
 	<section class="container-fluid" ng-controller="coordinacionTemplate"><br>
 		<div class="container-fluid search-container form-horizontal">
 			<div class="container-fluid">

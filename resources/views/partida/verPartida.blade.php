@@ -6,7 +6,7 @@
   @endsection
   @section('content')
   @parent
-    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
+    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
     <section>
     <div class="wrapper">
       <form class="col-md-12 form-horizontal" action="/financiero/public/partida/<% $presupuesto_partida->id %>/edit" method="get">
@@ -89,7 +89,7 @@
         <div class="panel-heading" style="height:40px">
           <label ng-show="!ver<%$count%>" class="col-md-3 control-label">Num transacción: <small><% $transaccion->idFactura %></small></label>           
           <label ng-show="!ver<%$count%>" class="col-md-4 control-label">Tipo: <small><% $transaccion->vTipoFactura %></small></label>
-          <label ng-show="!ver<%$count%>" class="col-md-4 control-label">Monto: <small><% $transaccion->iMontoFactura %></small></label>
+          <label ng-show="!ver<%$count%>" class="col-md-4 control-label">Monto: <small>{{<% $transaccion->iMontoFactura %> | currency: "₡":0 }}</small></label>
           <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!ver<%$count%>"
             ng-click="ver<%$count%> = true">+</button>
             <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%>"

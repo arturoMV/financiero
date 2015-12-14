@@ -11,6 +11,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use DB;
+use Auth;
 
 use App\Rol;
 use App\Permiso;
@@ -57,14 +58,14 @@ class User extends Model implements AuthenticatableContract,
         }
     }
 
-    public function tienePermiso($validacion,$id){
+    public function tienePermiso($validacion){
       
        $resultado=DB::table('tusuario')
             ->join('trol', 'tusuario.trol_idRol', '=', 'trol.idRol')
             ->join('trol_tiene_tpermiso', 'trol_tiene_tpermiso.trol_idRol', '=', 'trol.idRol')
             ->join('tpermiso', 'trol_tiene_tpermiso.tpermiso_idPermiso', '=', 'tpermiso.idPermiso')
             ->select('tpermiso.nombrePermiso')
-            ->where('tusuario.id',"=", $id)
+            ->where('tusuario.id',"=", Auth::user()->id)
             ->get();
 
         foreach ($resultado as $permiso) {
@@ -72,5 +73,33 @@ class User extends Model implements AuthenticatableContract,
             return true;
          }
         }
+    }
+
+    public function tieneCoordinacion($coordinacion){
+      $resultado=DB::table('tusuario_tcoordinacion')
+            ->select('tCoordi_idCoordinacion')
+            ->where('tUsuario_idUsuario', '=', Auth::user()->id)
+            ->get();
+
+        foreach ($resultado as $permiso) {
+            if($permiso->tCoordi_idCoordinacion == $coordinacion){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function verificarCoordinacion($coordinacion, $id){
+      $resultado=DB::table('tusuario_tcoordinacion')
+            ->select('tCoordi_idCoordinacion')
+            ->where('tUsuario_idUsuario', '=', $id)
+            ->get();
+
+        foreach ($resultado as $permiso) {
+            if($permiso->tCoordi_idCoordinacion == $coordinacion){
+                return true;
+            }
+        }
+        return false;
     }
 }

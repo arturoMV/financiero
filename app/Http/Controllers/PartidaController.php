@@ -8,7 +8,10 @@ use App\Coordinacion;
 use App\Presupuesto;
 use App\Presupuesto_Partida;
 use App\Factura;
+use App\User;
 use Redirect;
+use Auth;
+use App\Transferencia;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -104,8 +107,9 @@ class PartidaController extends Controller
     public function edit($id)
     {
         $partida = Partida::find($id);
+
        
-        return view('partida/editarPartida', ['partida' => $partida,'mensaje'=>false]);
+        return view('partida/editarPartida', ['partida' => $partida,'mensaje'=>null]);
     }
 
     /**
@@ -175,7 +179,7 @@ class PartidaController extends Controller
 
             $partida = Partida::all();
 
-            return view('presupuesto/agregarPresupuestoPartida',
+            return view('partoda/agregarPresupuestoPartida',
                 ['partida' => $partida,
                 'coordinacion' => $coordinacion,
                 'presupuesto' => $presupuesto, 
@@ -190,7 +194,7 @@ class PartidaController extends Controller
 
     }
 
-        public function asignarPartida($id, Request $request)
+    public function asignarPartida($id, Request $request)
     {   
         try{
             $presupuesto_partida = new Presupuesto_Partida;
@@ -223,6 +227,118 @@ class PartidaController extends Controller
         }
 
     }
+
+    public function transferencia(Request $request)
+    {
+        try{
+            $presupuesto_partidaDe = Presupuesto_Partida::find($request->partidaDe);
+            $presupuesto_partidaA = Presupuesto_Partida::find($request->partidaA);
+            $usuario = Auth::user();
+               //  return dd($presupuesto_partidaDe);
+            if($presupuesto_partidaDe != null && $presupuesto_partidaA != null){
+                if ($request->iMontoTransferencia <= $presupuesto_partidaDe->iSaldo 
+                    && $request->iMontoTransferencia) {
+                    $transferencia = new Transferencia;
+                    $transferencia->tPresupuestoPartidaDe = $presupuesto_partidaDe->id;
+                    $transferencia->tPresupuestoPartidaA = $presupuesto_partidaA->id;
+                    $transferencia->vDocumento = $request->vDocumento;
+                    $transferencia->tUsuario_idUsuario = $usuario->id;
+                    $transferencia->iMontoTransferencia = $request->iMontoTransferencia;
+
+                    $transferencia->save();
+                    //return $transferencia->idTransferencia;
+
+
+                    $partidaDe = Partida::find($presupuesto_partidaDe->tPartida_idPartida);
+                    $presupuestoDe = Presupuesto::find($presupuesto_partidaDe->tPresupuesto_idPresupuesto);
+                    $coordinacionDe = Coordinacion::find($presupuestoDe->tCoordinacion_idCoordinacion);
+
+                    $partidaA = Partida::find($presupuesto_partidaA->tPartida_idPartida);
+                    $presupuestoA = Presupuesto::find($presupuesto_partidaA->tPresupuesto_idPresupuesto);
+                    $coordinacionA = Coordinacion::find($presupuestoA->tCoordinacion_idCoordinacion);
+
+                    $presupuesto_partidaDe->presupuestoModificado();
+                    $presupuesto_partidaDe->calcularSaldo();
+                    $presupuesto_partidaDe->calcularGasto();
+                    $presupuesto_partidaDe->save();
+
+                    $presupuesto_partidaA->presupuestoModificado();
+                    $presupuesto_partidaA->calcularSaldo();
+                    $presupuesto_partidaA->calcularGasto();
+                    $presupuesto_partidaA->save();
+
+
+                    return view('/transferencia/verTransferencia', ['presupuesto_partidaDe' => $presupuesto_partidaDe,
+                            'presupuesto_partidaA' => $presupuesto_partidaA, 
+                            'coordinacionDe' => $coordinacionDe, 
+                            'presupuestoDe' => $presupuestoDe, 
+                            'partidaDe' => $partidaDe, 
+                            'coordinacionA' => $coordinacionA,
+                            'presupuestoA' => $presupuestoA,
+                            'partidaA' => $partidaA,
+                            'transferencia' => $transferencia,
+                            'usuario' => $usuario]);
+                }else{
+                    return Redirect::back()
+                    ->withErrors(['errors'=> 'Verifique que el monto de transferencia sea menor o 
+                        igual al saldo de la partida de la cual esta realizando la transferencia']);
+                 }
+            } else {
+                return Redirect::back()
+                ->withErrors(['errors'=> 'Verifique que el monto de transferencia sea menor o 
+                    igual al saldo de la partida de la cual esta realizando la transferencia']);
+            }
+        }catch (\Illuminate\Database\QueryException $e) {
+            return Redirect::back()
+            ->withErrors(['errors'=> 'El presupuesto tiene partidas asignadas']);
+        }
+    }
+
+    public function verTransferencia($id)
+    {   
+       try{
+            $transferencia = Transferencia::find($id);
+            if($transferencia == null){
+                abort(404);
+            }
+            $presupuesto_partidaDe = Presupuesto_Partida::find($transferencia->tPresupuestoPartidaDe);
+            $presupuesto_partidaA = Presupuesto_Partida::find($transferencia->tPresupuestoPartidaA);
+            $usuario = User::find($transferencia->tUsuario_idUsuario);
+
+            $partidaDe = Partida::find($presupuesto_partidaDe->tPartida_idPartida);
+            $presupuestoDe = Presupuesto::find($presupuesto_partidaDe->tPresupuesto_idPresupuesto);
+            $coordinacionDe = Coordinacion::find($presupuestoDe->tCoordinacion_idCoordinacion);
+
+            $partidaA = Partida::find($presupuesto_partidaA->tPartida_idPartida);
+            $presupuestoA = Presupuesto::find($presupuesto_partidaA->tPresupuesto_idPresupuesto);
+            $coordinacionA = Coordinacion::find($presupuestoA->tCoordinacion_idCoordinacion);
+
+            $presupuesto_partidaDe->presupuestoModificado();
+            $presupuesto_partidaDe->calcularSaldo();
+            $presupuesto_partidaDe->calcularGasto();
+            $presupuesto_partidaDe->save();
+
+            $presupuesto_partidaA->presupuestoModificado();
+            $presupuesto_partidaA->calcularSaldo();
+            $presupuesto_partidaA->calcularGasto();
+            $presupuesto_partidaA->save();
+
+
+            return view('/transferencia/verTransferencia', ['presupuesto_partidaDe' => $presupuesto_partidaDe,
+                        'presupuesto_partidaA' => $presupuesto_partidaA, 
+                        'coordinacionDe' => $coordinacionDe, 
+                        'presupuestoDe' => $presupuestoDe, 
+                        'partidaDe' => $partidaDe, 
+                        'coordinacionA' => $coordinacionA,
+                        'presupuestoA' => $presupuestoA,
+                        'partidaA' => $partidaA,
+                        'transferencia' => $transferencia,
+                        'usuario' => $usuario]);
+
+    }catch(Exception $e){
+        //return abort(404);
+    }
+}
 
 
 
