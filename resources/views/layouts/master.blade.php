@@ -44,13 +44,13 @@
 		@endif
 	</div>
 	<header id="header" class="container-fluid">
+		
 		<div class="col-xs-12 col-md-6">
+			<a href="/financiero/public"><img src="/financiero/public/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
+		</div>
+		<div class="col-xs-12 col-md-6" style="text-align: right;">
 			<h1>Sistema de Financiero</h1>
 			<h3>Movimientos Presupuestarios</h3>
-		</div>
-		<div class="col-xs-12 col-md-6">
-			<a href="/financiero/public"><img src="/financiero/public/img/logo.png" alt="UCR" class="img-responsive"></a>
-			<h3>Sede del Pacifico</h3>
 		</div>
 	</header>
 @endif
@@ -122,7 +122,33 @@
 		@endif
 	</section>
 @if(true)
+<<<<<<< HEAD
 	<footer class="col-md-12 text-center container-fluid" >
+=======
+	<footer class="col-md-12 text-center container-fluid" style ="margin-top:50px;" >
+		<div class="col-md-8 col-md-offset-2">
+			<nav class="nav navbar-default">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#"></a>
+					</div>
+				</div>
+					<div id="navbar2"  class="navbar-collapse collapse">
+						<ul class="nav-justified">
+							<li><a href="/financiero/public/" title="index">Inicio</a></li>
+							<li><a href="/financiero/public/docs" title="presupuesto">Documentacion</a></li>
+							<li><a href="/financiero/public/map" title="partidas">Mapa del Sito</a></li>
+							<li><a href="/financiero/public/contact" title="about">Contactenos</a></li>
+						</ul>
+					</div>
+
+>>>>>>> 3c2bac17bb448236090c120542fa1d249b4ffa20
 			</nav>
 		</div>
 		<h5 class="col-md-8 col-md-offset-2 text-center"> © 2015 Oficina de Administración Financiera - Universidad de Costa Rica</h5>
