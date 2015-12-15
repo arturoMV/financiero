@@ -44,13 +44,13 @@
 		@endif
 	</div>
 	<header id="header" class="container-fluid">
+		
 		<div class="col-xs-12 col-md-6">
+			<a href="/financiero/public"><img src="/financiero/public/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
+		</div>
+		<div class="col-xs-12 col-md-6" style="text-align: right;">
 			<h1>Sistema de Financiero</h1>
 			<h3>Movimientos Presupuestarios</h3>
-		</div>
-		<div class="col-xs-12 col-md-6">
-			<a href="/financiero/public"><img src="/financiero/public/img/logo.png" alt="UCR" class="img-responsive"></a>
-			<h3>Sede del Pacifico</h3>
 		</div>
 	</header>
 @endif
@@ -122,7 +122,7 @@
 		@endif
 	</section>
 @if(true)
-	<footer class="col-md-12 text-center container-fluid" >
+	<footer class="col-md-12 text-center container-fluid" style ="margin-top:50px;" >
 		<div class="col-md-8 col-md-offset-2">
 			<nav class="nav navbar-default">
 				<div class="container-fluid">
