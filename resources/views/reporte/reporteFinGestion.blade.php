@@ -7,7 +7,7 @@
 
 <div class="col-md-12" >
 <br>
- 	<table class="table" ng-model="ver= true">
+ 	<table class="table table-bordered" ng-model="ver= true">
  	<button class="btn btn-lg btn-info" ng-init="ver=true" ng-click="ver = false" ng-if="ver" onclick="window.print()" >Informe de Gastos</button>
  		<h2><%$coordinacion->idCoordinacion%>-<%$coordinacion->vNombreCoordinacion%>
  			<small><%$presupuesto->vNombrePresupuesto%>-<%$presupuesto->anno%></small>

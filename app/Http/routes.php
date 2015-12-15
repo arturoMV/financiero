@@ -208,6 +208,11 @@ Route::get('/presupuestos', function () {
 });
 
 Route::get('/transferencias', function (){
+        $config = DB::table('tconfiguracion')
+    ->select('iValor')
+    ->where('vConfiguracion','=','Periodo')
+    ->first();
+    
     $transferencias = DB::table('ttranferencia_partida')
     ->join('tpresupuesto_tpartida', 'tPresupuestoPartidaA', '=', 'id')
     ->join('tpresupuesto', 'tPresupuesto_idPresupuesto', '=', 'idPresupuesto')
@@ -215,6 +220,7 @@ Route::get('/transferencias', function (){
     ->join('tcoordinacion', 'tCoordinacion_idCoordinacion', '=', 'idCoordinacion')
     ->select('idTransferencia', 'vDocumento','iMontoTransferencia', 'idCoordinacion', 
     'vNombreCoordinacion', 'vNombrePresupuesto', 'anno', 'codPartida')
+    ->where('anno','=',$config->iValor)
     ->get();
 
     return $transferencias;

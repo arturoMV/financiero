@@ -7,6 +7,7 @@ class="active"
 @endsection
 @section('content')
 <section class="contenido">
+	@if(Auth::user() AND Auth::user()->tienePermiso('Ver Transferencia'))
 	<div class="container-fluid">
 		<div class="col-md-12">
 			<h2>Detalles de la transferencia de Presupuesto</h2>
@@ -22,7 +23,9 @@ class="active"
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					Se transfirio de la partida
+					@if(Auth::user()->tieneCoordinacion($coordinacionDe->idCoordinacion))
 					<a href="/financiero/public/partida/<% $presupuesto_partidaDe->id%>" class="btn-xs btn-default pull-right" title="Ir a detalles de la Partida">Ver Partirda</a>
+					@endif
 				</div>
 				<div class="panel-body">
 					<div class="form-group col-md-12">
@@ -68,8 +71,9 @@ class="active"
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					Se transfirio a la Partida
-
+					@if(Auth::user()->tieneCoordinacion($coordinacionA->idCoordinacion))
 					<a href="/financiero/public/partida/<% $presupuesto_partidaA->id%>" class="btn-xs btn-default pull-right" title="Ir a detalles de la Partida">Ver Partirda</a>
+					@endif
 				</div>
 				<div class="panel-body">
 					<div class="form-group col-md-12">
@@ -108,6 +112,6 @@ class="active"
 			</div>
 		</div>
 	</div>
-
+@endif
 </section> 
 @endsection

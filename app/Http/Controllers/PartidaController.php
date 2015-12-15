@@ -114,7 +114,6 @@ class PartidaController extends Controller
     {
         $partida = Partida::find($id);
 
-       
         return view('partida/editarPartida', ['partida' => $partida,'mensaje'=>null]);
     }
 

@@ -5,7 +5,7 @@ class="active"
 @endsection
 @section('content')
 @parent
-@if(Auth::user() AND Auth::user()->tienePermiso('Editar Presupuesto')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
+@if(Auth::user() AND Auth::user()->tienePermiso('Editar Presupuesto'))
 <section>
   <div class="wrapper col-md-10">
     <br>
@@ -32,7 +32,7 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Coordinacion</label>
         <div class="col-md-6">
-          <select name="tCoordinacion_idCoordinacion" class="form-control" required>
+          <select name="tCoordinacion_idCoordinacion" readonlyclass="form-control" required>
             <option value="0">Selecione a que unidad pertenece el Presupuesto</option>
             @foreach($coordinaciones as $coordinacion)
               <option 
@@ -62,7 +62,7 @@ class="active"
          <div class="form-group">
           <label class="col-md-4 control-label">Presupuesto Modificado</label>
           <div class="col-md-6">
-            <input type="number" class="form-control"  value="<%$presupuesto->iPresupuestoInicial%>" name="iPresupuestoModificado" placeholder="Cambios en el presupuestado">
+            <input type="number" class="form-control" readonly value="<%$presupuesto->iPresupuestoInicial%>" name="iPresupuestoModificado" placeholder="Cambios en el presupuestado">
           </div>
         </div>
 

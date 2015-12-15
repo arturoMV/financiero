@@ -10,7 +10,7 @@ class="active"
 	 method="post">
 	 @if (count($errors) > 0)
     <div class="alert alert-success">
-        <strong>Bien!</strong> Error al eliminar<br><br>
+        <strong>Bien!</strong><br><br>
             <% $errors %>
      </div> 
     @endif

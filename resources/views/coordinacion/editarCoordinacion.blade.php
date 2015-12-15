@@ -8,6 +8,14 @@
 @if(Auth::user() AND Auth::user()->tienePermiso('Editar Coordinacion') AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 <section>
   <div class="wrapper col-md-10">
+  @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <strong>Ops!</strong>Error al modificar<br><br>
+            <ul>
+              <li>No se puede modiicar que tiene un presupuesto Asignado</li>
+            </ul>
+     </div> 
+    @endif
     <br>
     <form class="col-md-10 form-horizontal" action="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>/put" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">    

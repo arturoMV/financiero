@@ -110,7 +110,7 @@ class="active"
         </table>
 
         <div class="form-group">
-          <a href="/financiero/public/partida/<%$presupuesto_partida->id%>" class="btn btn-primary pull-right" >Voler a la Partida</a>
+          <a href="/financiero/public/partida/<%$presupuesto_partida->id%>" class="btn btn-primary pull-right" >Volver a la Partida</a>
         </div>
       </div>
     </div>

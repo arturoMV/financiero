@@ -113,7 +113,7 @@
 						<div class="form-group">
         					<label class="col-md-4 control-label">Monto de Transferencia</label>
         					<div class="col-md-5">
-          					<input type="number" class="form-control" required ng-model="x" name="iMontoTransferencia"  placeholder="Monto de Transferencia">
+          					<input type="number" min="0" class="form-control" required ng-model="x" name="iMontoTransferencia"  placeholder="Monto de Transferencia">
         					</div>
      					 {{x | currency: "₡":0}}
 

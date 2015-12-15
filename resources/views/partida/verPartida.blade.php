@@ -9,7 +9,7 @@
     @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
     <section>
     <div class="wrapper">
-      <form class="col-md-12 form-horizontal" action="/financiero/public/partida/<% $presupuesto_partida->id %>/edit" method="get">
+      <form class="col-md-12 form-horizontal" action="/financiero/public/partida/<% $partida->idPartida%>/edit" method="get">
         <h2>Detalles de la partida</h2>
 
       <div class="form-group">
@@ -90,9 +90,9 @@
       @foreach($transacciones as $transaccion)
       <div class="panel panel-primary" ng-init="vert<% $count%> = false">
         <div class="panel-heading" style="height:40px">
-          <label  class="col-md-3 control-label">Num transacción: <small><% $transaccion->idFactura %></small></label>           
+          <label  class="col-md-4 control-label">Num Documento: <small><% $transaccion->vDocumento %></small></label>           
           <label  class="col-md-4 control-label">Tipo: <small><% $transaccion->vTipoFactura %></small></label>
-          <label  class="col-md-4 control-label">Monto: <small>{{<% $transaccion->iMontoFactura %> | currency: "₡":0 }}</small></label>
+          <label  class="col-md-3 control-label">Monto: <small>{{<% $transaccion->iMontoFactura %> | currency: "₡":0 }}</small></label>
           <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!vert<%$count%>"
             ng-click="vert<%$count%> = true">+</button>
             <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="vert<%$count%>"

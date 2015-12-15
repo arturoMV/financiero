@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Coordinacion;
+use Redirect;
 class CoordinacionController extends Controller
 {
     /**
@@ -81,6 +82,7 @@ class CoordinacionController extends Controller
      */
     public function update(Request $request, $id)
     {        
+        try{
         $coordinacion = Coordinacion::find($id);
         $coordinacion->idCoordinacion= $request->input('idCoordinacion');
         $coordinacion->vNombreCoordinacion=$request->input('vNombreCoordinacion');
@@ -90,7 +92,11 @@ class CoordinacionController extends Controller
 
         $presupuestos = $coordinacion->presupuestos()->orderby('idPresupuesto')->get();
 
-        return view('/coordinacion/verCoordinacion',['coordinacion'=>$coordinacion],['presupuestos'=> $presupuestos]);    
+        return view('/coordinacion/verCoordinacion',['coordinacion'=>$coordinacion],['presupuestos'=> $presupuestos]);
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            return Redirect::back()
+            ->withErrors(['errors'=> 'Error al editar los datos de la partida']);
+        }    
     }
 
     /**
