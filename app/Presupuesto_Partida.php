@@ -105,4 +105,24 @@ class Presupuesto_Partida extends Model
                 ->sum('iMontoTransferencia');
         return $monto;
     }
+
+    public function getPresupuestoTransferencia($id){
+        $presupuesto = Presupuesto::find($id);
+        return $presupuesto;
+    }
+
+    public function getPresupuestoPartidaTransferencia($id){
+        $presupuesto = Presupuesto_Partida::find($id);
+        return $presupuesto;
+    }
+
+    public function getCoordinacionTransferencia($id){
+        $coordinacion = Coordinacion::find($id);
+        return $coordinacion;
+    }
+
+    public function getPartidaTransferencia($id){
+        $partida = Partida::find($id);
+        return $partida;
+    }
 }

@@ -123,28 +123,6 @@
 	</section>
 @if(true)
 	<footer class="col-md-12 text-center container-fluid" >
-		<div class="col-md-8 col-md-offset-2">
-			<nav class="nav navbar-default">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#"></a>
-					</div>
-				</div>
-					<div id="navbar2"  class="navbar-collapse collapse">
-						<ul class="nav-justified">
-							<li><a href="/financiero/public/" title="index">Inicio</a></li>
-							<li><a href="/financiero/public/docs" title="presupuesto">Documentacion</a></li>
-							<li><a href="/financiero/public/map" title="partidas">Mapa del Sito</a></li>
-							<li><a href="/financiero/public/contact" title="about">Contactenos</a></li>
-						</ul>
-					</div>
-
 			</nav>
 		</div>
 		<h5 class="col-md-8 col-md-offset-2 text-center"> © 2015 Oficina de Administración Financiera - Universidad de Costa Rica</h5>

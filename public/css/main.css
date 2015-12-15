@@ -13,6 +13,12 @@ body{
 {
 	margin-top: 3%;
 }
+.tabla {
+    white-space: nowrap;
+    max-width: none;
+    width: auto;
+}
+
 
 #header{
 	position: relative;

@@ -75,7 +75,6 @@ class PartidaController extends Controller
      */
     public function show($id){
 
-
         $presupuesto_partida = Presupuesto_Partida::find($id);
 
         $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
@@ -91,11 +90,18 @@ class PartidaController extends Controller
         $presupuesto_partida->calcularSaldo();
         $presupuesto_partida->calcularGasto();
 
+        $transferenciasA = Transferencia::all()->where('tPresupuestoPartidaA', $presupuesto_partida->id);
+        $transferenciasDe = Transferencia::all()->where('tPresupuestoPartidaDe', $presupuesto_partida->id);
+
+
+
         return view('partida/verPartida',['presupuesto_partida' => $presupuesto_partida,
          'partida' => $partida,
          'transacciones' => $transacciones,
          'presupuesto' => $presupuesto,
-         'coordinacion' => $coordinacion]);
+         'coordinacion' => $coordinacion,
+         'transferenciasA' => $transferenciasA,
+         'transferenciasDe' => $transferenciasDe]);
     }
 
     /**
