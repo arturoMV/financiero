@@ -10,6 +10,7 @@ class="active"
 <section>
   <div class="wrapper">
     <form class="col-md-12 form-horizontal" action="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>/edit" method="get"> 
+    <h2>Detalles del Presupuesto</h2>
       
       <div  class="form-group">
         <label class="col-md-4 control-label">Coordinacion:</label>
@@ -45,12 +46,16 @@ class="active"
                 Saldo: <%round( $presupuesto->calcularSaldoPorcentaje(),2) %>%
               </div>
 
-      <div class="col-md-7 form-group ">
+      <div class="col-md-12 form-group ">
         @if(Auth::user() AND Auth::user()->tienePermiso('Editar Presupuesto', Auth::user()->id))
         <input type="submit" name="" class="btn btn-warning" value="Editar">
         @endif
         @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id))
         <a href="/financiero/public/partida/<%$presupuesto->idPresupuesto%>/agregar" class="btn btn-primary">Agregar Partida</a>
+
+        <a href="/financiero/public/presupuesto/informe-gastos/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de Gastos</a>
+                <a href="/financiero/public/presupuesto/informe-fin-gestion/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de fin de Gestion</a>
+
         @endif
       </div> 
     </form>
@@ -66,8 +71,8 @@ class="active"
 
       <div class="panel panel-primary" ng-init="ver<% $count%> = false">
         <div class="panel-heading" style="height:40px">
-          <label ng-show="!ver<%$count%>" class="col-md-2 control-label">Partida: <small><% $p->codPartida %></small></label>           
-          <label ng-show="!ver<%$count%>" class="col-md-8 control-label">Nombre: <small><% $p->vNombrePartida %></small></label>
+          <label ng-show="!ver<%$count%>" class="col-md-4 control-label">Partida: <small><% $p->codPartida %></small></label>           
+          <label ng-show="!ver<%$count%>" class="col-md-6 control-label">Nombre: <small><% $p->vNombrePartida %></small></label>
           <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!ver<%$count%>"
             ng-click="ver<%$count%> = true">+</button>
             <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%>"
@@ -105,7 +110,7 @@ class="active"
                   <% round($partida->calcularSaldoPorcentaje(),2) %>%
                 </div>
               </div>
-              <div class="alert alert-warning col-md-1 col-md-offset-4">
+              <div class="alert alert-danger col-md-1 col-md-offset-4">
                 Gasto: <%round( $partida->calcularGastoPorcentaje(),2) %>% <br>
               </div>
 

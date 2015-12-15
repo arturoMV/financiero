@@ -12,6 +12,7 @@
 	@if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion'))
 	<section class="container-fluid" ng-controller="coordinacionTemplate"><br>
 		<div class="container-fluid search-container form-horizontal">
+		<h2>Lista de Unidades Ejecutoras</h2>
 			<div class="container-fluid">
 				<input type="text" id="coordinacionName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
 				@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion', Auth::user()->id))

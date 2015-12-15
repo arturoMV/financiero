@@ -73,7 +73,7 @@ class FacturaController extends Controller
     {   
         if($request->iMontoFactura==0){
             return redirect()->back()->withErrors('No se puede agregar una transaccion sin monto');
-        }else if($request->iSaldo<$request->iMontoFactura){
+        }else if($request->iSaldo<$request->iMontoFactura && $request->vTipoFactura == 'Pases anulacion'){
             return redirect()->back()->withErrors('El monto de la transaccion no puede ser mayor al saldo disponible de la partida');
         }
 

@@ -33,6 +33,7 @@
 
 </head>
 <body>
+@if(true)
 	<div class="container-fluid">
 		@if(Auth::user())
 		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br>
@@ -51,10 +52,11 @@
 			<a href="/financiero/public"><img src="/financiero/public/img/logo.png" alt="UCR" class="img-responsive"></a>
 			<h3>Sede del Pacifico</h3>
 		</div>
-	</header>	
+	</header>
+@endif
 	<section>
-		@if(Auth::user() AND Auth::user()->tienePermiso('Ver Menu', Auth::user()->id))
-		<aside class="col-md-3 container fluid text-center col-md-offset-0">
+		@if(Auth::user() AND Auth::user()->tienePermiso('Ver Menu') AND true)
+		<aside class="col-md-3 container fluid text-center col-md-offset-0" >
 			<nav class="nav navbar-default">
 				<div class="container-fluid">
 					<div class="navbar-header">
@@ -102,7 +104,7 @@
 
 		<div class="col-md-9">
 			@section('content')<br>
-				<div class="col-md-12">
+				<div class="col-md-12" ng-show="true">
     		  		<a href="<%URL::previous()%>" title="Volver" class="btn btn-info pull- left">Volver</a>  
    			 	</div>
    			 	<br><br>
@@ -110,8 +112,8 @@
 			</div>
 		@else
 		<div class=" col-md-10 col-md-offset-1">
-			@section('content')
-				<div class="col-md-12">
+			@section('content')<br>
+				<div class="col-md-12" ng-show="true">
     		  		<a href="<%URL::previous()%>" title="Volver" class="btn btn-info pull- left">Volver</a>  
    			 	</div>
    			@show
@@ -119,7 +121,7 @@
 		</div>
 		@endif
 	</section>
-
+@if(true)
 	<footer class="col-md-12 text-center container-fluid" >
 		<div class="col-md-8 col-md-offset-2">
 			<nav class="nav navbar-default">
@@ -147,6 +149,7 @@
 		</div>
 		<h5 class="col-md-8 col-md-offset-2 text-center"> © 2015 Oficina de Administración Financiera - Universidad de Costa Rica</h5>
 	</footer>
+@endif
 
 </body>
 </html>

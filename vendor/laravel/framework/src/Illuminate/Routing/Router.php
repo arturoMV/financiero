@@ -118,6 +118,10 @@ class Router implements RegistrarContract
         $this->events = $events;
         $this->routes = new RouteCollection;
         $this->container = $container ?: new Container;
+
+        $this->bind('_missing', function ($v) {
+            return explode('/', $v);
+        });
     }
 
     /**
@@ -723,7 +727,7 @@ class Router implements RegistrarContract
     /**
      * Resolve the middleware name to a class name preserving passed parameters.
      *
-     * @param $name
+     * @param  string  $name
      * @return string
      */
     public function resolveMiddlewareClassName($name)
@@ -928,7 +932,7 @@ class Router implements RegistrarContract
      * @param  \Closure|null  $callback
      * @return void
      *
-     * @throws NotFoundHttpException
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function model($key, $class, Closure $callback = null)
     {

@@ -79,4 +79,30 @@ class Presupuesto_Partida extends Model
         $this->iPresupuestoModificado = $this->iPresupuestoInicial + $transferenciasAumentar - $transferenciasDisminuir;
         $this->save();
     }
+
+    public function getPartida(){
+         return Partida::find($this->tPartida_idPartida);
+    }
+
+    public function getTransaccionPorTipo($tipo){
+        $monto = DB::table('tFactura')
+                ->where('vTipoFactura',$tipo)
+                ->where('tPartida_idPartida', $this->id)
+                ->sum('iMontoFactura');
+        return $monto;
+    }
+
+    public function getTransferenciasDe(){
+        $monto = DB::table('ttranferencia_partida')
+                ->where('tPresupuestoPartidaDe',$this->id)
+                ->sum('iMontoTransferencia');
+        return $monto;
+    }
+
+    public function getTransferenciasA(){
+         $monto = DB::table('ttranferencia_partida')
+                ->where('tPresupuestoPartidaA',$this->id)
+                ->sum('iMontoTransferencia');
+        return $monto;
+    }
 }

@@ -52,7 +52,7 @@ class="active"
             <option value="Solicitud GECO" >Solicitud GECO</option>
             <option value="Pases Adicionales" >Pases adicionales</option>
             <option value="Pases Anulacion" >Pases anulacion</option>
-            <option value="Requesicion" >Requesicion Paq. Basico</option>
+            <option value="Requisicion" >Requesicion Paq. Basico</option>
             <option value="Orden de servicio" >Ordenes de Servicio</option>
             <option value="Otros">Otros</option>
           </select>

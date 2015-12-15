@@ -14,6 +14,8 @@ use App\Coordinacion;
 use App\Presupuesto;
 use App\Partida;
 use App\User;
+use App\Presupuesto_Partida;
+use App\Factura;
 
 
 
@@ -72,6 +74,52 @@ Route::get('/transferencia', function () {
 
 Route::get('/create/transferencia', function () {
     return view('transferencia/nuevaTransferencia');});
+
+Route::get('/presupuesto/informe-gastos/{idPresupuesto}',function($idPresupuesto){
+    $config = DB::table('tconfiguracion')
+    ->select('iValor')
+    ->where('vconfiguracion','=','Periodo')
+    ->first();
+
+
+    $presupuesto = Presupuesto::find($idPresupuesto);
+
+    $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+    $presupuestoPartida = DB::table('tpresupuesto_tpartida')
+    ->join('tpresupuesto', 'idPresupuesto', '=', 'tPresupuesto_idPresupuesto')
+    ->join('tpartida', 'idPartida', '=', 'tPartida_idPartida')
+    ->join('tcoordinacion', 'idCoordinacion', '=', 'tCoordinacion_idCoordinacion')
+    ->join('tusuario_tcoordinacion','tCoordi_idCoordinacion', '=' , 'idCoordinacion')
+    ->select('codPartida','vNombrePartida','idPartida','id','tPresupuesto_idPresupuesto','tpresupuesto_tpartida.iPresupuestoInicial',
+    'tpresupuesto_tpartida.iPresupuestoModificado','tpresupuesto_tpartida.iGasto', 'tpresupuesto_tpartida.iSaldo')
+    ->where('tUsuario_idUsuario', '=' , Auth::user()->id)
+    ->where('idPresupuesto', '=', $idPresupuesto)
+    ->where('anno','=',$config->iValor)
+    ->orderBy('codPartida')
+    ->get();
+
+    return view('reporte/reporteGasto', ['presupuestoPartida' => $presupuestoPartida, 'coordinacion' => $coordinacion, 'presupuesto' => $presupuesto]);
+});
+
+Route::get('/presupuesto/informe-fin-gestion/{idPresupuesto}',function($idPresupuesto){
+    $config = DB::table('tconfiguracion')
+    ->select('iValor')
+    ->where('vconfiguracion','=','Periodo')
+    ->first();
+
+    $presupuesto = Presupuesto::find($idPresupuesto);
+
+    $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+    $presupuestoPartida = Presupuesto_Partida::all()->where('tPresupuesto_idPresupuesto', $presupuesto->idPresupuesto);
+    //  foreach ($presupuestoPartida as $key => $partida) {
+    //     $pardetalles = $partida->getPartida();
+    //     return $pardetalles->codPartida;
+    // }
+
+    return view('reporte/reporteFinGestion', ['presupuestoPartida' => $presupuestoPartida, 'coordinacion' => $coordinacion, 'presupuesto' => $presupuesto]);
+});
 
 
 //Factura routes...

@@ -10,7 +10,7 @@
     <section>
     <div class="wrapper">
       <form class="col-md-12 form-horizontal" action="/financiero/public/partida/<% $presupuesto_partida->id %>/edit" method="get">
-        
+        <h2>Detalles de la partida</h2>
 
       <div class="form-group">
         <label class="col-md-4 control-label">Unidad Ejecutora</label>
@@ -71,7 +71,7 @@
     <% round($presupuesto_partida->calcularSaldoPorcentaje(),2) %>%
   </div>
 </div>
-<div class="alert alert-warning col-md-1 col-md-offset-4">
+<div class="alert alert-danger col-md-1 col-md-offset-4">
   Gasto: <% round($presupuesto_partida->calcularGastoPorcentaje(),2) %>% <br>
 </div>
 
@@ -87,9 +87,9 @@
 
       <div class="panel panel-primary" ng-init="ver<% $count%> = false">
         <div class="panel-heading" style="height:40px">
-          <label ng-show="!ver<%$count%>" class="col-md-3 control-label">Num transacción: <small><% $transaccion->idFactura %></small></label>           
-          <label ng-show="!ver<%$count%>" class="col-md-4 control-label">Tipo: <small><% $transaccion->vTipoFactura %></small></label>
-          <label ng-show="!ver<%$count%>" class="col-md-4 control-label">Monto: <small>{{<% $transaccion->iMontoFactura %> | currency: "₡":0 }}</small></label>
+          <label  class="col-md-3 control-label">Num transacción: <small><% $transaccion->idFactura %></small></label>           
+          <label  class="col-md-4 control-label">Tipo: <small><% $transaccion->vTipoFactura %></small></label>
+          <label  class="col-md-4 control-label">Monto: <small>{{<% $transaccion->iMontoFactura %> | currency: "₡":0 }}</small></label>
           <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!ver<%$count%>"
             ng-click="ver<%$count%> = true">+</button>
             <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%>"

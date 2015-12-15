@@ -14,7 +14,7 @@ body{
 	margin-top: 3%;
 }
 
-header{
+#header{
 	position: relative;
 	background-color: #4483c7; 
 	background-image: -webkit-linear-gradient(#2e8dd5 0%, #5bbbeb 100%);
