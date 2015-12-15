@@ -94,11 +94,10 @@ Route::get('/presupuesto/informe-gastos/{idPresupuesto}',function($idPresupuesto
     ->select('codPartida','vNombrePartida','idPartida','id','tPresupuesto_idPresupuesto','tpresupuesto_tpartida.iPresupuestoInicial',
     'tpresupuesto_tpartida.iPresupuestoModificado','tpresupuesto_tpartida.iGasto', 'tpresupuesto_tpartida.iSaldo')
     ->where('tUsuario_idUsuario', '=' , Auth::user()->id)
-    ->where('idPresupuesto', '=', $idPresupuesto)
+    ->where('idPresupuesto', '=', $presupuesto->idPresupuesto)
     ->where('anno','=',$config->iValor)
     ->orderBy('codPartida')
     ->get();
-
     return view('reporte/reporteGasto', ['presupuestoPartida' => $presupuestoPartida, 'coordinacion' => $coordinacion, 'presupuesto' => $presupuesto]);
 });
 

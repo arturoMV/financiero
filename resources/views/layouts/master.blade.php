@@ -12,7 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="/financiero/public/css/main.css">
 
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"  type="text/javascript"></script>
+	<script src="/financiero/public/js/jquery-1.11.3.min.js"  type="text/javascript"></script>
 	<script src="/financiero/public/js/bootstrap.min.js"></script> 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
@@ -121,39 +121,10 @@
 		</div>
 		@endif
 	</section>
-@if(true)
-<<<<<<< HEAD
-	<footer class="col-md-12 text-center container-fluid" >
-=======
-	<footer class="col-md-12 text-center container-fluid" style ="margin-top:50px;" >
-		<div class="col-md-8 col-md-offset-2">
-			<nav class="nav navbar-default">
-				<div class="container-fluid">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar2" aria-expanded="false" aria-controls="navbar">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#"></a>
-					</div>
-				</div>
-					<div id="navbar2"  class="navbar-collapse collapse">
-						<ul class="nav-justified">
-							<li><a href="/financiero/public/" title="index">Inicio</a></li>
-							<li><a href="/financiero/public/docs" title="presupuesto">Documentacion</a></li>
-							<li><a href="/financiero/public/map" title="partidas">Mapa del Sito</a></li>
-							<li><a href="/financiero/public/contact" title="about">Contactenos</a></li>
-						</ul>
-					</div>
-
->>>>>>> 3c2bac17bb448236090c120542fa1d249b4ffa20
-			</nav>
-		</div>
+		<footer class="col-md-12 text-center container-fluid" >
 		<h5 class="col-md-8 col-md-offset-2 text-center"> © 2015 Oficina de Administración Financiera - Universidad de Costa Rica</h5>
 	</footer>
-@endif
+
 
 </body>
 </html>

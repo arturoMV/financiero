@@ -53,7 +53,7 @@ class="active"
 					<td>{{transferencia.vNombrePresupuesto}}-{{transferencia.anno}}</td>
 					<td>{{transferencia.codPartida}}</td>
 					<td>{{transferencia.vDocumento}}</td>
-					<td>{{transferencia.iMontoTransferencia | currency}}</td>
+					<td>{{transferencia.iMontoTransferencia | currency: "₡":0}}</td>
 
 					<td>
 						<a href="/financiero/public/transferencia/{{transferencia.idTransferencia}}"  class="btn btn-info" title="Ver detalles de la transferencia">Ver</a>

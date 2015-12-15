@@ -3,6 +3,7 @@
 
 
 @section('content')
+@if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 
 <div class="col-md-12" >
 <br>
@@ -78,5 +79,5 @@
  		</tbody>
  	</table>
  </div> 
-
+@endif
 @endsection

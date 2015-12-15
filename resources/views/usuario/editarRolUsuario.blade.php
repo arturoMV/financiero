@@ -1,9 +1,6 @@
 @extends('/layouts.master')
-<html>
-<head>
+
   @section('title', 'Partida')
-</head>
-<body>
   @section('admU')
   class="active"
   @endsection
@@ -191,5 +188,3 @@
   Debe estar autenticado y tener permisos para ver esta seccion
   @endif
   @endsection
-</body>
-</html>

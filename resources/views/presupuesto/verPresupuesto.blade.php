@@ -52,11 +52,11 @@ class="active"
         @endif
         @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id))
         <a href="/financiero/public/partida/<%$presupuesto->idPresupuesto%>/agregar" class="btn btn-primary">Agregar Partida</a>
-
-        <a href="/financiero/public/presupuesto/informe-gastos/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de Gastos</a>
-                <a href="/financiero/public/presupuesto/informe-fin-gestion/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de fin de Gestion</a>
-
         @endif
+        <a href="/financiero/public/presupuesto/informe-gastos/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de Gastos</a>
+        <a href="/financiero/public/presupuesto/informe-fin-gestion/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de fin de Gestion</a>
+
+        
       </div> 
     </form>
     <div class="col-md-12 <% $count = 0 %>">

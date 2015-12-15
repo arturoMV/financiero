@@ -85,7 +85,7 @@ class Presupuesto_Partida extends Model
     }
 
     public function getTransaccionPorTipo($tipo){
-        $monto = DB::table('tFactura')
+        $monto = DB::table('tfactura')
                 ->where('vTipoFactura',$tipo)
                 ->where('tPartida_idPartida', $this->id)
                 ->sum('iMontoFactura');

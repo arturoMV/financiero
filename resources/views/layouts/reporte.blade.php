@@ -12,7 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="/financiero/public/css/main.css">
 
 		<!-- Latest compiled and minified JavaScript -->
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"  type="text/javascript"></script>
+		<script src="/financiero/public/js/jquery-1.11.3.min.js"  type="text/javascript"></script>
 		<script src="/financiero/public/js/bootstrap.min.js"></script> 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 		<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>

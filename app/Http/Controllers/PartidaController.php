@@ -185,7 +185,7 @@ class PartidaController extends Controller
 
             $partida = Partida::all();
 
-            return view('partoda/agregarPresupuestoPartida',
+            return view('presupuesto/agregarPresupuestoPartida',
                 ['partida' => $partida,
                 'coordinacion' => $coordinacion,
                 'presupuesto' => $presupuesto, 

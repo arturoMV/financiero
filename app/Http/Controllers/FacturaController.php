@@ -73,10 +73,26 @@ class FacturaController extends Controller
     {   
         if($request->iMontoFactura==0){
             return redirect()->back()->withErrors('No se puede agregar una transaccion sin monto');
-        }else if($request->iSaldo<$request->iMontoFactura && $request->vTipoFactura == 'Pases anulacion'){
-            return redirect()->back()->withErrors('El monto de la transaccion no puede ser mayor al saldo disponible de la partida');
         }
 
+        if ($request->vTipoFactura != 'Pases Anulacion') {
+            if($request->iSaldo<=$request->iMontoFactura){
+                return redirect()->back()->withErrors('El monto de la transaccion no puede ser mayor al saldo disponible de la partida');
+            } 
+        }
+
+        $presu = Presupuesto_Partida::find($request->tPartida_idPartida);
+
+
+        if ($request->vTipoFactura == 'Pase Anulacion') {
+            if($request->iGasto <= $request->iMontoFactura){
+                return redirect()->back()->withErrors('El monto de la no puede ser mayor al monto del presupuesto');
+            } 
+        }
+
+        
+
+        
         $factura = new Factura;
 
         $factura->tPartida_idPartida = $request->tPartida_idPartida;
@@ -87,7 +103,6 @@ class FacturaController extends Controller
         $factura->iMontoFactura = $request->iMontoFactura;
 
         $factura->save();
-
        
         $facturaid = $factura->idFactura;
 
@@ -131,7 +146,7 @@ class FacturaController extends Controller
         }
 
         return $this->show($facturaid);
-
+        
     }
 
     /**
