@@ -206,14 +206,14 @@ Route::get('/presupuestos', function () {
 
     return $presupuestos;   
 });
-
+/*
 Route::get('/transferencias', function (){
         $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vConfiguracion','=','Periodo')
     ->first();
     
-    $transferencias = DB::table('ttranferencia_partida')
+    $transferenciarencias = DB::table('ttranferencia_partida')
     ->join('tpresupuesto_tpartida', 'tPresupuestoPartidaA', '=', 'id')
     ->join('tpresupuesto', 'tPresupuesto_idPresupuesto', '=', 'idPresupuesto')
     ->join('tpartida', 'tPartida_idPartida', '=', 'idPartida')
@@ -225,11 +225,68 @@ Route::get('/transferencias', function (){
 
     return $transferencias;
 });
+*/
+Route::get('/transferencias', function (){
+        $config = DB::table('tconfiguracion')
+    ->select('iValor')
+    ->where('vConfiguracion','=','Periodo')
+    ->first();
+   
+    $transferencias = DB::select('
+        SELECT * FROM
+        (
+        SELECT  `idTransferencia` as `codTransDe` ,  `vDocumento` as `docDe`,  `iMontoTransferencia` as `monTransDe`,  `idCoordinacion` as `idCoorDe`,  `vNombreCoordinacion` as `nomCoorDe`,  `vNombrePresupuesto` as `nomPresDe`,  `anno` as `annoDe`,  `codPartida` as `codParDe` 
+        FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
+        WHERE tPresupuestoPartidaDE = id
+        AND tPresupuesto_idPresupuesto = idPresupuesto
+        AND tPartida_idPartida = idPartida
+        AND tCoordinacion_idCoordinacion = idCoordinacion
+        AND anno = '.$config->iValor.'
+        )t1
+        LEFT JOIN
+        (
+        SELECT  `idTransferencia` as `codTransA` ,  `vDocumento` as `docA`,  `iMontoTransferencia` as `monTransA`,  `idCoordinacion` as `idCoorA`,  `vNombreCoordinacion` as `nomCoorA`,  `vNombrePresupuesto` as `nomPresA`,  `anno` as `annoA`,  `codPartida` as `codParA`
+        FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
+        WHERE tPresupuestoPartidaA = id
+        AND tPresupuesto_idPresupuesto = idPresupuesto
+        AND tPartida_idPartida = idPartida
+        AND tCoordinacion_idCoordinacion = idCoordinacion
+        AND anno = '.$config->iValor.'
+        )t2
+        ON t1.codTransDE = t2.codTransA
+        ');
 
+    return $transferencias;
+});
 
 
 //Modificacion de la sintaxis
 Blade::setContentTags('<%', '%>'); // for variables and all things Blade
 Blade::setEscapedContentTags('[[', ']]'); // for escaped data
 
+/*
 
+        SELECT * FROM
+        (
+        SELECT  `idTransferencia` as `codTransDe` ,  `vDocumento` as `docDe`,  `iMontoTransferencia` as `monTransDe`,  `idCoordinacion` as `idCoorDe`,  `vNombreCoordinacion` as `nomCoorDe`,  `vNombrePresupuesto` as `nomPresDe`,  `anno` as `annoDe`,  `codPartida` as `codParDe` 
+        FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
+        WHERE tPresupuestoPartidaDE = id
+        AND tPresupuesto_idPresupuesto = idPresupuesto
+        AND tPartida_idPartida = idPartida
+        AND tCoordinacion_idCoordinacion = idCoordinacion
+        )t1
+        LEFT JOIN
+        (
+        SELECT  `idTransferencia` as `codTransA` ,  `vDocumento` as `docA`,  `iMontoTransferencia` as `monTransA`,  `idCoordinacion` as `idCoorA`,  `vNombreCoordinacion` as `nomCoorA`,  `vNombrePresupuesto` as `nomPresA`,  `anno` as `annoA`,  `codPartida` as `codParA`
+        FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
+        WHERE tPresupuestoPartidaA = id
+        AND tPresupuesto_idPresupuesto = idPresupuesto
+        AND tPartida_idPartida = idPartida
+        AND tCoordinacion_idCoordinacion = idCoordinacion
+        )t2
+        ON t1.codTransDE = t2.codTransA
+        
+
+
+
+*/

@@ -36,11 +36,14 @@ class="active"
 		<table class="table table-striped table-hover">
 			<tbody>
 				<tr >
-					<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">Unidad Ejecutora</th>
-					<th ng-click="orderTable('vNombrePresupuesto')" style="cursor:pointer;">Presupuesto</th>
-					<th class="col-md-2" ng-click="orderTable('codPartida')" style="cursor:pointer;">Partida</th>
-					<th ng-click="orderTable('vDocumento')" style="cursor:pointer;">Documento de transferencia</th>
-					<th ng-click="orderTable('iMontotranseferencia')" style="cursor:pointer;">Monto Transferido</th>
+					<th ng-click="orderTable('idCoorDe')" style="cursor:pointer;">Und. Ejecutora Origen</th>
+					<th ng-click="orderTable('nomPresDe')" style="cursor:pointer;">Presupuesto Origen</th>
+					<th class="col-md-2" ng-click="orderTable('codParDe')" style="cursor:pointer;">Partida Origen</th>
+					<th ng-click="orderTable('idCoorA')" style="cursor:pointer;">Und. Ejecutora Destino</th>
+					<th ng-click="orderTable('nomPresA')" style="cursor:pointer;">Presupuesto Destino</th>
+					<th class="col-md-2" ng-click="orderTable('codParA')" style="cursor:pointer;">Partida Destino</th>
+					<th ng-click="orderTable('docDe')" style="cursor:pointer;">Documento de transferencia</th>
+					<th ng-click="orderTable('monTransDe')" style="cursor:pointer;">Monto Transferido</th>
 
 					<th></th>
 					@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
@@ -49,11 +52,14 @@ class="active"
 
 				</tr>
 				<tr ng-repeat="transferencia in modelT | filter : search | orderBy : myOrder track by $index">
-					<td>{{transferencia.idCoordinacion}}-{{transferencia.vNombreCoordinacion}} </td>
-					<td>{{transferencia.vNombrePresupuesto}}-{{transferencia.anno}}</td>
-					<td>{{transferencia.codPartida}}</td>
-					<td>{{transferencia.vDocumento}}</td>
-					<td>{{transferencia.iMontoTransferencia | currency: "₡":0}}</td>
+					<td>{{transferencia.idCoorDe}}-{{transferencia.nomCoorDe}} </td>
+					<td>{{transferencia.nomPresDe}}-{{transferencia.annoDe}}</td>
+					<td>{{transferencia.codParDe}}</td>
+					<td>{{transferencia.idCoorA}}-{{transferencia.nomCoorA}} </td>
+					<td>{{transferencia.nomPresA}}-{{transferencia.annoA}}</td>
+					<td>{{transferencia.codParA}}</td>
+					<td>{{transferencia.docDe}}</td>
+					<td>{{transferencia.monTransDe | currency: "₡":0}}</td>
 
 					<td>
 						<a href="/financiero/public/transferencia/{{transferencia.idTransferencia}}"  class="btn btn-info" title="Ver detalles de la transferencia">Ver</a>
