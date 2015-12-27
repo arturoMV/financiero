@@ -14,7 +14,7 @@
 				<h4>Se guardo satisfactoriamente, el año de trabajo es <%$config->iValor%></h4>	
 			</div>
 		@endif
-		<form class="form-horizontal col-md-10" action="/financiero/public/configuracion" method="post">
+		<form class="form-horizontal col-md-6" action="/financiero/public/configuracion" method="post">
 		{!! csrf_field() !!}
 	        <div class="form-group">
         		<label class="col-md-4 control-label">Año de trabajo</label>
@@ -29,5 +29,10 @@
 		  		</div>
       		</div>
 		</form>
+
+		<div class="col-md-6">
+			<h3>Respaldar los datos</h3>
+			<a href="/financiero/public/respaldo" title=""></a>
+		</div>
 	</section> 
 	@endsection

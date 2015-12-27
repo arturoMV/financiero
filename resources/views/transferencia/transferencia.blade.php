@@ -36,8 +36,8 @@ class="active"
 		<table class="table table-striped table-hover">
 			<tbody>
 				<tr >
-					<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">Unidad Ejecutora</th>
-					<th ng-click="orderTable('vNombrePresupuesto')" style="cursor:pointer;">Presupuesto</th>
+					<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">Partida Origen</th>
+					<th ng-click="orderTable('vNombrePresupuesto')" style="cursor:pointer;">Partida de Destino</th>
 					<th class="col-md-2" ng-click="orderTable('codPartida')" style="cursor:pointer;">Partida</th>
 					<th ng-click="orderTable('vDocumento')" style="cursor:pointer;">Documento de transferencia</th>
 					<th ng-click="orderTable('iMontotranseferencia')" style="cursor:pointer;">Monto Transferido</th>
@@ -49,9 +49,9 @@ class="active"
 
 				</tr>
 				<tr ng-repeat="transferencia in modelT | filter : search | orderBy : myOrder track by $index">
-					<td>{{transferencia.idCoordinacion}}-{{transferencia.vNombreCoordinacion}} </td>
-					<td>{{transferencia.vNombrePresupuesto}}-{{transferencia.anno}}</td>
-					<td>{{transferencia.codPartida}}</td>
+					<td>{{transferencia.idCoordinacion}}-{{transferencia.vNombreCoordinacion}}-{{transferencia.vNombrePresupuesto}}-{{transferencia.anno}} Partida:{{transferencia.codPartida}} </td>
+					<td>{{transferencia.idCoordinacion}}-{{transferencia.vNombreCoordinacion}}-{{transferencia.vNombrePresupuesto}}-{{transferencia.anno}} Partida:{{transferencia.codPartida}} </td>
+					
 					<td>{{transferencia.vDocumento}}</td>
 					<td>{{transferencia.iMontoTransferencia | currency: "₡":0}}</td>
 

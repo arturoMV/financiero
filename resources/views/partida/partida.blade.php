@@ -28,7 +28,7 @@ class="active"
 		</ul>
 	</div> 
 	@endif 
-
+	<h3> Lista de Partidas</h3>
 	<div class="container-fluid search-container form-horizontal">
 		<div class="container-fluid">
 			<input type="text" id="partidaName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
@@ -45,6 +45,8 @@ class="active"
 					<th ng-click="orderTable('vNombrePresupuesto')" style="cursor:pointer;">Presupuesto</th>
 					<th class="col-md-2" ng-click="orderTable('codPartida')" style="cursor:pointer;">Partida</th>
 					<th ng-click="orderTable('vNombrePartida')" style="cursor:pointer;">Nombre</th>
+					<th ng-click="orderTable('iSaldo')" style="cursor:pointer;">Saldo</th>
+
 					<th></th>
 					@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
 					<th></th>
@@ -56,9 +58,8 @@ class="active"
 					<td>{{partida.vNombrePresupuesto}}-{{partida.anno}}</td>
 					<td>{{partida.codPartida}}</td>
 					<td>{{partida.vNombrePartida}}</td>
-					<td>
-						<a href="/financiero/public/partida/{{partida.id}}"  class="btn btn-info" title="">Ver</a>
-					</td>
+					<td>{{partida.iSaldo | currency:"₡":0}}</td>
+					<td><a href="/financiero/public/partida/{{partida.id}}"  class="btn btn-info" title="">Ver</a></td>
 					<td>
 						@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
 						<a href="/financiero/public/partida/{{partida.idPartida}}/edit" class="btn btn-warning" title="">Editar</a>
