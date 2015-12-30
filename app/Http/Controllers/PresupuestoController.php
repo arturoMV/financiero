@@ -96,7 +96,9 @@ class PresupuestoController extends Controller
         $presupuesto->calcularPresupuestoInicial();
         $presupuesto->calcularPresupuestoModificado();
         $presupuesto->calcularGasto();
+        $presupuesto->calcularReserva();
         $presupuesto->calcularSaldo();
+
 
         $partidas = $presupuesto->partidas;
 
@@ -145,21 +147,19 @@ class PresupuestoController extends Controller
         ->select('iValor')
         ->where('vConfiguracion','Periodo')
         ->first();
+
         $presupueto = Presupuesto::find($id);
 
-
-        $presupueto->idPresupuesto = $request->idPresupuesto;
         $presupueto->anno = $request->anno;
         $presupueto->tCoordinacion_idCoordinacion = $request->tCoordinacion_idCoordinacion;
         $presupueto->vNombrePresupuesto = $request->vNombrePresupuesto;
-        $presupueto->iPresupuestoModificado = $request->iPresupuestoModificado;
 
         $presupueto->save();
 
         return view('/presupuesto/presupuesto');
-    }catch(Exception $e){
+    }catch(\Illuminate\Database\QueryException $e){
         return Redirect::back()
-            ->withErrors(['error', 'Error al agregar'])
+            ->withErrors(['Error al modificar los datos'])
             ->withInput();
     }
     }

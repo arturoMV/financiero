@@ -32,7 +32,6 @@
  				<th <% $S = 0 %>>Saldo</th>
 	 			<th>Gasto %</th>
 	 			<th>Saldo %</th>
-
  			</tr>
  		</thead>
  		<tbody <%$count = 0%>>

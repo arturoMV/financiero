@@ -1,9 +1,9 @@
  angular.module('facturaCtrl', [])
     .controller('facturaTemplate', ['$scope', function($scope) {
-        $scope.factura = [{ detalle: '', precio: '', cantidad: '', total: ''}];
+        $scope.factura = [{ detalle: '', monto: ''}];
 
     	$scope.agregarFila = function (){
-      		$scope.factura.push({ detalle: '', precio: '', cantidad:'', total: ''})
+      		$scope.factura.push({ detalle: '', monto:''})
       	};
 
 		$scope.eliminarFila = function(index){
@@ -13,7 +13,7 @@
 		$scope.calcularFactura = function(){
 			var tfactura = 0;
 			angular.forEach($scope.factura, function(value, key) {
-  				tfactura += value.total; 
+  				tfactura += value.monto; 
 			});
 			return tfactura;
 		};

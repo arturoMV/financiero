@@ -95,7 +95,7 @@ class CoordinacionController extends Controller
         return view('/coordinacion/verCoordinacion',['coordinacion'=>$coordinacion],['presupuestos'=> $presupuestos]);
         } catch(\Illuminate\Database\QueryException $ex){ 
             return Redirect::back()
-            ->withErrors(['errors'=> 'Error al editar los datos de la partida']);
+            ->withErrors(['errors'=> 'No se edito la coordinación']);
         }    
     }
 

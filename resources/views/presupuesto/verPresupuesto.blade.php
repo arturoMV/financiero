@@ -26,12 +26,20 @@ class="active"
       <h3>Estado del Presupuesto</h3>
               <div class="">
                 <h4>Presupuesto Incial: <small>{{<%$presupuesto->iPresupuestoInicial%> | currency: "₡":0}}</small> <br>
-                Presupuesto con Transferencias: <small>{{<%$presupuesto->iPresupuestoModificado%> | currency: "₡":0}}</small> <br>Gasto: <small>{{<%$presupuesto->iGasto%> | currency: "₡":0}} </small> <br>Saldo: <small>{{<%$presupuesto->iSaldo%> | currency: "₡":0}}</small></h4>
+                Presupuesto con Transferencias: <small>{{<%$presupuesto->iPresupuestoModificado%> | currency: "₡":0}}</small><br>
+                Gasto: <small>{{<%$presupuesto->iGasto%> | currency: "₡":0}} </small> <br>
+                Reserva: <small>{{<%$presupuesto->iReserva%> | currency: "₡":0}} </small> <br>
+                Saldo: <small>{{<%$presupuesto->iSaldo%> | currency: "₡":0}}</small></h4>
               </div>
               <div class="progress">
                 <div class="progress-bar progress-bar-danger" style="width: <% $presupuesto->calcularGastoPorcentaje() %>%">
                   <span class="sr-only"></span>
                   <% round($presupuesto->calcularGastoPorcentaje(),2) %>%
+                </div>
+
+                <div class="progress-bar progress-bar-warning" style="width: <% $presupuesto->calcularReservaPorcentaje()%>%">
+                  <span class="sr-only"></span>
+                  <% round($presupuesto->calcularReservaPorcentaje(),2) %>%
                 </div>
                 <div class="progress-bar progress-bar-primary" style="width: <% $presupuesto->calcularSaldoPorcentaje()%>%">
                   <span class="sr-only"></span>
@@ -40,6 +48,10 @@ class="active"
               </div>
               <div class="alert alert-warning col-md-1 col-md-offset-4">
                 Gasto: <%round( $presupuesto->calcularGastoPorcentaje(),2) %>% <br>
+              </div>
+
+              <div class="alert alert-warning col-md-1 col-md-offset-1">
+                Reserva: <%round( $presupuesto->calcularReservaPorcentaje(),2) %>%
               </div>
 
               <div class="alert alert-info col-md-1 col-md-offset-1">
@@ -55,10 +67,8 @@ class="active"
         @endif
         <a href="/financiero/public/presupuesto/informe-gastos/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de Gastos</a>
         <a href="/financiero/public/presupuesto/informe-fin-gestion/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de fin de Gestion</a>
-
-        
       </div> 
-    </form>
+    </form
     <div class="col-md-12 <% $count = 0 %>">
       <hr>
       <h4>Lista de Partidas</h4>
@@ -97,27 +107,40 @@ class="active"
               <hr>
               <h3>Estado de la partida</h3>
               <div class="">
-                <h4>Presupuesto Incial: <small>{{<%$partida->iPresupuestoInicial%> | currency: "₡":0}}</small> <br>Gasto: <small>{{<%$partida->iGasto%> | currency: "₡":0}} </small> <br>Saldo: <small>{{<%$partida->iSaldo%> | currency: "₡":0}}</small></h4>
-              </div>
-              <div class="progress $presupuesto_partida->presupuestoModificado();
-">
-                <div class="progress-bar progress-bar-danger" style="width: <% $partida->calcularGastoPorcentaje() %>%">
-                  <span class="sr-only"></span>
-                  <% round($partida->calcularGastoPorcentaje(),2) %>%
-                </div>
-                <div class="progress-bar progress-bar-primary" style="width: <% $partida->calcularSaldoPorcentaje()%>%">
-                  <span class="sr-only"></span>
-                  <% round($partida->calcularSaldoPorcentaje(),2) %>%
-                </div>
-              </div>
-              <div class="alert alert-danger col-md-1 col-md-offset-4">
-                Gasto: <%round( $partida->calcularGastoPorcentaje(),2) %>% <br>
-              </div>
-
-              <div class="alert alert-info col-md-1 col-md-offset-1">
-                Saldo: <%round( $partida->calcularSaldoPorcentaje(),2) %>%
-              </div>
-              <a href="/financiero/public/partida/<%$partida->id%>" class="btn btn-info pull-right">Ver Más</a>
+                <h4>Presupuesto Incial: <small>{{<%$partida->iPresupuestoInicial%> | currency: "₡":0}}</small>
+  <br>
+  Presupuesto Modificado: <small>{{<%$partida->iPresupuestoModificado%> | currency: "₡":0}}</small> <br>
+  Gasto: <small>{{<%$partida->iGasto%> | currency: "₡":0}} </small> <br>
+  @if($partida->iReserva>0)
+  Reverva (GECO): <small>{{<%$partida->iReserva%> | currency: "₡":0}} </small> <br>
+  @endif
+  Saldo: <small>{{<%$partida->iSaldo%> | currency: "₡":0}}</small></h4>
+</div>
+<div class="progress">
+  <div class="progress-bar progress-bar-danger" style="width: <% $partida->calcularGastoPorcentaje() %>%">
+    <span class="sr-only"></span>
+    <% round($partida->calcularGastoPorcentaje(),2) %>%
+  </div>
+  <div class="progress-bar progress-bar-warning" style="width: <% $partida->calcularReservaPorcentaje()%>%">
+    <span class="sr-only"></span>
+    <% round($partida->calcularReservaPorcentaje(),2) %>%
+  </div>
+  <div class="progress-bar progress-bar-primary" style="width: <% $partida->calcularSaldoPorcentaje()%>%">
+    <span class="sr-only"></span>
+    <% round($partida->calcularSaldoPorcentaje(),2) %>%
+  </div>
+</div>
+<div class="alert alert-danger col-md-1 col-md-offset-4">
+  Gasto: <% round($partida->calcularGastoPorcentaje(),2) %>% <br>
+</div>
+@if($partida->iReserva>0)
+<div class="alert alert-warning col-md-1 col-md-offset-1">
+  Resera: <% round($partida->calcularReservaPorcentaje(),2) %>% <br>
+</div>
+@endif
+<div class="alert alert-info col-md-1 col-md-offset-1">
+  Saldo: <% round($partida->calcularSaldoPorcentaje(),2) %>%
+</div>              <a href="/financiero/public/partida/<%$partida->id%>" class="btn btn-info pull-right">Ver Más</a>
             </div>
           </div class="<%$count++%>">
           @endforeach

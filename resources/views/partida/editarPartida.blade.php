@@ -59,9 +59,31 @@ class="active"
 
       <div class="form-group">
         <div class="col-md-4 col-md-offset-3">
-          <input type="submit" name="" class="btn btn-warning" value="Editar">
+          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal2">Editar</button>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Eliminar</button>
         </div>
+      </div>
+       <div class="col-md-5">
+        <div class="modal fade" id="myModal2" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar</h4>
+              </div>
+              <div class="modal-body">
+                <p>Estas seguro de que quieres modificar la partida.
+                  <ul>
+                    <li>Verifique que los datos introducidos sean correctos</li>
+                  </ul>
+                </p>
+                  <input type="submit" name="" class="btn btn-success" value="Agregar">
+                  <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div> 
+          </div>
+        </div> 
       </div>
     </form>
 

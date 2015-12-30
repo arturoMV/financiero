@@ -31,7 +31,26 @@ class Presupuesto_Partida extends Model
     }
 
     public function calcularSaldo(){
-        $this->iSaldo = $this->iPresupuestoModificado - $this->iGasto;
+        $reserva = DB::table('tfactura')
+        ->where('tPartida_idPartida','=', $this->id)
+        ->where('vTipoFactura', '=','Solicitud GECO')
+        ->where('deleted_at', null)
+        ->sum('iMontoFactura');
+
+        $this->iReserva = $reserva;
+
+        $this->iSaldo = $this->iPresupuestoModificado - $this->iGasto- $reserva;
+        $this->save();
+    }
+
+    public function calcularReserva(){
+        $reserva = DB::table('tfactura')
+        ->where('tPartida_idPartida','=', $this->id)
+        ->where('vTipoFactura', '=','Solicitud GECO')
+        ->where('deleted_at', null)
+        ->sum('iMontoFactura');
+
+        $this->iReserva = $reserva;
         $this->save();
     }
 
@@ -39,14 +58,22 @@ class Presupuesto_Partida extends Model
       $gasto = DB::table('tfactura')
         ->where('tPartida_idPartida','=', $this->id)
         ->where('vTipoFactura', '!=','Pases Anulacion')
+        ->where('deleted_at', null)
         ->sum('iMontoFactura');
 
         $anulacion = DB::table('tfactura')
         ->where('tPartida_idPartida',"=",$this->id)
         ->where('vTipoFactura', '=','Pases Anulacion')
+        ->where('deleted_at', null)
         ->sum('iMontoFactura');
 
-        $this->iGasto = $gasto - $anulacion;
+        $reserva = DB::table('tfactura')
+        ->where('tPartida_idPartida','=', $this->id)
+        ->where('vTipoFactura', '=','Solicitud GECO')
+        ->where('deleted_at', null)
+        ->sum('iMontoFactura');
+
+        $this->iGasto = $gasto - $anulacion - $reserva;
         $this->save();
     }
     
@@ -57,6 +84,13 @@ class Presupuesto_Partida extends Model
         return $porcentajeSaldo;
     }
 
+     public function calcularReservaPorcentaje(){
+        if($this->iPresupuestoModificado == 0)
+            return 0;
+        $porcentajeReserva = ($this->iReserva/$this->iPresupuestoModificado)*100;
+        return $porcentajeReserva;
+    }
+
     public function calcularGastoPorcentaje(){
         if($this->iPresupuestoModificado == 0)
             return 0;
@@ -65,8 +99,6 @@ class Presupuesto_Partida extends Model
     }
 
     public function presupuestoModificado(){
-
-
         $transferenciasAumentar = DB::table('ttranferencia_partida')
         ->where('tPresupuestoPartidaA',"=",$this->id)
         ->sum('iMontoTransferencia');

@@ -32,34 +32,9 @@ class FacturaController extends Controller
      */
     public function create($id)
     {
-        $presupuesto_partida = Presupuesto_Partida::find($id);
-
-        $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
-        
-        $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
-      //  return dd($presupuesto);
-        $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
 
 
-        $presupuesto_partida->calcularSaldo();
-        $presupuesto_partida->calcularGasto();
-        $presupuesto_partida->presupuestoModificado();
-
-        $numFactura = DB::table('tfactura')
-        ->max('idFactura');
-
-        if($numFactura == null){
-            $ret  = 1;
-        }else{
-            $numFactura++;
-        }
-
-        return view('transaccion/nuevaTransaccion',
-            ['presupuesto_partida'=>$presupuesto_partida,
-            'partida'=>$partida,
-            'presupuesto'=>$presupuesto,
-            'coordinacion'=>$coordinacion,
-            'numFactura' =>$numFactura]);
+        return view('transaccion/nuevaTransaccion');
         
     }
 
@@ -71,81 +46,42 @@ class FacturaController extends Controller
      */
     public function store(Request $request)
     {   
-        if($request->iMontoFactura==0){
-            return redirect()->back()->withErrors('No se puede agregar una transaccion sin monto');
-        }
-
-        if ($request->vTipoFactura != 'Pases Anulacion') {
-            if($request->iSaldo<=$request->iMontoFactura){
-                return redirect()->back()->withErrors('El monto de la transaccion no puede ser mayor al saldo disponible de la partida');
-            } 
-        }
-
-        $presu = Presupuesto_Partida::find($request->tPartida_idPartida);
-
-
-        if ($request->vTipoFactura == 'Pase Anulacion') {
-            if($request->iGasto <= $request->iMontoFactura){
-                return redirect()->back()->withErrors('El monto de la no puede ser mayor al monto del presupuesto');
-            } 
-        }
-
-        
-
-        
-        $factura = new Factura;
-
-        $factura->tPartida_idPartida = $request->tPartida_idPartida;
-        $factura->vTipoFactura = $request->vTipoFactura;
-        $factura->vDocumento = $request->vDocumento;        
-        $factura->dFechaFactura = $request->dFechaFactura;
-        $factura->vDescripcionFactura = $request->vDescripcionFactura;
-        $factura->iMontoFactura = $request->iMontoFactura;
-
-        $factura->save();
-       
-        $facturaid = $factura->idFactura;
-
         $input= $request->all();
         $count = 0;
-        $linea = 0;
         $campo = 1;
-        $detalle = "";
-        $precio = "";
-        $cantidad = ""; 
-        $total = "";
-        $salida = "";
+        $tipo =  $request->vTipoFactura;
+        $documento = $request->vDocumento;        
+        $fecha = $request->dFechaFactura;
+        $descripcion = $request->vDescripcionFactura;
 
         foreach($input as $in){
-            if($count > 8){
+            if($count > 4){
                 if($campo == 1){
-                    $linea++;
-                    $detalle = $in;
+                    $partida = $in;
                 }
                 if($campo == 2){
-                    $precio = $in;
+                    $detalle = $in;
                 }
                 if($campo == 3){
-                    $cantidad = $in;
-                }
-                if($campo == 4){
-                    $total = $in;
-                    $factura = DB::table('tfacturadetalle')->insert([
-                        'tFactura_idFactura' => $facturaid,
-                        'iLinea' => $linea,
-                        'vDetalle' => $detalle,
-                        'iPrecio' => $precio,
-                        'iCantidad' => $cantidad,
-                        'iTotalLinea' => $total
-                        ]);
+                    $monto = $in;
+                   $factura = DB::table('tfactura')->insert(
+                    ['vTipoFactura' => $tipo,
+                    'vDocumento' => $documento,
+                    'dFechaFactura' => $fecha,
+                    'vDescripcionFactura' => $descripcion,
+                    'tPartida_idPartida' => $partida,
+                    'vDetalleFactura' => $detalle, 
+                    'iMontoFactura' => $monto]);
                     $campo = 0;
                 }
                 $campo++;
             }
+
             $count++;
         }
 
-        return $this->show($facturaid);
+        return Factura::find($factura);
+
         
     }
 

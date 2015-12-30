@@ -24,22 +24,16 @@ class="active"
     @endif  
 
       <div class="form-group">
-      <label class="col-md-4 control-label">Año</label>
-        <div class="col-md-6">
-          <input type="text" class="form-control" name="anno" value="<%$presupuesto->anno%>" readonly>
-        </div>
-      </div>
-      <div class="form-group">
         <label class="col-md-4 control-label">Coordinacion</label>
         <div class="col-md-6">
-          <select name="tCoordinacion_idCoordinacion" readonlyclass="form-control" required>
+          <select name="tCoordinacion_idCoordinacion" class="form-control" required>
             <option value="0">Selecione a que unidad pertenece el Presupuesto</option>
             @foreach($coordinaciones as $coordinacion)
               <option 
                 @if($coordinacion->idCoordinacion == $presupuesto->tCoordinacion_idCoordinacion)
                 selected
                 @endif
-              value="<% $coordinacion->idCoordinacion %>"><% $coordinacion->idCoordinacion %> - <% $coordinacion->vNombreCoordinacion %></option>
+              value="<% $coordinacion->idCoordinacion %>"> <% $coordinacion->idCoordinacion %> - <% $coordinacion->vNombreCoordinacion %></option>
             @endforeach
           </select>
         </div>
@@ -50,32 +44,42 @@ class="active"
           <input type="text" class="form-control" value="<%$presupuesto->vNombrePresupuesto%>" name="vNombrePresupuesto"  placeholder="Saldo">
         </div>
       </div>
-      
-      <div class="form-group">
-        <label class="col-md-4 control-label">Monto de Presupustado</label>
+       <div class="form-group">
+      <label class="col-md-4 control-label">Año</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" value="<%$presupuesto->iPresupuestoInicial%>" 
-          name="descripcion"  placeholder="" readonly>
+          <input type="text" class="form-control" name="anno" value="<%$presupuesto->anno%>" readonly>
         </div>
       </div>
-
-         <div class="form-group">
-          <label class="col-md-4 control-label">Presupuesto Modificado</label>
-          <div class="col-md-6">
-            <input type="number" class="form-control" readonly value="<%$presupuesto->iPresupuestoInicial%>" name="iPresupuestoModificado" placeholder="Cambios en el presupuestado">
-          </div>
-        </div>
-
-
+     
       <div class="form-group">
         <div class="col-md-4 col-md-offset-3">
-          <input type="submit" name="" class="btn btn-warning" value="Editar">
-
+          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal2">Editar</button>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Eliminar</button>
 
         </div>
       </div> 
-
+      <div class="col-md-5">
+        <div class="modal fade" id="myModal2" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar</h4>
+              </div>
+              <div class="modal-body">
+                <p>Estas seguro de que quieres modificar el presupuesto.
+                <ul>
+                  <li>Verifique que los datos introducidos sean correctos</li>
+                </ul></p>
+                
+                  <input type="submit" name="" class="btn btn-warning" value="Editar">
+                  <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div> 
+          </div>
+        </div> 
+      </div>
     </form>
 
     <form class="col-md-1" action="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>/delete" method="post">

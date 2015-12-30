@@ -1,4 +1,3 @@
-
 @extends('layouts.master')
 @section('title', 'Partida')
 
@@ -19,7 +18,6 @@ class="active"
 		</ul>
 	</div> 
 	@endif 
-
 	@if (count($errors)>0)
 	<div class="alert alert-danger">
 		<strong>Ops! </strong>No se pudo eliminar Paritda<br><br>

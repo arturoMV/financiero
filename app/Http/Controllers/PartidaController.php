@@ -84,8 +84,10 @@ class PartidaController extends Controller
         $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
 
         $transacciones = Factura::all()
-        ->where('tPartida_idPartida',$presupuesto_partida->id);
+        ->where('tPartida_idPartida',$presupuesto_partida->id)
+        ->where('deleted_at', null);
         $presupuesto_partida->presupuestoModificado();
+        $presupuesto_partida->calcularReserva();
 
         $presupuesto_partida->calcularSaldo();
         $presupuesto_partida->calcularGasto();
@@ -115,6 +117,53 @@ class PartidaController extends Controller
         $partida = Partida::find($id);
 
         return view('partida/editarPartida', ['partida' => $partida,'mensaje'=>null]);
+    }
+
+     public function editPresupuestoPartida($id)
+    {
+
+        $presupuesto_partida = Presupuesto_Partida::find($id);
+
+        $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
+
+        $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
+
+        $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+    
+        return view('partida/editarPresupuestoPartida', ['partida' => $partida,'coordinacion' => $coordinacion, 'presupuesto' => $presupuesto,
+            'presupuesto_partida' => $presupuesto_partida,'mensaje'=>null]);
+    }
+
+    public function updatePresupuestoPartida(Request $request, $id)
+    {
+        try{
+            $presupuesto_partida = Presupuesto_Partida::find($id);
+
+            $presupuesto_partida->iPresupuestoInicial = $request->iPresupuestoInicial;
+            
+            $presupuesto_partida->save();
+
+            
+
+        $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
+
+        $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
+
+        $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+    
+        return view('partida/editarPresupuestoPartida', 
+            ['partida' => $partida,
+            'coordinacion' => $coordinacion,
+             'presupuesto' => $presupuesto,
+            'presupuesto_partida' => $presupuesto_partida,
+            'mensaje'=> 'Se modifico el monto presupuestado de la partida']);
+
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            return Redirect::back()
+            ->withErrors(['errors'=> 'Error al editar los datos de la partida']);
+        }
     }
 
     /**

@@ -41,7 +41,16 @@ class Presupuesto extends Model
         $this->save();
     }
     public function calcularSaldo(){
-        $this->iSaldo = $this->iPresupuestoModificado - $this->iGasto;
+        
+        $this->iSaldo = $this->iPresupuestoModificado - $this->iGasto - $this->iReserva;
+        $this->save();
+    }
+
+    public function calcularReserva(){
+        $reserva = DB::table('tpresupuesto_tpartida')
+        ->where('tPresupuesto_idPresupuesto','=', $this->idPresupuesto)
+        ->sum('iReserva');
+        $this->iReserva = $reserva;
         $this->save();
     }
 
@@ -59,6 +68,13 @@ class Presupuesto extends Model
             return 0;
         $porcentajeSaldo = ($this->iSaldo/$this->iPresupuestoModificado)*100;
         return $porcentajeSaldo;
+    }
+
+    public function calcularReservaPorcentaje(){
+        if($this->iPresupuestoModificado == 0)
+            return 0;
+        $porcentajeReserva = ($this->iReserva/$this->iPresupuestoModificado)*100;
+        return $porcentajeReserva;
     }
 
     public function calcularGastoPorcentaje(){

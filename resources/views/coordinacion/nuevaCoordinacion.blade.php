@@ -14,21 +14,52 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Numero Coordinacion</label>
         <div class="col-md-4">
-          <input type="text" class="form-control" name="idCoordinacion" placeholder="Numero de la Coordinacion">
+          <input type="text" class="form-control" ng-model="id" name="idCoordinacion" placeholder="Numero de la Coordinacion">
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre</label>
         <div class="col-md-4">
-          <input type="text" class="form-control" name="vNombreCoordinacion" placeholder="Nombre de la Coordinacion">
+          <input type="text" class="form-control" ng-model="nombre" name="vNombreCoordinacion" placeholder="Nombre de la Coordinacion">
         </div>
       </div>
       <div class="form-group">
           <div class="col-md-4 col-md-offset-4">
-            <input type="submit" class="btn btn-success" value="Agregar">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Agregar</button>
           </div>
       </div>
 
+      <div class="col-md-5">
+        @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
+        <div class="modal fade" id="myModal" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar</h4>
+              </div>
+              <div class="modal-body">
+              <p>Estas seguro de que quieres agregar la coordinacion.</p>
+                <p>
+                    <div class="form-group">
+                      <label class="col-md-6 control-label">Numero de Cooordinación</label>
+                      <p class="col-md-6 form-control-static">
+                        {{id}}  </p>         
+                        </div>
+                        <div class="form-group">
+                          <label class="col-md-6 control-label">Nombre de coodinacion</label>
+                          <p class="col-md-6 form-control-static">{{nombre}}</p>
+                        </div >
+                      </p>
+                      <input type="submit" name="" class="btn btn-success" value="Agregar">
+                      <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
+                    </div>
+                  </div> 
+                </div>
+              </div> 
+              @endif
+            </div>
       </form>
       @else
       Debe estar autenticado y tener permisos para ver esta pagina

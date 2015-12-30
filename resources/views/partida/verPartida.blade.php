@@ -58,15 +58,23 @@
       <hr>
   <h3>Estado de la partida</h3>
 <div class="">
-  <h4>Presupuesto Incial: <small>{{<%$presupuesto_partida->iPresupuestoInicial%> | currency: "₡":0}}</small><br>
+  <h4>Presupuesto Incial: <small>{{<%$presupuesto_partida->iPresupuestoInicial%> | currency: "₡":0}}</small>
+  <a href="/financiero/public/partida/editar/<% $presupuesto_partida->id %>" class="btn btn-xs btn-warning" title="Cmdiar presupuesto">Editar presupuesto</a><br>
   Presupuesto Modificado: <small>{{<%$presupuesto_partida->iPresupuestoModificado%> | currency: "₡":0}}</small> <br>
   Gasto: <small>{{<%$presupuesto_partida->iGasto%> | currency: "₡":0}} </small> <br>
+  @if($presupuesto_partida->iReserva>0)
+  Reverva (GECO): <small>{{<%$presupuesto_partida->iReserva%> | currency: "₡":0}} </small> <br>
+  @endif
   Saldo: <small>{{<%$presupuesto_partida->iSaldo%> | currency: "₡":0}}</small></h4>
 </div>
 <div class="progress">
   <div class="progress-bar progress-bar-danger" style="width: <% $presupuesto_partida->calcularGastoPorcentaje() %>%">
     <span class="sr-only"></span>
     <% round($presupuesto_partida->calcularGastoPorcentaje(),2) %>%
+  </div>
+  <div class="progress-bar progress-bar-warning" style="width: <% $presupuesto_partida->calcularReservaPorcentaje()%>%">
+    <span class="sr-only"></span>
+    <% round($presupuesto_partida->calcularReservaPorcentaje(),2) %>%
   </div>
   <div class="progress-bar progress-bar-primary" style="width: <% $presupuesto_partida->calcularSaldoPorcentaje()%>%">
     <span class="sr-only"></span>
@@ -76,6 +84,11 @@
 <div class="alert alert-danger col-md-1 col-md-offset-4">
   Gasto: <% round($presupuesto_partida->calcularGastoPorcentaje(),2) %>% <br>
 </div>
+@if($presupuesto_partida->iReserva>0)
+<div class="alert alert-warning col-md-1">
+  Resera: <% round($presupuesto_partida->calcularReservaPorcentaje(),2) %>% <br>
+</div>
+@endif
 
 <div class="alert alert-info col-md-1 col-md-offset-1">
   Saldo: <% round($presupuesto_partida->calcularSaldoPorcentaje(),2) %>%
@@ -170,10 +183,7 @@
           <label  class="col-md-10 control-label">Monto: <small>{{<% $transferenciaA->iMontoTransferencia %> | currency: "₡":0 }}</small></label>
             </div>
             <div ng-if="ver<%$count %>" class="panel-body form-horizontal">  
-             <div class="form-group">
-                <label class="col-md-4 control-label">Num Transferencia:</label>
-                <p class="col-md-8 form-control-static"><% $transaccion->idFactura %></p>
-              </div>
+             
               <div class="form-group">
                 <label class="col-md-4 control-label">Fecha de Transferencia: </label>
                 <p class="col-md-8 form-control-static"><% $transferenciaA->created_at %></p>

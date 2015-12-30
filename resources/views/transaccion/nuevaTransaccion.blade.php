@@ -12,35 +12,21 @@ class="active"
 <section class="container-fluid">
   <br>
   @if (count($errors) > 0)
-    <div class="alert alert-danger col-md-6">
-        <strong>Oops!</strong> Error en la transaccion<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li><% $error %></li>
-            @endforeach
-        </ul>
-    </div> 
-    @endif
-  <form class="col-md-10 col-md-offset-1 alert bg-info container-fluid table-responsive form-horizontal" method="post" action="/financiero/public/transaccion" >
+  <div class="alert alert-danger">
+    <strong>Oops!</strong> Error en la transaccion<br><br>
+    <ul>
+      @foreach ($errors->all() as $error)
+      <li><% $error %></li>
+      @endforeach
+    </ul>
+  </div> 
+  @endif
+  <form class="col-md-12 alert container-fluid table-responsive form-horizontal" method="post" action="/financiero/public/transaccion" >
     {!!csrf_field()!!}
     <div class="col-md-12">
-      <h4>
-        Unidad Ejecutora: <small><%$coordinacion->vNombreCoordinacion%></small><br><br>
-        Presupuesto: <small><%$presupuesto->vNombrePresupuesto%>-<%$presupuesto->anno%></small><br><br>
-
-      </h4>
     </div>
-
-    <input type="hidden" name="iSaldo" value="<%$presupuesto_partida->iSaldo%>">
-    <input type="hidden" name="tPartida_idPartida" value="<%$presupuesto_partida->id%>">
-
     <div class="container-fluid col-md-7 ">
-      <div class="form-group">
-        <label class="col-md-6 control-label">Partida:</label>
-        <div class="col-md-6">
-          <input type="text"  class="form-control" readonly  name="tPartida_idPartidas" required value="<%$partida->codPartida%>">
-        </div>      
-      </div >
+     
 
       <div class="form-group">
         <label class="col-md-6 control-label">Tipo de Transaccion:</label>
@@ -58,10 +44,19 @@ class="active"
           </select>
         </div>
       </div>
+
+      <div class="form-group">
+      <label class="col-md-6 control-label">Observacion:</label>
+      <div class="col-md-6">
+        <textarea name="vDescripcionFactura" class="form-control" rows="2"></textarea> 
+      </div>
+    </div>
     </div>
 
+
+
     <div class="container-fluid col-md-5">
-  <div class="form-group">
+      <div class="form-group">
         <label class="col-md-5 control-label">Fecha:</label>
         <div class="col-md-7">
           <input type="date"  class="form-control" name="dFechaFactura" required> 
@@ -76,65 +71,106 @@ class="active"
         </div>
       </div >
     </div>
-<div class="form-group">
-        <label class="col-md-3 control-label">Descripcion:</label>
-        <div class="col-md-8">
-          <textarea name="vDescripcionFactura" class="form-control" rows="2"></textarea> 
-        </div>
-      </div>
-    <div class="container-fluid table-responsive"  ng-controller="facturaTemplate">
-          <input type="number" name="iMontoFactura" hidden value="{{calcularFactura()}}">
+    
+    <div class="container-fluid table-responsive col-md-12"  ng-controller="facturaTemplate">
 
 
-        <table  class="table table-condensed text-center">
-          <thead>
-            <tr>
-              <th class="col-md-1 text-center">#</th>
-              <th class="col-md-4 text-center">Detalle</th>
-              <th class="col-md-3 text-center">Monto</th>
-              <th class="col-md-1 text-center">Cantidad</th>
-              <th class="col-md-3 text-center">Total</th>
-            </tr>
-          </thead>
-          <tbody id="factura">
-            <tr ng-repeat="x in factura">
-              <td>{{$index+1}}</td>
-              <td><input type="text" name="detalle{{$index+1}}" value="{{x.detalle}}" required class="form-control"></td>
-              <td>
-                <div class="input-group">
-                  <div class="input-group-addon">₡</div>
-                  <input type="number" ng-model="x.precio" class="form-control"  name="precio{{$index+1}}" value="{{x.precio}}" min="0" required >
+      <table  class="table table-condensed text-center col-md-12">
+        <thead>
+          <tr>
+            <th class="col-md-1 text-center">#</th>
+            <th class="col-md-6 text-center">Partida</th>
+            <th class="col-md-3 text-center">Detalle</th>
+            <th class="col-md-3 text-center">Monto</th>
+
+
+          </tr>
+        </thead>
+        <tbody id="factura" <% $count = 1 %>>
+          <tr ng-repeat="x in factura">
+            <td>{{$index+1}}</td>
+           <td><div ng-controller="coordinacionTemplate">
+              <div class="container-fluid search-container form-horizontal" ng-controller="presupuestoTemplate">
+              <div class="container-fluid" ng-controller="partidaTemplate" >
+                <div class="col-md-12">
+                  <div class="panel panel-primary">
+                    
+                    <div class="panel-body">
+                      <div class="form-group col-md-12">
+                        <strong>Unidad Ejecutora</strong>
+                        <select ng-model="coorSelected"  required class="form-control">
+                          <option  ng-repeat="coordinacion in modelC" value="{{coordinacion.idCoordinacion}}">{{coordinacion.idCoordinacion}}-{{coordinacion.vNombreCoordinacion}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-md-12" >
+                        <strong>Presupuesto</strong>
+                        <select ng-model="pSelected"  required class="form-control">
+                          <option  ng-if="presupuesto.tCoordinacion_idCoordinacion == coorSelected" ng-repeat="presupuesto in modelPr" value="{{presupuesto.idPresupuesto}}">{{presupuesto.vNombrePresupuesto}}-{{presupuesto.anno}}</option>
+                        </select>
+                      </div>
+                      <strong>Partida</strong>
+                      <div class="form-group col-md-12">
+                        <select ng-model="partSelected" required class="form-control">
+                          <option ng-if="partida.tPresupuesto_idPresupuesto == pSelected" ng-repeat="partida in modelP" value="{{partida.id}}">{{partida.codPartida}}-{{partida.vNombrePartida}}</option>
+                        </select>
+                      </div>
+                      <div><hr>
+                        <div ng-if="partida.id == partSelected" ng-repeat="partida in modelP">
+                          <strong>Presupuesto Incial: <small>{{partida.iPresupuestoInicial | currency: "₡":0}}</small><br>
+                            Presupuesto Modificado: <small>{{partida.iPresupuestoModificado | currency: "₡":0}}</small> <br>
+                            Gasto: <small>{{partida.iGasto | currency: "₡":0}} </small> <br>
+                            Saldo: <small>{{partida.iSaldo | currency: "₡":0}}</small></strong>
+                            <input type="hidden" name="id{{$index+1}}" required value="{{partida.id}}">
+                          </div ng-model="x.maximo = partida.iSaldo">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </td>
-              <td><input type="number" ng-model="x.cantidad" name="cantidad{{$index+1}}" value="{{x.cantidad}}" class="form-control"  min="0" required></td>
-              <td><div class="input-group">
-                <div class="input-group-addon">₡</div>
-                <input class="form-control" type="text" placeholder="0" name="total{{$index+1}}" value="{{x.total = x.precio * x.cantidad}}" readonly>
-              </div></td>
-              <td><button class="btn btn-danger btn-xs" ng-click="eliminarFila($index)">x</button></td>
-            </tr> 
-            <tr>
-              <td></td>
-              <th class="text-right">Saldo Disponible:</th>
-              <td >{{<%$presupuesto_partida->iSaldo%> | currency:"₡":0  }}
-              </td>
-              <th class="text-right">Total:</th>
-              <td >{{calcularFactura()| currency:"₡":0}}</td>
-            </tr>
-          </tbody>
-          </table>
+                </div>
+                </div>
+                </td>
+<td>
+<div class="form-group">
+        <div class="col-md-12">
+          <input type="text" class="form-control" ng-model="x.detalle" required name="detalle{{$index+1}}">
+        </div>
+      </div>  
+    </td>
+    <td>
+      <div class="form-group">
+        <div class="col-md-12">
+          <input type="number" class="form-control" ng-model="x.monto" required name="iMontoFactura{{$index+1}}" min="0">
+        </div>
+        <br><br><br>
+        <br><br><br>
+        <br><br><br>   <br>
 
-          <div class="form-group">
-            <input type="submit" value="Agregar"  class="btn btn-primary pull-right">
-          </div>
-        </form>
-
-        <button class="btn btn-primary btn-xs" ng-click="agregarFila()">+</button>
-
+        <button type="button" class="btn btn-sm btn-danger" ng-click="eliminarFila()">Remover fila</button>
       </div>
-      
-  </section>
-  @else
-  Debe estar autenticado y tener permisos para ver esta pagina
-  @endif
-  @endsection
+</td>
+                </tr>
+                  <tr>
+                  <td></td>
+                  <td ></td>
+                  <th class="text-right">Total:</th>
+                  <td >{{calcularFactura()| currency:"₡":0}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="form-group">
+              <input type="submit" value="Agregar Factura"  class="btn btn-primary pull-right">
+            </div>
+          </form>
+
+          <button class="btn btn-primary btn-sm" ng-click="agregarFila()">Agregar Partida</button>
+          </div>
+
+        </div>
+
+      </section>
+      @else
+      Debe estar autenticado y tener permisos para ver esta pagina
+      @endif
+      @endsection

@@ -36,13 +36,7 @@ class="active"
 		<table class="table table-striped table-hover">
 			<tbody>
 				<tr >
-<<<<<<< HEAD
-					<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">Partida Origen</th>
-					<th ng-click="orderTable('vNombrePresupuesto')" style="cursor:pointer;">Partida de Destino</th>
-					<th class="col-md-2" ng-click="orderTable('codPartida')" style="cursor:pointer;">Partida</th>
-					<th ng-click="orderTable('vDocumento')" style="cursor:pointer;">Documento de transferencia</th>
-					<th ng-click="orderTable('iMontotranseferencia')" style="cursor:pointer;">Monto Transferido</th>
-=======
+
 					<th ng-click="orderTable('idCoorDe')" style="cursor:pointer;">Und. Ejecutora Origen</th>
 					<th ng-click="orderTable('nomPresDe')" style="cursor:pointer;">Presupuesto Origen</th>
 					<th class="col-md-2" ng-click="orderTable('codParDe')" style="cursor:pointer;">Partida Origen</th>
@@ -51,7 +45,6 @@ class="active"
 					<th class="col-md-2" ng-click="orderTable('codParA')" style="cursor:pointer;">Partida Destino</th>
 					<th ng-click="orderTable('docDe')" style="cursor:pointer;">Documento de transferencia</th>
 					<th ng-click="orderTable('monTransDe')" style="cursor:pointer;">Monto Transferido</th>
->>>>>>> 394b20c27665d2c042df4cde2cb88fc2468153f4
 
 					<th></th>
 					@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
@@ -60,13 +53,7 @@ class="active"
 
 				</tr>
 				<tr ng-repeat="transferencia in modelT | filter : search | orderBy : myOrder track by $index">
-<<<<<<< HEAD
-					<td>{{transferencia.idCoordinacion}}-{{transferencia.vNombreCoordinacion}}-{{transferencia.vNombrePresupuesto}}-{{transferencia.anno}} Partida:{{transferencia.codPartida}} </td>
-					<td>{{transferencia.idCoordinacion}}-{{transferencia.vNombreCoordinacion}}-{{transferencia.vNombrePresupuesto}}-{{transferencia.anno}} Partida:{{transferencia.codPartida}} </td>
-					
-					<td>{{transferencia.vDocumento}}</td>
-					<td>{{transferencia.iMontoTransferencia | currency: "₡":0}}</td>
-=======
+				
 					<td>{{transferencia.idCoorDe}}-{{transferencia.nomCoorDe}} </td>
 					<td>{{transferencia.nomPresDe}}-{{transferencia.annoDe}}</td>
 					<td>{{transferencia.codParDe}}</td>
@@ -75,8 +62,6 @@ class="active"
 					<td>{{transferencia.codParA}}</td>
 					<td>{{transferencia.docDe}}</td>
 					<td>{{transferencia.monTransDe | currency: "₡":0}}</td>
->>>>>>> 394b20c27665d2c042df4cde2cb88fc2468153f4
-
 					<td>
 						<a href="/financiero/public/transferencia/{{transferencia.idTransferencia}}"  class="btn btn-info" title="Ver detalles de la transferencia">Ver</a>
 					</td>

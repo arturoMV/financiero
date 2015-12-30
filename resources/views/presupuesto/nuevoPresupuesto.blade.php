@@ -23,12 +23,7 @@ class="active"
     <form action="/financiero/public/presupuesto" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       
-      <div class="form-group">
-        <label class="col-md-4 control-label">Año</label>
-        <div class="col-md-6">
-          <input type="text" class="form-control" required name="anno" value="<% $config->iValor %>" readonly>
-        </div>
-      </div>
+      
       <div class="form-group">
         <label class="col-md-4 control-label">Coordinacion</label>
         <div class="col-md-6">
@@ -46,27 +41,43 @@ class="active"
           <input type="text" class="form-control" required name="vNombrePresupuesto" placeholder="Nombre descriptivo del presupuesto">
         </div>
       </div>
-        <div class="form-group">
-          <label class="col-md-4 control-label">Presupuesto Inicial</label>
-          <div class="col-md-6">
-            <input type="text" class="form-control" readonly name="iPresupuestoInicial" ng-model="presupuestoI" 
-            required placeholder="Agregue partidas para modificar el total presupuestado">
-          </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Año</label>
+        <div class="col-md-6">
+          <input type="text" class="form-control" required name="anno" value="<% $config->iValor %>" readonly>
         </div>
-           <div class="form-group">
-          <label class="col-md-4 control-label">Presupuesto Modificado</label>
-          <div class="col-md-6">
-            <input type="number" class="form-control"  value="{{presupuestoI}}" name="iPresupuestoModificado" placeholder="Cambios en el presupuestado" readonly>
-          </div>
-        </div>
+      </div>
 
         
         <div class="form-group">
           <div class="col-md-4 col-md-offset-4">
-            <input type="submit" class="btn btn-success" value="Agregar">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">Agregar</button>
           </div>
         </div>
-
+    <div class="col-md-5">
+        <div class="modal fade" id="myModal2" role="dialog">
+          <div class="modal-dialog modal-sm">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar</h4>
+              </div>
+              <div class="modal-body">
+                <p>Estas seguro de que quieres agregar el presupuesto.
+                  <ul>
+                    <li>Verifique que los datos introducidos sean correctos</li>
+                  </ul>
+                </p>
+                
+                  <input type="submit" name="" class="btn btn-success" value="Agregar">
+                  <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div> 
+          </div>
+        </div> 
+      </div>
+    </form>
       </form>
       @else
       Debe estar autenticado y tener permisos para ver esta pagina

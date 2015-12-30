@@ -65,6 +65,8 @@ Route::post('partida/{partida}/delete', 'PartidaController@destroy');
 Route::post('partida/{partida}/put', 'PartidaController@update');
 Route::get('partida/{id}/agregar', 'PartidaController@agregarPartida');
 Route::post('partida/{id}/agregar', 'PartidaController@asignarPartida');
+Route::get('partida/editar/{id}', 'PartidaController@editPresupuestoPartida');
+Route::post('partida/editar/{id}', 'PartidaController@updatePresupuestoPartida');
 Route::post('/transferencia/verificar', 'PartidaController@transferencia');
 Route::get('/transferencia/{transferencia}', 'PartidaController@verTransferencia');
 
@@ -161,6 +163,14 @@ Route::get('/partidas', function () {
     ->where('vconfiguracion','=','Periodo')
     ->first();
 
+    $p = Presupuesto_Partida::all();
+
+    foreach ($p as $x) {
+        $x->calcularGasto();
+        $x->calcularReserva();
+        $x->calcularSaldo();
+    }
+
     $presupuestoPartida = DB::table('tpresupuesto_tpartida')
     ->join('tpresupuesto', 'idPresupuesto', '=', 'tPresupuesto_idPresupuesto')
     ->join('tpartida', 'idPartida', '=', 'tPartida_idPartida')
@@ -235,7 +245,7 @@ Route::get('/transferencias', function (){
     $transferencias = DB::select('
         SELECT * FROM
         (
-        SELECT  `idTransferencia` as `codTransDe` ,  `vDocumento` as `docDe`,  `iMontoTransferencia` as `monTransDe`,  `idCoordinacion` as `idCoorDe`,  `vNombreCoordinacion` as `nomCoorDe`,  `vNombrePresupuesto` as `nomPresDe`,  `anno` as `annoDe`,  `codPartida` as `codParDe` 
+        SELECT  `idTransferencia`, `tPresupuestoPartidaDe` as `codTransDe` ,  `vDocumento` as `docDe`,  `iMontoTransferencia` as `monTransDe`,  `idCoordinacion` as `idCoorDe`,  `vNombreCoordinacion` as `nomCoorDe`,  `vNombrePresupuesto` as `nomPresDe`,  `anno` as `annoDe`,  `codPartida` as `codParDe` 
         FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
         WHERE tPresupuestoPartidaDE = id
         AND tPresupuesto_idPresupuesto = idPresupuesto
@@ -245,7 +255,7 @@ Route::get('/transferencias', function (){
         )t1
         LEFT JOIN
         (
-        SELECT  `idTransferencia` as `codTransA` ,  `vDocumento` as `docA`,  `iMontoTransferencia` as `monTransA`,  `idCoordinacion` as `idCoorA`,  `vNombreCoordinacion` as `nomCoorA`,  `vNombrePresupuesto` as `nomPresA`,  `anno` as `annoA`,  `codPartida` as `codParA`
+        SELECT  `tPresupuestoPartidaA` as `codTransA` ,  `vDocumento` as `docA`,  `iMontoTransferencia` as `monTransA`,  `idCoordinacion` as `idCoorA`,  `vNombreCoordinacion` as `nomCoorA`,  `vNombrePresupuesto` as `nomPresA`,  `anno` as `annoA`,  `codPartida` as `codParA`
         FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
         WHERE tPresupuestoPartidaA = id
         AND tPresupuesto_idPresupuesto = idPresupuesto

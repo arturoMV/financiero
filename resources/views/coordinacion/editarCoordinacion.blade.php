@@ -22,26 +22,57 @@
 
       <div class="form-group">
         <label class="col-md-4 control-label">ID Coordinacion</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" name="idCoordinacion" value="<%$coordinacion->idCoordinacion%>" placeholder="ID de Coordinacion">
+        <div class="col-md-8" ng-init="id=<%$coordinacion->idCoordinacion%>">
+          <input type="text" class="form-control" ng-model="id" name="idCoordinacion" value="<%$coordinacion->idCoordinacion%>" placeholder="ID de Coordinacion">
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group" ng-init="nomb = '<% $coordinacion->vNombreCoordinacion %>'">
         <label class="col-md-4 control-label">Nombre Coordinacion</label>
         <div class="col-md-8">
-          <input type="text" class="form-control" name="vNombreCoordinacion" 
-          value="<%$coordinacion->vNombreCoordinacion%>" placeholder="Nombre de la Coordinacion">
+          <input type="text" class="form-control" ng-model="nomb" name="vNombreCoordinacion" 
+           placeholder="Nombre de la Coordinacion" ng-value="<%$coordinacion->vNombreCoordinacion%>">
         </div>
       </div>
       <div class="form-group">
           <div class="col-md-4 col-md-offset-3">
-            <input type="submit" name="" class="btn btn-warning" value="Editar">
+            <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal2">Editar</button>
 
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Eliminar</button>
 
           </div>
         </div> 
+
+      <div class="col-md-5">
+        <div class="modal fade" id="myModal2" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Confirmar</h4>
+              </div>
+              <div class="modal-body">
+                <p>Estas seguro de que quieres modificar la coordinacion.</p>
+                <p>
+                  <div class="form-group">
+                    <label class="col-md-6 control-label">Numero de Cooordinación</label>
+                    <p class="col-md-6 form-control-static">
+                      {{id}}
+                    </p>         
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-6 control-label">Nombre de coodinacion</label>
+                    <p class="col-md-6 form-control-static">{{nomb}}</p>
+                  </div >
+                </p>
+                  <input type="submit" name="" class="btn btn-warning" value="Editar">
+                  <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
+                </div>
+              </div> 
+            </div>
+          </div> 
+        </div>
 
       </form>
 
