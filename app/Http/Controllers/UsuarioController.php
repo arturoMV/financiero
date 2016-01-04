@@ -168,11 +168,11 @@ class UsuarioController extends Controller
     public function cambiarConfig(Request $request){  
         $config  = $request->input('iValor');  
 
-        DB::table('tConfiguracion')
+        DB::table('tconfiguracion')
         ->where('vConfiguracion', 'Periodo')
         ->update(['iValor' => $config]);
 
-        $config = DB::table('tConfiguracion')
+        $config = DB::table('tconfiguracion')
         ->select('iValor')
         ->where('vConfiguracion','=','Periodo')
         ->first();

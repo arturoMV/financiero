@@ -81,7 +81,7 @@ Route::get('/create/transferencia', function () {
 Route::get('/presupuesto/informe-gastos/{idPresupuesto}',function($idPresupuesto){
     $config = DB::table('tconfiguracion')
     ->select('iValor')
-    ->where('vconfiguracion','=','Periodo')
+    ->where('vConfiguracion','=','Periodo')
     ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
 
@@ -122,7 +122,7 @@ Route::get('/partida/informe-gastos/{idPartda}',function($idPartda){
 Route::get('/presupuesto/informe-fin-gestion/{idPresupuesto}',function($idPresupuesto){
     $config = DB::table('tconfiguracion')
     ->select('iValor')
-    ->where('vconfiguracion','=','Periodo')
+    ->where('vConfiguracion','=','Periodo')
     ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
 
@@ -173,7 +173,7 @@ Route::post('password/reset', 'Auth\PasswordController@postReset');
 Route::get('/partidas', function () {
     $config = DB::table('tconfiguracion')
     ->select('iValor')
-    ->where('vconfiguracion','=','Periodo')
+    ->where('vConfiguracion','=','Periodo')
     ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
 

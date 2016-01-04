@@ -39,7 +39,7 @@ class="active"
         <label class="col-md-6 control-label" >Tipo de Transaccion:</label>
         <div class="col-md-6">
           <select name="vTipoFactura" class="form-control" required ng-model="tipo">
-            <option value="Factura credito" ng-selected="true">Factura Credito</option>
+            <option value="Factura credito" ng-selected="true"  >Factura Credito</option>
             <option value="Factura pendiente" >Factura Pendiente</option>
             <option value="Reintegro de caja chica" >Reintegro de caja chica</option>
             <option value="Solicitud GECO" >Solicitud GECO</option>
@@ -127,8 +127,8 @@ class="active"
                             <div ng-if="tipo == 'Pases Anulacion' || tipo == 'Cancelacion GECO'" ng-init="x.maximo = partida.iReserva">  
                             </div>
                             </div>
-                            
-                            <input  type="hidden" name="id{{$index}}" required value="{{x.partida}}">
+                              <input  type="hidden" name="id{{$index}}" required value="{{x.partida}}">
+      
                             
 
                           </div>
@@ -142,7 +142,16 @@ class="active"
             <td>
               <div class="form-group">
                 <div class="col-md-12">
+                <div ng-if="tipo!= 'Cancelacion GECO'">
                   <input type="text" class="form-control" ng-model="x.detalle" required name="detalle{{$index}}">
+                            </div>
+                            <div ng-if="tipo == 'Cancelacion GECO'">
+                              <select class="form-control">
+                                <option value="">Documento Nombre de la solicitud {{500000 | currency: "₡":0}}</option>
+                                <option value="">Documento Nombre de la solicitud {{1500000 | currency: "₡":0}}</option>
+                              </select>      
+                            </div>
+                            
                 </div>
               </div>  
             </td>

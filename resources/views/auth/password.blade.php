@@ -16,14 +16,6 @@
     </div> 
     @endif
 
-    @if (count($status) > 0)
-    <div class="alert alert-success">
-        <strong>Bien!</strong> <br><br>
-        <ul>
-            <li><% $status %></li>
-        </ul>
-    </div> 
-    @endif
     <form method="POST" class="form-horizontal" action="/financiero/public/password/email">
         {!! csrf_field() !!}
 
