@@ -71,7 +71,9 @@ class="active"
     </form
     <div class="col-md-12 <% $count = 0 %>">
       <hr>
-      <h4>Lista de Partidas</h4>
+      <h4>Lista de Partidas
+      <small>
+      <label class="pull-right"><input type="checkbox" name="" ng-model="expandir" ng-check="true" value="">Expandir Todo</label></small></h4>
 
       @foreach($partidas as $partida)
         
@@ -83,12 +85,12 @@ class="active"
         <div class="panel-heading" style="height:40px">
           <label ng-show="!ver<%$count%>" class="col-md-4 control-label">Partida: <small><% $p->codPartida %></small></label>           
           <label ng-show="!ver<%$count%>" class="col-md-6 control-label">Nombre: <small><% $p->vNombrePartida %></small></label>
-          <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!ver<%$count%>"
+          <button type="button" class="btn btn-xs btn-success pull-right" ng-show="!ver<%$count%> && !expandir"
             ng-click="ver<%$count%> = true">+</button>
-            <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%>"
+            <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%> && !expandir"
               ng-click="ver<%$count%> = false">x</button>
             </div>
-            <div ng-if="ver<%$count %>" class="panel-body form-horizontal">  
+            <div ng-if="ver<%$count %> || expandir" class="panel-body form-horizontal">  
              <div class="form-group">
                 <label class="col-md-4 control-label">Partida:</label>
                 <p class="col-md-8 form-control-static"><%$p->codPartida%></p>
@@ -146,7 +148,7 @@ class="active"
           @endforeach
         </div>
       </div>
-
+    </div>
     </section> 
     @else
     Debe estar autenticado y tener permisos para ver esta pagina

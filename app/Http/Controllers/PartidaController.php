@@ -88,9 +88,9 @@ class PartidaController extends Controller
         ->where('deleted_at', null);
         $presupuesto_partida->presupuestoModificado();
         $presupuesto_partida->calcularReserva();
-
-        $presupuesto_partida->calcularSaldo();
         $presupuesto_partida->calcularGasto();
+        $presupuesto_partida->calcularSaldo();
+
 
         $transferenciasA = Transferencia::all()->where('tPresupuestoPartidaA', $presupuesto_partida->id);
         $transferenciasDe = Transferencia::all()->where('tPresupuestoPartidaDe', $presupuesto_partida->id);
@@ -317,8 +317,9 @@ class PartidaController extends Controller
                     $presupuesto_partidaDe->save();
 
                     $presupuesto_partidaA->presupuestoModificado();
-                    $presupuesto_partidaA->calcularSaldo();
                     $presupuesto_partidaA->calcularGasto();
+                    $presupuesto_partidaA->calcularSaldo();
+
                     $presupuesto_partidaA->save();
 
 

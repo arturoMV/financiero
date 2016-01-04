@@ -51,10 +51,10 @@
  				<td <% $TR += $partida->getTransferenciasDe()%>>{{<% $partida->getTransferenciasDe()%> | currency: "₡":0}}</td>
  				<td <% $OS += $partida->getTransaccionPorTipo('Orden de servicio')%>>{{<% $partida->getTransaccionPorTipo('Orden de servicio')%> | currency: "₡":0}}</td>
 				<td <% $O += $partida->getTransaccionPorTipo('Otros')%>>{{<% $partida->getTransaccionPorTipo('Otros')%> | currency: "₡":0}}</td>
-				<td <% $G += $partida->iGasto%>>{{<% $partida->iGasto%> | currency: "₡":0}}</td>
+				<td <% $G += $partida->iGasto + $partida->iReserva %>>{{<% $partida->iGasto + $partida->iReserva%> | currency: "₡":0}}</td>
  				<td <% $S += $partida->iSaldo%>>{{<% $partida->iSaldo%> | currency: "₡":0}}</td>
- 				<td><% round(($partida->iGasto/$partida->iPresupuestoModificado)*100,2) %></td>
- 				<td><% round(($partida->iSaldo/$partida->iPresupuestoModificado)*100,2) %></td>
+ 				<td><% round((($partida->iGasto + $partida->iReserva)/$partida->iPresupuestoModificado)*100,2) %>%</td>
+ 				<td><% round(($partida->iSaldo/$partida->iPresupuestoModificado)*100,2) %>%</td>
  			</tr>
  			@endforeach
  				<th>Total</th>

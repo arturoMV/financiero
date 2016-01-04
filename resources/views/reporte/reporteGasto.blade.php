@@ -28,10 +28,10 @@
  				<td class="alert alert-success"><% $partida->codPartida%>-<% $partida->vNombrePartida%></td>
  				<td <% $PI += $partida->iPresupuestoInicial %> class="alert alert-success">{{<% $partida->iPresupuestoInicial%> | currency: "₡":0}}</td>
  				<td <% $PM += $partida->iPresupuestoModificado %> class="alert alert-success">{{<% $partida->iPresupuestoModificado%> | currency: "₡":0}}</td>
- 				<td <% $G += $partida->iGasto %> class="alert alert-danger">{{<% $partida->iGasto%> | currency: "₡":0}}</td>
+ 				<td <% $G += $partida->iGasto + $partida->iReserva%> class="alert alert-danger">{{<% $partida->iGasto + $partida->iReserva%> | currency: "₡":0}}</td>
  				<td <% $S += $partida->iSaldo %> class="alert alert-info">{{<% $partida->iSaldo%> | currency: "₡":0}}</td>
- 				<td class="alert alert-danger"><% round(($partida->iGasto/$partida->iPresupuestoModificado)*100,2) %></td>
- 				<td class="alert alert-info"><% round(($partida->iSaldo/$partida->iPresupuestoModificado)*100,2) %></td>
+ 				<td class="alert alert-danger"><% round((($partida->iGasto+ $partida->iReserva) /$partida->iPresupuestoModificado)*100,2) %>%</td>
+ 				<td class="alert alert-info"><% round(($partida->iSaldo/$partida->iPresupuestoModificado)*100,2) %>%</td>
 
  			</tr>
  			@endforeach

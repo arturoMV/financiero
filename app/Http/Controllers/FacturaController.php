@@ -12,6 +12,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Redirect;
 
 class FacturaController extends Controller
 {
@@ -30,12 +31,9 @@ class FacturaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-
-
-        return view('transaccion/nuevaTransaccion');
-        
+        return view('transaccion/nuevaTransaccion', ['mensaje' => null]);   
     }
 
     /**
@@ -76,13 +74,8 @@ class FacturaController extends Controller
                 }
                 $campo++;
             }
-
             $count++;
-        }
-
-        return Factura::find($factura);
-
-        
+        }return redirect('transaccion/create')->with('mensaje','s');        
     }
 
     /**
@@ -122,7 +115,7 @@ class FacturaController extends Controller
                 'presupuesto'=>$presupuesto,
                 'coordinacion'=>$coordinacion]); 
         }catch(\Illuminate\Database\QueryException $ex){ 
-            return view('/transaccion/verTransaccion/');
+            return view('transaccion/verTransaccion/');
         }       
     }
 

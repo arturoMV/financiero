@@ -44,6 +44,7 @@ class User extends Model implements AuthenticatableContract,
     protected $hidden = ['password', 'remember_token'];
 
     public function verificarPermiso($nombreRol, $nombrePermiso){
+    
         $permisos =DB::table('trol_tiene_tpermiso')
             ->join('trol', 'trol_tiene_tpermiso.trol_idRol', '=', 'trol.idRol')
             ->join('tpermiso', 'trol_tiene_tpermiso.tpermiso_idPermiso', '=', 'tpermiso.idPermiso')
@@ -59,6 +60,18 @@ class User extends Model implements AuthenticatableContract,
     }
 
     public function tienePermiso($validacion){
+        $config = DB::table('tconfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','=','Periodo')
+        ->where('tUsuario_idUsuario', '=', Auth::user()->id)
+        ->first();
+        
+        if(count($config)<=0){
+        DB::table('tconfiguracion')->insert([
+        'vConfiguracion' => 'Periodo',
+        'iValor' => 2016,
+        'tUsuario_idUsuario' => $this->id]); 
+        } 
       
        $resultado=DB::table('tusuario')
             ->join('trol', 'tusuario.trol_idRol', '=', 'trol.idRol')
@@ -101,5 +114,12 @@ class User extends Model implements AuthenticatableContract,
             }
         }
         return false;
+    }
+
+    public function agregarAnno(){
+        DB::table('tconfiguracion')->insert([
+            'vConfiguracion' => 'Periodo',
+            'iValor' => 2016,
+            'tUsuario_idUsuario' => $this->id]);  
     }
 }

@@ -1,6 +1,6 @@
 @extends('/layouts.master')
 
-  @section('title', 'Partida')
+  @section('title', 'Usuario')
   @section('admU')
   class="active"
   @endsection

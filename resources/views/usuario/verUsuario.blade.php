@@ -1,7 +1,7 @@
   @extends('/layouts.master')
   <html>
   <head>
-  @section('title', 'Partida')
+  @section('title', 'Usuario')
   </head>
   <body>
   @section('usuario')

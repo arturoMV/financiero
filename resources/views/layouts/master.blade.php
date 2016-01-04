@@ -26,10 +26,11 @@
 	<script src="{!! asset('js/services/usuarios.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/transferenciaTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/transferencia.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/controllers/transaccionTemplate.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/transaccion.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
 
-
-	<title>Financiero - @yield('title')</title>
+	<title>Movimientos Presupuestarios - @yield('title')</title>
 
 </head>
 <body>
@@ -39,8 +40,8 @@
 		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br>
 		 <a class="btn btn-danger pull-right cerrar" href="/financiero/public/auth/logout" title="login">Cerrar Sesion</a> </h5>
 		@else
-		<a  href="/financiero/public/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
-		<a  href="/financiero/public/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
+			<a  href="/financiero/public/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
+			<a  href="/financiero/public/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
 		@endif
 	</div>
 	<header id="header" class="container-fluid">
@@ -82,6 +83,10 @@
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
 							<li @yield('partida')><a href="/financiero/public/partida" title="Partidas de Presupuesto">Partidas</a></li>
 							@endif
+
+							@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Transaccion', Auth::user()->id))
+							<li @yield('movimiento')><a href="/financiero/public/transaccion/create" title="Movimientos" >Nuevo Movimiento</a></li>
+        					@endif
 
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Transferencia', Auth::user()->id))
 							<li @yield('transferencia')><a href="/financiero/public/transferencia" title="Acerca de">Transferencias</a></li>

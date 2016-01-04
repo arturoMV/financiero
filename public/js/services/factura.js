@@ -1,6 +1,6 @@
  angular.module('facturaCtrl', [])
     .controller('facturaTemplate', ['$scope', function($scope) {
-        $scope.factura = [{ detalle: '', monto: ''}];
+        $scope.factura = [{detalle: '', monto: '', maximo:0, partida:''}];
 
     	$scope.agregarFila = function (){
       		$scope.factura.push({ detalle: '', monto:''})

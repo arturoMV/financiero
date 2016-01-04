@@ -31,15 +31,8 @@ class Presupuesto_Partida extends Model
     }
 
     public function calcularSaldo(){
-        $reserva = DB::table('tfactura')
-        ->where('tPartida_idPartida','=', $this->id)
-        ->where('vTipoFactura', '=','Solicitud GECO')
-        ->where('deleted_at', null)
-        ->sum('iMontoFactura');
 
-        $this->iReserva = $reserva;
-
-        $this->iSaldo = $this->iPresupuestoModificado - $this->iGasto- $reserva;
+        $this->iSaldo = $this->iPresupuestoModificado - $this->iGasto - $this->iReserva;
         $this->save();
     }
 
@@ -50,7 +43,27 @@ class Presupuesto_Partida extends Model
         ->where('deleted_at', null)
         ->sum('iMontoFactura');
 
-        $this->iReserva = $reserva;
+        $anulacion = DB::table('tfactura')
+        ->where('tPartida_idPartida',"=",$this->id)
+        ->where('vTipoFactura', '=','Pases Anulacion')
+        ->where('deleted_at', null)
+        ->sum('iMontoFactura');
+
+        $adicionales = DB::table('tfactura')
+        ->where('tPartida_idPartida',"=",$this->id)
+        ->where('vTipoFactura', '=','Pases Adicionales')
+        ->where('deleted_at', null)
+        ->sum('iMontoFactura');
+
+        $cancelacion = DB::table('tfactura')
+        ->where('tPartida_idPartida',"=",$this->id)
+        ->where('vTipoFactura', '=','Cancelacion GECO')
+        ->where('deleted_at', null)
+        ->sum('iMontoFactura');
+
+
+
+        $this->iReserva = $reserva - $anulacion - $cancelacion + $adicionales;
         $this->save();
     }
 
@@ -58,6 +71,12 @@ class Presupuesto_Partida extends Model
       $gasto = DB::table('tfactura')
         ->where('tPartida_idPartida','=', $this->id)
         ->where('vTipoFactura', '!=','Pases Anulacion')
+        ->where('deleted_at', null)
+        ->sum('iMontoFactura');
+
+        $adicionales = DB::table('tfactura')
+        ->where('tPartida_idPartida',"=",$this->id)
+        ->where('vTipoFactura', '=','Pases Adicionales')
         ->where('deleted_at', null)
         ->sum('iMontoFactura');
 
@@ -73,7 +92,7 @@ class Presupuesto_Partida extends Model
         ->where('deleted_at', null)
         ->sum('iMontoFactura');
 
-        $this->iGasto = $gasto - $anulacion - $reserva;
+        $this->iGasto = $gasto - $reserva - $adicionales;
         $this->save();
     }
     

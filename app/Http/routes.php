@@ -42,6 +42,7 @@ Route::get('/configuracion', function(){
    $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vConfiguracion','=','Periodo')
+    ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
     return view('/config/config',['config'=> $config, 'cambio' => false]);
 });
@@ -81,6 +82,7 @@ Route::get('/presupuesto/informe-gastos/{idPresupuesto}',function($idPresupuesto
     $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vconfiguracion','=','Periodo')
+    ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
 
 
@@ -94,7 +96,7 @@ Route::get('/presupuesto/informe-gastos/{idPresupuesto}',function($idPresupuesto
     ->join('tcoordinacion', 'idCoordinacion', '=', 'tCoordinacion_idCoordinacion')
     ->join('tusuario_tcoordinacion','tCoordi_idCoordinacion', '=' , 'idCoordinacion')
     ->select('codPartida','vNombrePartida','idPartida','id','tPresupuesto_idPresupuesto','tpresupuesto_tpartida.iPresupuestoInicial',
-    'tpresupuesto_tpartida.iPresupuestoModificado','tpresupuesto_tpartida.iGasto', 'tpresupuesto_tpartida.iSaldo')
+    'tpresupuesto_tpartida.iPresupuestoModificado','tpresupuesto_tpartida.iGasto', 'tpresupuesto_tpartida.iReserva','tpresupuesto_tpartida.iSaldo')
     ->where('tUsuario_idUsuario', '=' , Auth::user()->id)
     ->where('idPresupuesto', '=', $presupuesto->idPresupuesto)
     ->where('anno','=',$config->iValor)
@@ -103,10 +105,25 @@ Route::get('/presupuesto/informe-gastos/{idPresupuesto}',function($idPresupuesto
     return view('reporte/reporteGasto', ['presupuestoPartida' => $presupuestoPartida, 'coordinacion' => $coordinacion, 'presupuesto' => $presupuesto]);
 });
 
+
+
+Route::get('/partida/informe-gastos/{idPartda}',function($idPartda){
+    $presupuesto_partida = Presupuesto_Partida::find($idPartda);
+
+    $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
+
+    $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
+
+    $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
+
+    return view('reporte/reportePartida', ['presupuesto_partida' => $presupuesto_partida, 'coordinacion' => $coordinacion, 'presupuesto' => $presupuesto, 'partida' => $partida]);
+});
+
 Route::get('/presupuesto/informe-fin-gestion/{idPresupuesto}',function($idPresupuesto){
     $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vconfiguracion','=','Periodo')
+    ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
 
     $presupuesto = Presupuesto::find($idPresupuesto);
@@ -114,10 +131,6 @@ Route::get('/presupuesto/informe-fin-gestion/{idPresupuesto}',function($idPresup
     $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
 
     $presupuestoPartida = Presupuesto_Partida::all()->where('tPresupuesto_idPresupuesto', $presupuesto->idPresupuesto);
-    //  foreach ($presupuestoPartida as $key => $partida) {
-    //     $pardetalles = $partida->getPartida();
-    //     return $pardetalles->codPartida;
-    // }
 
     return view('reporte/reporteFinGestion', ['presupuestoPartida' => $presupuestoPartida, 'coordinacion' => $coordinacion, 'presupuesto' => $presupuesto]);
 });
@@ -125,7 +138,7 @@ Route::get('/presupuesto/informe-fin-gestion/{idPresupuesto}',function($idPresup
 
 //Factura routes...
 Route::resource('transaccion', 'FacturaController');
-Route::get('transaccion/create/{id}', 'FacturaController@create');
+Route::get('transaccion/create', 'FacturaController@create');
 Route::post('transaccion/{partida}/delete', 'FacturaController@destroy');
 Route::post('transaccion/{partida}/put', 'FacturaController@update');
 
@@ -161,6 +174,7 @@ Route::get('/partidas', function () {
     $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vconfiguracion','=','Periodo')
+    ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
 
     $p = Presupuesto_Partida::all();
@@ -178,13 +192,19 @@ Route::get('/partidas', function () {
     ->join('tusuario_tcoordinacion','tCoordi_idCoordinacion', '=' , 'idCoordinacion')
     ->select('idCoordinacion','anno','vNombreCoordinacion','vNombrePresupuesto','codPartida','vNombrePartida',
     'idPartida','id','tPresupuesto_idPresupuesto','tpresupuesto_tpartida.iPresupuestoInicial',
-    'tpresupuesto_tpartida.iPresupuestoModificado','tpresupuesto_tpartida.iGasto', 'tpresupuesto_tpartida.iSaldo')
+    'tpresupuesto_tpartida.iPresupuestoModificado','tpresupuesto_tpartida.iGasto','tpresupuesto_tpartida.iReserva', 'tpresupuesto_tpartida.iSaldo')
     ->where('tUsuario_idUsuario', '=' , Auth::user()->id)
     ->where('anno','=',$config->iValor)
     ->get();
     
     return $presupuestoPartida;	
 });	
+
+Route::get('/transaccionesReporte', function () {
+    $transacciones = Factura::all()
+    ->where('deleted_at', null);
+    return $transacciones;
+});
 
 Route::get('/usuarios', function () {
 	$usuario = User::all();	
@@ -203,6 +223,7 @@ Route::get('/presupuestos', function () {
     $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vConfiguracion','=','Periodo')
+    ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
 
 
@@ -240,31 +261,59 @@ Route::get('/transferencias', function (){
         $config = DB::table('tconfiguracion')
     ->select('iValor')
     ->where('vConfiguracion','=','Periodo')
+    ->where('tUsuario_idUsuario', '=', Auth::user()->id)
     ->first();
    
     $transferencias = DB::select('
-        SELECT * FROM
+        SELECT * 
+        FROM 
         (
-        SELECT  `idTransferencia`, `tPresupuestoPartidaDe` as `codTransDe` ,  `vDocumento` as `docDe`,  `iMontoTransferencia` as `monTransDe`,  `idCoordinacion` as `idCoorDe`,  `vNombreCoordinacion` as `nomCoorDe`,  `vNombrePresupuesto` as `nomPresDe`,  `anno` as `annoDe`,  `codPartida` as `codParDe` 
-        FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
-        WHERE tPresupuestoPartidaDE = id
-        AND tPresupuesto_idPresupuesto = idPresupuesto
-        AND tPartida_idPartida = idPartida
-        AND tCoordinacion_idCoordinacion = idCoordinacion
-        AND anno = '.$config->iValor.'
-        )t1
-        LEFT JOIN
-        (
-        SELECT  `tPresupuestoPartidaA` as `codTransA` ,  `vDocumento` as `docA`,  `iMontoTransferencia` as `monTransA`,  `idCoordinacion` as `idCoorA`,  `vNombreCoordinacion` as `nomCoorA`,  `vNombrePresupuesto` as `nomPresA`,  `anno` as `annoA`,  `codPartida` as `codParA`
-        FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
-        WHERE tPresupuestoPartidaA = id
-        AND tPresupuesto_idPresupuesto = idPresupuesto
-        AND tPartida_idPartida = idPartida
-        AND tCoordinacion_idCoordinacion = idCoordinacion
-        AND anno = '.$config->iValor.'
-        )t2
-        ON t1.codTransDE = t2.codTransA
-        ');
+        SELECT 
+            `idTransferencia`, 
+            `tPresupuestoPartidaDe` as `codTransDe`, 
+            `vDocumento` as `docDe`, 
+            `iMontoTransferencia` as `monTransDe`, 
+            `idCoordinacion` as `idCoorDe`, 
+            `vNombreCoordinacion` as `nomCoorDe`, 
+            `vNombrePresupuesto` as `nomPresDe`, 
+            `anno` as `annoDe`, 
+            `codPartida` as `codParDe` 
+        FROM 
+            ttranferencia_partida, 
+            tcoordinacion, 
+            tpartida, 
+            tpresupuesto, 
+            tpresupuesto_tpartida 
+        WHERE 
+            tPresupuestoPartidaDE = id 
+            AND tPresupuesto_idPresupuesto = idPresupuesto 
+            AND tPartida_idPartida = idPartida 
+            AND tCoordinacion_idCoordinacion = idCoordinacion 
+            AND anno = '.$config->iValor.'
+    ) t1 
+    LEFT JOIN (
+        SELECT 
+            `tPresupuestoPartidaA` as `codTransA`, 
+            `vDocumento` as `docA`, 
+            `iMontoTransferencia` as `monTransA`, 
+            `idCoordinacion` as `idCoorA`, 
+            `vNombreCoordinacion` as `nomCoorA`, 
+            `vNombrePresupuesto` as `nomPresA`, 
+            `anno` as `annoA`, 
+            `codPartida` as `codParA` 
+        FROM 
+            ttranferencia_partida, 
+            tcoordinacion, 
+            tpartida, 
+            tpresupuesto, 
+            tpresupuesto_tpartida 
+        WHERE 
+            tPresupuestoPartidaA = id 
+            AND tPresupuesto_idPresupuesto = idPresupuesto 
+            AND tPartida_idPartida = idPartida 
+            AND tCoordinacion_idCoordinacion = idCoordinacion 
+            AND anno = '.$config->iValor.'
+    ) t2 ON t1.codTransDE = t2.codTransA');
 
     return $transferencias;
 });

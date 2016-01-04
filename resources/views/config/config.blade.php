@@ -14,25 +14,27 @@
 				<h4>Se guardo satisfactoriamente, el año de trabajo es <%$config->iValor%></h4>	
 			</div>
 		@endif
-		<form class="form-horizontal col-md-6" action="/financiero/public/configuracion" method="post">
+		<form class="form-horizontal col-md-12" action="/financiero/public/configuracion" method="post">
 		{!! csrf_field() !!}
 	        <div class="form-group">
-        		<label class="col-md-4 control-label">Año de trabajo</label>
+        		<label class="col-md-2 control-label">Año de trabajo</label>
         		<div class="col-md-2">
+        		@if(count($config)>0)
           			<input type="number" class="form-control" name="iValor" value="<% $config->iValor %>" required>
+          		@else
+          			<input type="number" class="form-control" name="iValor" value="2016" required>
+          			<% Auth::user()->agregarAnno() %>
+          		@endif
+
         		</div>
       		</div>
 
         	<div class="form-group">
-        		<div class="col-md-1 col-md-offset-4">
+        		<div class="col-md-1">
 					<input type="submit" value="Guardar" class="btn btn-primary">      
 		  		</div>
       		</div>
 		</form>
 
-		<div class="col-md-6">
-			<h3>Respaldar los datos</h3>
-			<a href="/financiero/public/respaldo" title=""></a>
-		</div>
 	</section> 
 	@endsection

@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 
-@section('title', 'Inicio')
+@section('title', 'Transferencias')
 @section('transferencia')
 class="active"
 @endsection

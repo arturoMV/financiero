@@ -23,27 +23,27 @@
 						<th class="col-md-1"></th>
 		</div>
 		<div class="container-fluid table-responsive">
-			<table class="table table-striped table-hover">
-				<tbody>
-					<tr >
-						<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">Unidad Ejecutora</th>
-						<th ng-click="orderTable('vNombreCoordinacion')" style="cursor:pointer;">Nombre</th>
-					</tr>
-					<tr ng-repeat="coordinacion in modelC | filter : search | orderBy : myOrder track by $index">
-						<td>{{coordinacion.idCoordinacion}}</td>
-						<td>{{coordinacion.vNombreCoordinacion}}</td>
-						
-						<td>
-							<a href="/financiero/public/coordinacion/{{coordinacion.idCoordinacion}}"  class="btn btn-info" title="">Ver</a>
-						</td>
-						<td>
-						@if(Auth::user() AND Auth::user()->tienePermiso('Editar Coordinacion', Auth::user()->id))
-							<a href="/financiero/public/coordinacion/{{coordinacion.idCoordinacion}}/edit" class="btn btn-warning" title="">Editar</a>
-						@endif
-						</td>
-					</tr>
-				</tbody>
-			</table>
+				<table class="table table-striped table-hover">
+					<tbody>
+						<tr >
+							<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">Unidad Ejecutora</th>
+							<th ng-click="orderTable('vNombreCoordinacion')" style="cursor:pointer;">Nombre</th>
+						</tr>
+						<tr ng-repeat="coordinacion in modelC | filter : search | orderBy : myOrder track by $index">
+							<td>{{coordinacion.idCoordinacion}}</td>
+							<td>{{coordinacion.vNombreCoordinacion}}</td>
+							
+							<td>
+								<a href="/financiero/public/coordinacion/{{coordinacion.idCoordinacion}}"  class="btn btn-info" title="">Ver</a>
+							</td>
+							<td>
+							@if(Auth::user() AND Auth::user()->tienePermiso('Editar Coordinacion', Auth::user()->id))
+								<a href="/financiero/public/coordinacion/{{coordinacion.idCoordinacion}}/edit" class="btn btn-warning" title="">Editar</a>
+							@endif
+							</td>
+						</tr>
+					</tbody>
+				</table>
 		</div>
 </section>
 	@else
