@@ -51,6 +51,9 @@ class FacturaController extends Controller
         $documento = $request->vDocumento;        
         $fecha = $request->dFechaFactura;
         $descripcion = $request->vDescripcionFactura;
+        $listaFactura = []; 
+        $listaPartida = [];
+
 
         foreach($input as $in){
             if($count > 4){
@@ -62,20 +65,61 @@ class FacturaController extends Controller
                 }
                 if($campo == 3){
                     $monto = $in;
-                   $factura = DB::table('tfactura')->insert(
-                    ['vTipoFactura' => $tipo,
-                    'vDocumento' => $documento,
-                    'dFechaFactura' => $fecha,
-                    'vDescripcionFactura' => $descripcion,
-                    'tPartida_idPartida' => $partida,
-                    'vDetalleFactura' => $detalle, 
-                    'iMontoFactura' => $monto]);
+
+                    $factura = new Factura;
+
+                    $factura->vTipoFactura =  $tipo;
+                    $factura->vDocumento =  $documento;
+                    $factura->dFechaFactura =  $fecha;
+                    $factura->vDescripcionFactura =  $descripcion;
+                    $factura->tPartida_idPartida =  $partida;
+                    $factura->vDetalleFactura =  $detalle;
+                    $factura->iMontoFactura =  $monto;
+
+                    if(in_array($partida, $listaPartida)){
+                        return redirect('transaccion/create')->withErrors('Solo se puede agregar una linea por Partida');
+                    }
+                    else{
+                        array_push($listaPartida, $partida);
+                    }
+
+                    array_push($listaFactura, $factura);
                     $campo = 0;
                 }
                 $campo++;
             }
             $count++;
-        }return redirect('transaccion/create')->with('mensaje','s');        
+        }
+      // return dd($listaPartida);
+
+        $listaPartida;
+        foreach ($listaFactura as $fac) {
+           if($fac->vTipoFactura == 'Pase de Anulacion' || $fac->vTipoFactura == 'Cancelacion GECO'){
+                $presupuesto_partida = Presupuesto_Partida::find($fac->tPartida_idPartida);
+
+                array_push($listaPartida, $presupuesto_partida);
+
+                if($presupuesto_partida->iReserva < $fac->iMontoFactura){
+                    return redirect('transaccion/create')->withErrors('El monto de una partida excede el limite posible');
+                }
+           }else{
+                $presupuesto_partida = Presupuesto_Partida::find($fac->tPartida_idPartida);
+
+                array_push($listaPartida, $presupuesto_partida);
+
+                if($presupuesto_partida->iSaldo < $fac->iMontoFactura){
+                    return redirect('transaccion/create')->withErrors('El monto de una partida excede el limite posible');
+                }
+           }
+            
+        }
+
+        foreach ($listaFactura as $fac) {
+
+            $fac->save();
+        }
+
+        return redirect('transaccion/create')->with('mensaje','s');        
     }
 
     /**

@@ -36,11 +36,11 @@ class="active"
     </div>
     <div class="container-fluid col-md-7">
       <div class="form-group">
-        <label class="col-md-6 control-label">Tipo de Transaccion:</label>
+        <label class="col-md-6 control-label" >Tipo de Transaccion:</label>
         <div class="col-md-6">
           <select name="vTipoFactura" class="form-control" required ng-model="tipo">
-            <option value="Factura credito" >Factura Credito</option>
-            <option value="Factura pendiente" selected>Factura Pendiente</option>
+            <option value="Factura credito" ng-selected="true">Factura Credito</option>
+            <option value="Factura pendiente" >Factura Pendiente</option>
             <option value="Reintegro de caja chica" >Reintegro de caja chica</option>
             <option value="Solicitud GECO" >Solicitud GECO</option>
             <option value="Cancelacion GECO">Cancelacion GECO</option>
@@ -79,17 +79,17 @@ class="active"
 
     <div class="container-fluid table-responsive col-md-12"  ng-controller="facturaTemplate">
 
+    <button class="btn btn-primary btn-sm" ng-click="agregarFila()">Agregar Partida</button>
 
       <table  class="table table-condensed text-center col-md-12">
         <thead>
           <tr>
             <th class="col-md-6 text-center">Partida</th>
-            <th ng-if="tipo == 'Pases Anulacion' || tipo == 'Pases Adicionales' || tipo == 'Cancelacion GECO'">Reserva</th>
             <th class="col-md-3 text-center">Detalle</th>
             <th class="col-md-3 text-center">Monto</th>
           </tr>
         </thead>
-        <tbody id="factura" <% $count = 1 %>>
+        <tbody id="factura">
           <tr ng-repeat="x in factura">
             <td><div ng-controller="coordinacionTemplate">
               <div class="container-fluid search-container form-horizontal" ng-controller="presupuestoTemplate">
@@ -99,36 +99,38 @@ class="active"
                       <div class="panel-body">
                         <div class="form-group col-md-12">
                           <strong>Unidad Ejecutora</strong>
-                          <select ng-model="coorSelected"  required class="form-control">
+                          <select ng-model="coorSelected" class="form-control">
                             <option  ng-repeat="coordinacion in modelC" value="{{coordinacion.idCoordinacion}}">{{coordinacion.idCoordinacion}}-{{coordinacion.vNombreCoordinacion}}</option>
                           </select>
                         </div>
                         <div class="form-group col-md-12" >
                           <strong>Presupuesto</strong>
-                          <select ng-model="pSelected"  required class="form-control">
+                          <select ng-model="pSelected" class="form-control">
                             <option  ng-if="presupuesto.tCoordinacion_idCoordinacion == coorSelected" ng-repeat="presupuesto in modelPr" value="{{presupuesto.idPresupuesto}}">{{presupuesto.vNombrePresupuesto}}-{{presupuesto.anno}}</option>
                           </select>
                         </div>
                         <strong>Partida</strong>
                         <div class="form-group col-md-12">
-                          <select ng-model="partSelected" required class="form-control">
+                          <select ng-model="partSelected" class="form-control">
                             <option ng-if="partida.tPresupuesto_idPresupuesto == pSelected" ng-repeat="partida in modelP" value="{{partida.id}}" >{{partida.codPartida}}-{{partida.vNombrePartida}}</option>
                           </select>
                         </div>
                         <div><hr>
-                          <div ng-if="partida.id == partSelected" ng-repeat="partida in modelP">
+                          <div ng-if="partida.id == partSelected" ng-repeat="partida in modelP" ng-init="x.partida=partida.id">
                             <strong>Presupuesto Incial: <small>{{partida.iPresupuestoInicial | currency: "₡":0}}</small><br>
                               Presupuesto Modificado: <small>{{partida.iPresupuestoModificado | currency: "₡":0}}</small> <br>
                               Gasto: <small>{{partida.iGasto | currency: "₡":0}} </small> <br>
                               Reserva: <small>{{partida.iReserva | currency: "₡":0}} </small> <br>
                               Saldo: <small>{{partida.iSaldo | currency: "₡":0}}</small></strong>
-                              <div ng-if="tipo != 'Pases Anulacion'">  
-                              <input ng-init="x.maximo=partida.iSaldo" type="hidden" name="id{{$index+1}}" required value="{{partida.id}}">
+                            <div ng-if="tipo != 'Pases Anulacion'" ng-init="x.maximo=partida.iSaldo">  
                             </div>
-                            <div ng-if="tipo == 'Pases Anulacion' || tipo == 'Cancelacion GECO'">  
-                              <input ng-init="x.maximo = partida.iReserva; x.partida = partida.id" type="hidden" name="id{{$index+1}}" required value="{{partida.id}}">
+                            <div ng-if="tipo == 'Pases Anulacion' || tipo == 'Cancelacion GECO'" ng-init="x.maximo = partida.iReserva">  
                             </div>
                             </div>
+                            
+                            <input  type="hidden" name="id{{$index}}" required value="{{x.partida}}">
+                            
+
                           </div>
                         </div>
                       </div>
@@ -140,42 +142,36 @@ class="active"
             <td>
               <div class="form-group">
                 <div class="col-md-12">
-                  <input type="text" class="form-control" ng-model="x.detalle" required name="detalle{{$index+1}}">
+                  <input type="text" class="form-control" ng-model="x.detalle" required name="detalle{{$index}}">
                 </div>
               </div>  
             </td>
             <td>
               <div class="form-group">
                 <div class="col-md-12">
-                  <input type="number" class="form-control" required name="iMontoFactura{{$index+1}}" min="0"
-                   max="{{x.maximo}}">
+                  <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="0"
+                   max="{{x.maximo}}" >
+                   
                 </div>
                 <br><br><br>
                 <br><br><br>
                 <br><br><br>   <br>
 
-                <button type="button" class="btn btn-sm btn-danger" ng-click="eliminarFila()">Remover fila</button>
+                <button type="button" class="btn btn-sm btn-danger"  ng-click="eliminarFila($index)">Remover fila</button>
               </div>
             </td>
           </tr>
-          <tr>
-            <td></td>
-            <td ></td>
-            <th class="text-right">Total:</th>
-            <td >{{calcularFactura()| currency:"₡":0}}</td>
-          </tr>
+          
         </tbody>
       </table>
 
       <div class="form-group">
-        <input type="submit" value="Agregar Factura"  class="btn btn-primary pull-right">
+        <input type="submit" value="Agregar Factura" name="ssss"  class="btn btn-primary pull-right">
       </div>
     </form>
 
-    <button class="btn btn-primary btn-sm" ng-click="agregarFila()">Agregar Partida</button>
   </div>
 
-</div>
 
 </section>
 @else

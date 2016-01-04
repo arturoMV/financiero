@@ -13,7 +13,7 @@
 		$scope.calcularFactura = function(){
 			var tfactura = 0;
 			angular.forEach($scope.factura, function(value, key) {
-  				tfactura += value.monto; 
+  				tfactura += value.monto;
 			});
 			return tfactura;
 		};

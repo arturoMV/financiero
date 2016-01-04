@@ -63,7 +63,7 @@ class="active"
 					<td>{{transferencia.docDe}}</td>
 					<td>{{transferencia.monTransDe | currency: "₡":0}}</td>
 					<td>
-						<a href="/financiero/public/transferencia/{{transferencia.idTransferencia}}"  class="btn btn-info" title="Ver detalles de la transferencia">Ver</a>
+						<a href="/financiero/public/transferencia/{{transferencia.codTransDe}}"  class="btn btn-info" title="Ver detalles de la transferencia">Ver</a>
 					</td>
 					
 				</tr>

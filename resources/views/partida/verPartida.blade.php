@@ -60,7 +60,7 @@
   Presupuesto Modificado: <small>{{<%$presupuesto_partida->iPresupuestoModificado%> | currency: "₡":0}}</small> <br>
   Gasto: <small>{{<%$presupuesto_partida->iGasto%> | currency: "₡":0}} </small> <br>
   @if($presupuesto_partida->iReserva>0)
-  Reverva (GECO): <small>{{<%$presupuesto_partida->iReserva%> | currency: "₡":0}} </small> <br>
+  Reserva (GECO): <small>{{<%$presupuesto_partida->iReserva%> | currency: "₡":0}} </small> <br>
   @endif
   Saldo: <small>{{<%$presupuesto_partida->iSaldo%> | currency: "₡":0}}</small></h4>
 </div>
@@ -83,7 +83,7 @@
 </div>
 @if($presupuesto_partida->iReserva>0)
 <div class="alert alert-warning col-md-1 col-md-offset-1">
-  Resera: <% round($presupuesto_partida->calcularReservaPorcentaje(),2) %>% <br>
+  Reserva: <% round($presupuesto_partida->calcularReservaPorcentaje(),2) %>% <br>
 </div>
 @endif
 
@@ -97,7 +97,7 @@
       <hr>
       <h4>Lista de Transaciones<small>
       <label class="pull-right"><input type="checkbox" name="" ng-model="expandir" ng-check="true" value="">Expandir Todo</label></small></h4>
-     <a href="/financiero/public/partida/informe-gastos/<%$presupuesto_partida->id%>" name="" class="btn btn-info">Informe Gasto</a><br> <br> 
+     <a href="/financiero/public/partida/informe-gastos/<%$presupuesto_partida->id%>" target="_blank" class="btn btn-info">Informe Gasto</a><br> <br> 
 
 
       @foreach($transacciones as $transaccion)
@@ -179,7 +179,7 @@
             ng-click="ver<%$count%> = true">+</button>
             <button type="button" class="btn btn-xs btn-danger pull-right" ng-show="ver<%$count%>"
               ng-click="ver<%$count%> = false">x</button>
-          <label  class="col-md-10 control-label">Num Transferencia: <small><% $transferenciaA->idTransferencia %></small></label> <br>          
+                
           <label  class="col-md-10 control-label">Fecha: <small><% $transferenciaA->created_at %></small></label><br>
           <label  class="col-md-10 control-label">Monto: <small>{{<% $transferenciaA->iMontoTransferencia %> | currency: "₡":0 }}</small></label>
             </div>

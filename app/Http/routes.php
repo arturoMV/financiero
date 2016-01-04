@@ -268,9 +268,8 @@ Route::get('/transferencias', function (){
         SELECT * 
         FROM 
         (
-        SELECT 
-            `idTransferencia`, 
-            `tPresupuestoPartidaDe` as `codTransDe`, 
+        SELECT  
+            `idTransferencia` as `codTransDe`, 
             `vDocumento` as `docDe`, 
             `iMontoTransferencia` as `monTransDe`, 
             `idCoordinacion` as `idCoorDe`, 
@@ -293,7 +292,7 @@ Route::get('/transferencias', function (){
     ) t1 
     LEFT JOIN (
         SELECT 
-            `tPresupuestoPartidaA` as `codTransA`, 
+            `idTransferencia` as `codTransA`, 
             `vDocumento` as `docA`, 
             `iMontoTransferencia` as `monTransA`, 
             `idCoordinacion` as `idCoorA`, 

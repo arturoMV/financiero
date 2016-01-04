@@ -21,7 +21,7 @@
   Presupuesto Modificado: <small>{{<%$presupuesto_partida->iPresupuestoModificado%> | currency: "₡":0}}</small> <br>
   Gasto: <small>{{<%$presupuesto_partida->iGasto%> | currency: "₡":0}} </small> <br>
   @if($presupuesto_partida->iReserva>0)
-  Reverva (GECO): <small>{{<%$presupuesto_partida->iReserva%> | currency: "₡":0}} </small> <br>
+  Reserva (GECO): <small>{{<%$presupuesto_partida->iReserva%> | currency: "₡":0}} </small> <br>
   @endif
   Saldo: <small>{{<%$presupuesto_partida->iSaldo%> | currency: "₡":0}}</small></h4>
 </div>
@@ -44,7 +44,7 @@
 </div>
 @if($presupuesto_partida->iReserva>0)
 <div class="alert alert-warning col-md-1 col-md-offset-1">
-  Resera: <% round($presupuesto_partida->calcularReservaPorcentaje(),2) %>% <br>
+  Reserva: <% round($presupuesto_partida->calcularReservaPorcentaje(),2) %>% <br>
 </div>
 @endif
 
