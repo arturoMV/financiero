@@ -39,7 +39,7 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Cod Partida</label>
         <div class="col-md-6">
-        <input type="text" class="form-control" name="idPartida" value="<%$partida->codPartida%>" readonly  >
+        <input type="text" class="form-control" name="codPartida" value="<%$partida->codPartida%>"  >
         </div>
       </div>
 
@@ -59,7 +59,7 @@ class="active"
 
       <div class="form-group">
         <div class="col-md-4 col-md-offset-3">
-          <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal2">Editar</button>
+          <button type="button" class="btn btn-succsess" data-toggle="modal" data-target="#myModal2">Confirmar</button>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Eliminar</button>
         </div>
       </div>
@@ -78,7 +78,7 @@ class="active"
                     <li>Verifique que los datos introducidos sean correctos</li>
                   </ul>
                 </p>
-                  <input type="submit" name="" class="btn btn-success" value="Agregar">
+                  <input type="submit" name="" class="btn btn-warning" value="Editar">
                   <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
               </div>
             </div> 

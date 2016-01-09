@@ -65,7 +65,10 @@ class="active"
 
               <div class="col-md-6 form-group ">
                 @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Editar</button>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Confirmar</button>
+                @endif
+                @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Partida', Auth::user()->id))
+                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2">Eliminar</button>
                 @endif
               </div> 
 

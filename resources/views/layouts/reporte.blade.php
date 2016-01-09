@@ -45,6 +45,10 @@
 		</div>
 	</header>
 	<section>
+		<div class="col-md-11 col-offset-1">
+
+			<h4 class="push-right text-right"> <% $date = date('d/m/Y h:i:s a') %><br> 
+		</div>
 		@yield('content')<br>
 
 	</section>

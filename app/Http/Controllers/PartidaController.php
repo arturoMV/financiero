@@ -178,7 +178,7 @@ class PartidaController extends Controller
         try{
 
             $partida = Partida::find($id);
-
+            $partida->codPartida = $request->codPartida; 
             $partida->vNombrePartida = $request->vNombrePartida;
             $partida->vDescripcion = $request->vDescripcion;
             

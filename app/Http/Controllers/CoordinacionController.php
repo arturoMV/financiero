@@ -7,6 +7,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Coordinacion;
 use Redirect;
+use DB;
+use App\Presupuesto;
 class CoordinacionController extends Controller
 {
     /**
@@ -16,7 +18,7 @@ class CoordinacionController extends Controller
      */
     public function index()
     {
-        return view('/coordinacion/coordinacion');
+        return view('/coordinacion/coordinacion', ['mensaje'=> null]);
     }
 
     /**
@@ -36,13 +38,17 @@ class CoordinacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   try {
+        
         $coordinacion = Coordinacion::create(array(
             'idCoordinacion'=> $request->input('idCoordinacion'),
             'vNombreCoordinacion'=>$request->input('vNombreCoordinacion'),
             ));
-        return view('/coordinacion/coordinacion');
+        return view('/coordinacion/coordinacion', ['mensaje' =>'Se agrego una nueva Coordinacion, no se podra ver esta coordinacion hasta que se haya definido cuales usuarios pueden manejarla']);
+        } catch (\Illuminate\Database\QueryException $ex) {
+        return view('/coordinacion/nuevaCoordinacion',['errors' => 'Esa Unidad Ejecutora ya existe']);
 
+        }
     }
 
     /**
@@ -60,7 +66,7 @@ class CoordinacionController extends Controller
         return view('/coordinacion/verCoordinacion',['coordinacion'=>$coordinacion],['presupuestos'=> $presupuestos]);
     }
 
-    /**
+    /**[]
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -94,8 +100,8 @@ class CoordinacionController extends Controller
 
         return view('/coordinacion/verCoordinacion',['coordinacion'=>$coordinacion],['presupuestos'=> $presupuestos]);
         } catch(\Illuminate\Database\QueryException $ex){ 
-            return Redirect::back()
-            ->withErrors(['errors'=> 'No se edito la coordinación']);
+            $coordinacion = Coordinacion::find($id);
+            return view('coordinacion/editarCoordinacion', ['coordinacion' => $coordinacion, 'errors'=>'No se edito la coordinacion']);
         }    
     }
 
@@ -106,9 +112,29 @@ class CoordinacionController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        Coordinacion::where('idCoordinacion', '=', $id)->delete();
+    {   
+        try{
 
-        return view('coordinacion/coordinacion');    
+            $presupuestos = Presupuesto::all()
+            ->where('tCoordinacion_idCoordinacion', $id);
+            //dd(count($presupuestos));
+            if(count($presupuestos) <= 0){
+            DB::table('tusuario_tcoordinacion')
+            ->where('tCoordi_idCoordinacion', $id)
+            ->delete();
+
+            Coordinacion::where('idCoordinacion', '=', $id)->forceDelete();
+            $mensaje=[];
+            array_push($mensaje , 'Se elimino la Unidad Ejecutora');
+            }else{
+                $coordinacion = Coordinacion::find($id);
+                return view('coordinacion/editarCoordinacion', ['coordinacion' => $coordinacion, 'errors'=>'La Unidad Ejecutora seleccionada tiene un presupuesto asignado']);
+            }
+
+            return redirect('/coordinacion')->with($mensaje); 
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            $coordinacion = Coordinacion::find($id);
+            return view('coordinacion/editarCoordinacion', ['coordinacion' => $coordinacion, 'errors'=>'La Unidad Ejecutora seleccionada tiene un presupuesto asignado']);
+        }
     }
 }

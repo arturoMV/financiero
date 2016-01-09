@@ -9,6 +9,15 @@ class="active"
   <div class="wrapper col-md-10">
     <br>
     @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion'))
+
+    @if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <strong>Ops!</strong> Error al agregar<br><br>
+            <ul>
+              <li><%$errors%></li>
+            </ul>
+     </div> 
+    @endif
     <form action="/financiero/public/coordinacion" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">

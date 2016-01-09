@@ -201,8 +201,7 @@ Route::get('/partidas', function () {
 });	
 
 Route::get('/transaccionesReporte', function () {
-    $transacciones = Factura::all()
-    ->where('deleted_at', null);
+    $transacciones = Factura::all();
     return $transacciones;
 });
 
@@ -237,26 +236,7 @@ Route::get('/presupuestos', function () {
 
     return $presupuestos;   
 });
-/*
-Route::get('/transferencias', function (){
-        $config = DB::table('tconfiguracion')
-    ->select('iValor')
-    ->where('vConfiguracion','=','Periodo')
-    ->first();
-    
-    $transferenciarencias = DB::table('ttranferencia_partida')
-    ->join('tpresupuesto_tpartida', 'tPresupuestoPartidaA', '=', 'id')
-    ->join('tpresupuesto', 'tPresupuesto_idPresupuesto', '=', 'idPresupuesto')
-    ->join('tpartida', 'tPartida_idPartida', '=', 'idPartida')
-    ->join('tcoordinacion', 'tCoordinacion_idCoordinacion', '=', 'idCoordinacion')
-    ->select('idTransferencia', 'vDocumento','iMontoTransferencia', 'idCoordinacion', 
-    'vNombreCoordinacion', 'vNombrePresupuesto', 'anno', 'codPartida')
-    ->where('anno','=',$config->iValor)
-    ->get();
 
-    return $transferencias;
-});
-*/
 Route::get('/transferencias', function (){
         $config = DB::table('tconfiguracion')
     ->select('iValor')

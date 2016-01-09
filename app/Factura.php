@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Factura extends Model
 {
@@ -11,6 +13,7 @@ class Factura extends Model
 	protected $fillable = ['idFactura','tPartida_idPartida','vTipoFactura','dFechaFactura','vDescripcionFactura','iMontoFactura'];
     public $timestamps = true;
     protected $dates = ['deleted_at'];
+    use SoftDeletes;
 
     public function presupuestoPartida()
     {

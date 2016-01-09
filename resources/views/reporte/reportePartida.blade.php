@@ -15,7 +15,7 @@
  		</h2>
  
 		  <h3>Estado de la partida</h3>
-<div class="">
+<div>
   <h4>Presupuesto Incial: <small>{{<%$presupuesto_partida->iPresupuestoInicial%> | currency: "₡":0}}</small>
   <br>
   Presupuesto Modificado: <small>{{<%$presupuesto_partida->iPresupuestoModificado%> | currency: "₡":0}}</small> <br>
@@ -59,23 +59,23 @@
  <div class="col-md-12">	
 				<div class="form-group">
 					<label class="control-label">Buscar</label>
-					<input type="text" class="form-control"  placeholder="Digite para buscar" ng-model="search" ng-change="transaccionTemplate.Total = 0">
+					<input type="text" class="form-control"  placeholder="Digite para buscar" ng-model="search" >
 				</div>
 			</div>
 </div>
 	<div class="form-group">
 		<label class="control-label" ng-init="fechaInicio = '2015-01-01'">Fecha Inicio</label>
-			<input type="date" class="form-control" ng-value="fechaInicio" ng-model="fechaInicio" ng-change="transaccionTemplate.Total = 0">
+			<input type="date" class="form-control" ng-value="fechaInicio" ng-model="fechaInicio" max="<%date('Y-m-d')%>">
 	</div>
 
 	<div class="form-group">
-		<label class="control-label" ng-init="fechaFin = '2015-12-31'">Fecha Fin</label>
-			<input type="date" class="form-control" ng-value="fechaFin" ng-model="fechaFin" ng-change="transaccionTemplate.Total = 0">
+		<label class="control-label" ng-init="fechaFin = '<%date('Y-m-d')%>'">Fecha Fin</label>
+			<input type="date" class="form-control" value="<%date('Y-m-d')%>" max="<%date('Y-m-d')%>" ng-model="fechaFin" >
 	</div>
 
 	<div class="form-group">
 		<label class="control-label">Tipo de Transacción</label>
-			<select class="form-control"  ng-model="data.select"  ng-change="transaccionTemplate.Total = 0">
+			<select class="form-control"  ng-model="data.select"  >
 				<option value="Factura credito">Factura Credito</option>
 	            <option value="Factura pendiente">Factura Pendiente</option>
 	            <option value="Reintegro de caja chica" >Reintegro de caja chica</option>
@@ -89,12 +89,12 @@
 		</div>
 		<label ng-init="todos=false">
 			Seleccionar Todos
-			<input type="checkbox" ng-model="todos" ng-change="transaccionTemplate.Total = 0">
+			<input type="checkbox" ng-model="todos" >
 		</label>
 	</div >
 
 	<div class="col-md-12" style="height: 500px"  >
-	<br> <br> <br> 
+	<br> <br>{{fechaFin}} <br> 
 		<table class="table table-striped table-hover">
 				<tbody>
 					<tr>
@@ -109,9 +109,9 @@
 					<tr ng-repeat="transaccion in modelTra | filter : search | orderBy : myOrder track by $index" 
 					ng-if="transaccion.tPartida_idPartida == <% $presupuesto_partida->id %> && 
 					(data.select == transaccion.vTipoFactura || todos) &&
-					(transaccion.dFechaFactura | date:'yyyy-MM-dd') >= (fechaInicio | date:'yyyy-MM-dd') && 
-					(transaccion.dFechaFactura | date:'yyyy-MM-dd') <= (fechaFin | date:'yyyy-MM-dd')">
-					{{}}
+					(transaccion.dFechaFactura | date:'yyyy-M-dd') >= (fechaInicio | date:'yyyy-M-dd') && 
+					(transaccion.dFechaFactura | date:'yyyy-M-dd') <= (fechaFin | date:'yyyy-M-dd')">
+				
 						<td>{{transaccion.vTipoFactura}}</td>
 						<td>{{transaccion.dFechaFactura	}}</td>
 						<td>{{transaccion.vDocumento}}</td>

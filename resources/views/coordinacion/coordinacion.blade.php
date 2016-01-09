@@ -13,14 +13,24 @@
 	<section class="container-fluid" ng-controller="coordinacionTemplate"><br>
 		<div class="container-fluid search-container form-horizontal">
 		<h2>Lista de Unidades Ejecutoras</h2>
+
+		@if (count($mensaje) > 0)
+    <div class="alert alert-success">
+      <strong>Bien!</strong>Se realizaron cambios<br><br>
+      <ul>
+        <li><% $mensaje %></li>
+      </ul>
+    </div> 
+    @endif
 			<div class="container-fluid">
-				<input type="text" id="coordinacionName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
+			<div class="col-md-4">
+				
+				<input type="text" id="coordinacionName"  class="col-md-6 pull-left form-control" placeholder="Digite para buscar" ng-model="search">
+			</div>
 				@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion', Auth::user()->id))
 				<a href="/financiero/public/coordinacion/create" class="btn btn-success pull-right">Nueva Coordinacon</a>
 				@endif
 			</div>
-						<th class="col-md-1"></th>
-						<th class="col-md-1"></th>
 		</div>
 		<div class="container-fluid table-responsive">
 				<table class="table table-striped table-hover">
@@ -28,6 +38,11 @@
 						<tr >
 							<th ng-click="orderTable('idCoordinacion')" style="cursor:pointer;">Unidad Ejecutora</th>
 							<th ng-click="orderTable('vNombreCoordinacion')" style="cursor:pointer;">Nombre</th>
+							<th></th>
+							@if(Auth::user() AND Auth::user()->tienePermiso('Editar Coordinacion', Auth::user()->id))
+
+							<th></th>
+							@endif
 						</tr>
 						<tr ng-repeat="coordinacion in modelC | filter : search | orderBy : myOrder track by $index">
 							<td>{{coordinacion.idCoordinacion}}</td>
