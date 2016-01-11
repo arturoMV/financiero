@@ -21,7 +21,7 @@ class="active"
     </div> 
     @endif 
 
-    <form action="/financiero/public/partida" class="form-horizontal" method="post">
+    <form action="/partida" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">Codigo de Paritda</label>

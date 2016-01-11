@@ -15,7 +15,7 @@
         </ul>
     </div> 
     @endif  
-    <form method="POST" class="form-horizontal" action="/financiero/public/auth/login">
+    <form method="POST" class="form-horizontal" action="/auth/login">
         {!! csrf_field() !!}
 
         <div class="form-group">
@@ -41,7 +41,7 @@
 
         <div class="checkbox col-md-4 col-md-offset-4">
             <label class="control-label">
-            <a href="/financiero/public/password/email" class="link">¿Olvido su contraseña?</a>
+            <a href="/password/email" class="link">¿Olvido su contraseña?</a>
             </label>
         </div>
 

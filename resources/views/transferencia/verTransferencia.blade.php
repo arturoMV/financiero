@@ -24,7 +24,7 @@ class="active"
 				<div class="panel-heading">
 					Se transfirio de la partida
 					@if(Auth::user()->tieneCoordinacion($coordinacionDe->idCoordinacion))
-					<a href="/financiero/public/partida/<% $presupuesto_partidaDe->id%>" class="btn-xs btn-default pull-right" title="Ir a detalles de la Partida">Ver Partirda</a>
+					<a href="/partida/<% $presupuesto_partidaDe->id%>" class="btn-xs btn-default pull-right" title="Ir a detalles de la Partida">Ver Partirda</a>
 					@endif
 				</div>
 				<div class="panel-body">
@@ -72,7 +72,7 @@ class="active"
 				<div class="panel-heading">
 					Se transfirio a la Partida
 					@if(Auth::user()->tieneCoordinacion($coordinacionA->idCoordinacion))
-					<a href="/financiero/public/partida/<% $presupuesto_partidaA->id%>" class="btn-xs btn-default pull-right" title="Ir a detalles de la Partida">Ver Partirda</a>
+					<a href="/partida/<% $presupuesto_partidaA->id%>" class="btn-xs btn-default pull-right" title="Ir a detalles de la Partida">Ver Partirda</a>
 					@endif
 				</div>
 				<div class="panel-body">

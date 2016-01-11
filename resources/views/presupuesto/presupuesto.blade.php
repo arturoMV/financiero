@@ -15,7 +15,7 @@
 			<div class="container-fluid">
 				<input type="text" id="partidaName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
 				@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Presupuesto', Auth::user()->id))
-				<a href="/financiero/public/presupuesto/create" class="btn btn-success pull-right">Nuevo Presupuesto</a>
+				<a href="/presupuesto/create" class="btn btn-success pull-right">Nuevo Presupuesto</a>
 				@endif
 			</div>
 		</div>
@@ -32,11 +32,11 @@
 						<td>{{presupuesto.tCoordinacion_idCoordinacion}}-{{presupuesto.vNombreCoordinacion}}</td>
 						<td>{{presupuesto.vNombrePresupuesto}}-{{presupuesto.anno}}</td>
 						<td>
-							<a href="/financiero/public/presupuesto/{{presupuesto.idPresupuesto}}"  class="btn btn-info" title="">Ver</a>
+							<a href="/presupuesto/{{presupuesto.idPresupuesto}}"  class="btn btn-info" title="">Ver</a>
 						</td>
 						<td>
 						@if(Auth::user() AND Auth::user()->tienePermiso('Editar Presupuesto', Auth::user()->id))
-							<a href="/financiero/public/presupuesto/{{presupuesto.idPresupuesto}}/edit" class="btn btn-warning" title="">Editar</a>
+							<a href="/presupuesto/{{presupuesto.idPresupuesto}}/edit" class="btn btn-warning" title="">Editar</a>
 						@endif
 						</td>
 					</tr>

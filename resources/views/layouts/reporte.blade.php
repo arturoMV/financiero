@@ -6,14 +6,14 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
-		<link rel="shortcut icon" href="/financiero/public/img/favicon.ico" type="image/vnd.microsoft.icon">
+		<link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon">
 		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="/financiero/public/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="/financiero/public/css/main.css">
+		<link rel="stylesheet" href="/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 		<!-- Latest compiled and minified JavaScript -->
-		<script src="/financiero/public/js/jquery-1.11.3.min.js"  type="text/javascript"></script>
-		<script src="/financiero/public/js/bootstrap.min.js"></script> 
+		<script src="/js/jquery-1.11.3.min.js"  type="text/javascript"></script>
+		<script src="/js/bootstrap.min.js"></script> 
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 		<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
 		<script src="{!! asset('js/controllers/coordinacionTemplate.js') !!}"  type="text/javascript"></script>
@@ -28,6 +28,8 @@
 		<script src="{!! asset('js/services/transferencia.js') !!}"  type="text/javascript"></script>
 		<script src="{!! asset('js/controllers/transaccionTemplate.js') !!}"  type="text/javascript"></script>
 		<script src="{!! asset('js/services/transaccion.js') !!}"  type="text/javascript"></script>
+		<script src="{!! asset('js/controllers/reservaTemplate.js') !!}"  type="text/javascript"></script>
+		<script src="{!! asset('js/services/reserva.js') !!}"  type="text/javascript"></script>
 		<script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
 
 
@@ -47,7 +49,7 @@
 	<section>
 		<div class="col-md-11 col-offset-1">
 
-			<h4 class="push-right text-right"> <% $date = date('d/m/Y h:i:s a') %><br> 
+			<h4 class="push-right text-right"> <% $date = date('d/m/Y h:i:s a') %></h4><br> 
 		</div>
 		@yield('content')<br>
 

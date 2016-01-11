@@ -6,7 +6,7 @@ class="active"
 @section('content')
 @parent
 <section class="col-md-8 col-md-offset-2 form-horizontal">
-	<form  class="form" action="/financiero/public/usuario/<% $usuario->id %>/coordinacion/put" 
+	<form  class="form" action="/usuario/<% $usuario->id %>/coordinacion/put" 
 	 method="post">
 	 @if (count($errors) > 0)
     <div class="alert alert-success">

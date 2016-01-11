@@ -18,7 +18,7 @@ class="active"
             </ul>
      </div> 
     @endif
-    <form action="/financiero/public/coordinacion" class="form-horizontal" method="post">
+    <form action="/coordinacion" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">Numero Coordinacion</label>

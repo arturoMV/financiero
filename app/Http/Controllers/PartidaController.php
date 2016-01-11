@@ -25,7 +25,7 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('partida/partida',['mensaje'=>false,'error' => true]);
+        return view('partida/partida',['mensaje'=>null,'error' => true]);
     }
 
     /**

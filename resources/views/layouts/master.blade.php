@@ -6,14 +6,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="shortcut icon" href="/financiero/public/img/favicon.ico" type="image/vnd.microsoft.icon">
+	<link rel="shortcut icon" href="/img/favicon.ico" type="image/vnd.microsoft.icon">
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="/financiero/public/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/financiero/public/css/main.css">
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
 
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="/financiero/public/js/jquery-1.11.3.min.js"  type="text/javascript"></script>
-	<script src="/financiero/public/js/bootstrap.min.js"></script> 
+	<script src="/js/jquery-1.11.3.min.js"  type="text/javascript"></script>
+	<script src="/js/bootstrap.min.js"></script> 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/coordinacionTemplate.js') !!}"  type="text/javascript"></script>
@@ -40,16 +40,16 @@
 	<div class="container-fluid">
 		@if(Auth::user())
 		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br>
-		 <a class="btn btn-danger pull-right cerrar" href="/financiero/public/auth/logout" title="login">Cerrar Sesion</a> </h5>
+		 <a class="btn btn-danger pull-right cerrar" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
 		@else
-			<a  href="/financiero/public/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
-			<a  href="/financiero/public/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
+			<a  href="/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
+			<a  href="/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
 		@endif
 	</div>
 	<header id="header" class="container-fluid">
 		
 		<div class="col-xs-12 col-md-6">
-			<a href="/financiero/public"><img src="/financiero/public/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
+			<a href="/financiero/public"><img src="/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
 		</div>
 		<div class="col-xs-12 col-md-6" style="text-align: right;">
 			<h1>Sistema de Financiero</h1>
@@ -73,35 +73,35 @@
 					</div>
 					<div id="navbar" class="navbar-collapse collapse">
 						<ul class="nav nav-pills nav-stacked" >
-							<li @yield('index')><a href="/financiero/public/" title="Inicio">Inicio</a></li>
+							<li @yield('index')><a href="/" title="Inicio">Inicio</a></li>
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Coordinacion', Auth::user()->id))
-							<li @yield('coord')><a href="/financiero/public/coordinacion" title="Coordinaciones">Coordinación</a></li>
+							<li @yield('coord')><a href="/coordinacion" title="Coordinaciones">Coordinación</a></li>
 							@endif
 							
 						    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto', Auth::user()->id))
-							<li @yield('presupuesto')><a href="/financiero/public/presupuesto" title="Presupuestos de Unidad">Presuspuestos</a></li>
+							<li @yield('presupuesto')><a href="/presupuesto" title="Presupuestos de Unidad">Presuspuestos</a></li>
 							@endif
 							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
-							<li @yield('partida')><a href="/financiero/public/partida" title="Partidas de Presupuesto">Partidas</a></li>
+							<li @yield('partida')><a href="/partida" title="Partidas de Presupuesto">Partidas</a></li>
 							@endif
 
 							@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Transaccion', Auth::user()->id))
-							<li @yield('movimiento')><a href="/financiero/public/transaccion/create" title="Movimientos" >Nuevo Movimiento</a></li>
+							<li @yield('movimiento')><a href="/transaccion/create" title="Movimientos" >Nuevo Movimiento</a></li>
         					@endif
 
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Transferencia', Auth::user()->id))
-							<li @yield('transferencia')><a href="/financiero/public/transferencia" title="Acerca de">Transferencias</a></li>
+							<li @yield('transferencia')><a href="/transferencia" title="Acerca de">Transferencias</a></li>
 							@endif
 							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Administrar Usuarios', Auth::user()->id))
-							<li @yield('admU')><a href="/financiero/public/usuario" title="Acerca de">Administrar Usuarios</a></li>
+							<li @yield('admU')><a href="/usuario" title="Acerca de">Administrar Usuarios</a></li>
 							@endif
 
 							@if(Auth::user() AND Auth::user()->tienePermiso('Configurar Sistema', Auth::user()->id))
-							<li @yield('config')><a href="/financiero/public/configuracion" title="Configurar periodo">Configuracion de Sistema</a></li>
+							<li @yield('config')><a href="/configuracion" title="Configurar periodo">Configuración de Sistema</a></li>
 							@endif
-							<li @yield('about')><a href="/financiero/public/about" title="Acerca de">Acerca De</a></li>					
+							<li @yield('about')><a href="/about" title="Acerca de">Acerca De</a></li>					
 						</ul>
 					</div>
 				</div>
@@ -112,16 +112,14 @@
 		<div class="col-md-9">
 			@section('content')<br>
 				<div class="col-md-12" ng-show="true">
-    		  		<a href="<%URL::previous()%>" title="Volver" class="btn btn-info pull- left">Volver</a>  
    			 	</div>
-   			 	<br><br>
+   			 
    			@show
 			</div>
 		@else
 		<div class=" col-md-10 col-md-offset-1">
 			@section('content')<br>
 				<div class="col-md-12" ng-show="true">
-    		  		<a href="<%URL::previous()%>" title="Volver" class="btn btn-info pull- left">Volver</a>  
    			 	</div>
    			@show
  

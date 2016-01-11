@@ -3,7 +3,7 @@ angular.module('reservaCtrl')
 	var reservas = [];
 	
 	reservas = $q.defer();
-	$http.get("/financiero/public/reservas").then(function(data){
+	$http.get("/reservas").then(function(data){
 		reservas.resolve(data);
 	});
 

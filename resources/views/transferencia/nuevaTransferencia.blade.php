@@ -30,7 +30,7 @@
 			<h4>Selecione una Coordinacion de la cual va a transferir presupuesto</h4>
 		</p>
 
-		<form class="form-horizontal" ng-controller="coordinacionTemplate" action="/financiero/public/transferencia/verificar" method="post">
+		<form class="form-horizontal" ng-controller="coordinacionTemplate" action="/transferencia/verificar" method="post">
             <input type="hidden" name="_token" value="<% csrf_token() %>">
 			<div class="container-fluid search-container form-horizontal" ng-controller="presupuestoTemplate">
 				<div class="container-fluid" ng-controller="partidaTemplate" >

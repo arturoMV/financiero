@@ -26,9 +26,10 @@ class="active"
         </ul>
     </div>
     @endif
-    <form class="col-md-12 alert container-fluid table-responsive form-horizontal" method="post" action="/financiero/public/transaccion" >
+    <form class="col-md-12 alert container-fluid table-responsive form-horizontal" method="post" action="/transaccion" >
         {!!csrf_field()!!}
         <div class="col-md-12">
+        <h3>Nuevo Movimiento de presupuesto</h3>
         </div>
         <div class="container-fluid col-md-7">
             <div class="form-group">

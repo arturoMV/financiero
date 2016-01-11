@@ -6,7 +6,7 @@
     <br>
     <h3>Restablecer contraseña</h3>
     
-    <form method="POST"  class="form-horizontal" action="/financiero/public/password/reset">
+    <form method="POST"  class="form-horizontal" action="/password/reset">
     {!! csrf_field() !!}
     <input type="hidden" name="token" value="<% $token %>">
 

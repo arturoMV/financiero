@@ -29,20 +29,20 @@ class="active"
     </div> 
     @endif
 
-    <form class="col-md-12 form-horizontal" action="/financiero/public/partida/editar/<%$presupuesto_partida->id%>" method="post">
+    <form class="col-md-12 form-horizontal" action="/partida/editar/<%$presupuesto_partida->id%>" method="post">
       <h2>Editar Presupuesto de la partida</h2>
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">Unidad Ejecutora</label>
         <p class="col-md-8 form-control-static">
-          <a href="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>" title="">
+          <a href="/coordinacion/<%$coordinacion->idCoordinacion%>" title="">
             <%$coordinacion->idCoordinacion%>-<% $coordinacion->vNombreCoordinacion %></a></p>         
           </div>
 
           <div class="form-group">
             <label class="col-md-4 control-label">Presupuesto</label>
             <p class="col-md-8 form-control-static">
-              <a href="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>" title=""><%$presupuesto->vNombrePresupuesto%> - 
+              <a href="/presupuesto/<%$presupuesto->idPresupuesto%>" title=""><%$presupuesto->vNombrePresupuesto%> - 
                 <%$presupuesto->anno%></a></p>         
               </div>
               <div class="form-group">
@@ -90,14 +90,14 @@ class="active"
                         <p><div class="form-group">
                           <label class="col-md-4 control-label">Unidad Ejecutora</label>
                           <p class="col-md-8 form-control-static">
-                            <a href="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>" title="">
+                            <a href="/coordinacion/<%$coordinacion->idCoordinacion%>" title="">
                               <%$coordinacion->idCoordinacion%>-<% $coordinacion->vNombreCoordinacion %></a></p>         
                             </div>
 
                             <div class="form-group">
                               <label class="col-md-4 control-label">Presupuesto</label>
                               <p class="col-md-8 form-control-static">
-                                <a href="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>" title=""><%$presupuesto->vNombrePresupuesto%> - 
+                                <a href="/presupuesto/<%$presupuesto->idPresupuesto%>" title=""><%$presupuesto->vNombrePresupuesto%> - 
                                   <%$presupuesto->anno%></a></p>         
                                 </div>
                                 <div class="form-group">
@@ -124,7 +124,7 @@ class="active"
                     </div>
                   </form>
 
-                     <form class="col-md-1" action="/financiero/public/partida/<%$presupuesto_partida->id%>/borrar" method="post">
+                     <form class="col-md-1" action="/partida/<%$presupuesto_partida->id%>/borrar" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">
       @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Partida', Auth::user()->id))
       <div class="modal fade" id="myModal2" role="dialog">

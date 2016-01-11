@@ -20,7 +20,7 @@ class="active"
         </ul>
     </div> 
     @endif 
-    <form action="/financiero/public/presupuesto" class="form-horizontal" method="post">
+    <form action="/presupuesto" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       
       
