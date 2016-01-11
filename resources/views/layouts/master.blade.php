@@ -102,6 +102,9 @@
 							<li @yield('config')><a href="/financiero/public/configuracion" title="Configurar periodo">Configuracion de Sistema</a></li>
 							@endif
 							<li @yield('about')><a href="/financiero/public/about" title="Acerca de">Acerca De</a></li>					
+							@if(Auth::user() AND Auth::user()->tienePermiso('Configurar Sistema', Auth::user()->id))
+							<li @yield('backup')><a href="/financiero/public/respaldo" title="Configurar periodo">Respaldar base de datos</a></li>
+							@endif
 						</ul>
 					</div>
 				</div>

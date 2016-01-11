@@ -36,6 +36,9 @@ Route::get('/about', function () {
     return view('about');
 });
 
+Route::post('respaldo', 'UsuarioController@showRespaldo');
+Route::get('respaldo', 'UsuarioController@respaldo');
+
 //rutas de configuracion del sistema
 Route::get('/configuracion', function(){
    
