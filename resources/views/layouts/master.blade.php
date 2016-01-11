@@ -52,7 +52,7 @@
 	<header id="header" class="container-fluid">
 		
 		<div class="col-xs-12 col-md-6">
-			<a href="/"><img src="/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
+			<a href="/home"><img src="/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
 		</div>
 		<div class="col-xs-12 col-md-6" style="text-align: right;">
 			<h1>Sistema de Financiero</h1>
@@ -103,15 +103,13 @@
 
 							@if(Auth::user() AND Auth::user()->tienePermiso('Configurar Sistema', Auth::user()->id))
 							<li @yield('config')><a href="/configuracion" title="Configurar periodo">Configuración de Sistema</a></li>
+							@endif		
+							@if(Auth::user() AND Auth::user()->tienePermiso('Respaldar Sistema', Auth::user()->id))
+							<li @yield('backup')><a href="/respaldo" title="Configurar periodo">Respaldar base de datos</a></li>
 							@endif
-<<<<<<< HEAD
-							<li @yield('about')><a href="/financiero/public/about" title="Acerca de">Acerca De</a></li>					
-							@if(Auth::user() AND Auth::user()->tienePermiso('Configurar Sistema', Auth::user()->id))
-							<li @yield('backup')><a href="/financiero/public/respaldo" title="Configurar periodo">Respaldar base de datos</a></li>
-							@endif
-=======
+
 							<li @yield('about')><a href="/about" title="Acerca de">Acerca De</a></li>					
->>>>>>> f74b89ccb8f45fac16c727f118f2bc7f7dbfc5c9
+
 						</ul>
 					</div>
 				</div>

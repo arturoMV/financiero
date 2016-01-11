@@ -25,42 +25,42 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para respaldar la base de datos
      *
      * @return \Illuminate\Http\Response
      */
     public function showRespaldo()
     {
-        return view('config/respaldo');
+        return view('config/respaldo',['mensaje'=>null]);
     }
 
     public function respaldo()
     {
         define("BACKUP_PATH", "/var/www/html/");
 
-    $server_name   = "localhost";
-    $username      = "root";
-    $password      = "1234";
-    $database_name = "presupuestooaf";
-    $date_string   = date("d-m-Y");
+        $server_name   = "localhost";
+        $username      = "root";
+        $password      = "1234";
+        $database_name = "presupuestooaf";
+        $date_string   = date("d-m-Y");
 
-    $cmd = "mysqldump --hex-blob --routines --skip-lock-tables --log-error=mysqldump_error.log -h {$server_name} -u {$username} -p{$password} {$database_name} > " . BACKUP_PATH . "Backup-{$date_string}_{$database_name}.sql";
+        $cmd = "mysqldump --hex-blob --routines --skip-lock-tables --log-error=mysqldump_error.log -h {$server_name} -u {$username} -p{$password} {$database_name} > " . BACKUP_PATH . "Backup-{$date_string}_{$database_name}.sql";
 
-    $arr_out = array();
-    unset($return);
+        $arr_out = array();
+        unset($return);
 
-    exec($cmd, $arr_out, $return);
+        exec($cmd, $arr_out, $return);
 
-    if($return !== 0) {
-        echo "mysqldump for {$server_name} : {$database_name} failed with a return code of {$return}\n\n";
-        echo "Descripcion del error:\n";
-        $file = escapeshellarg("mysqldump_error.log");
-        $message = `tail -n 1 $file`;
-        echo "- $message\n\n";
-    }else{
+        if($return !== 0) {
+            $file = escapeshellarg("mysqldump_error.log");
+            $message = "mysqldump for {$server_name} : {$database_name} failed with a return code of {$return}\n\nDescripcion del error:\n".`tail -n 1 $file`;
+            // return dd($arr_out);
+            return view('config/respaldo', ['errors' => $message, 'mensaje' => null]);
 
-        return view('config/respaldo' , ["mensaje" => "Se completo correctamente el respaldo de ".$database_name ]);
-    }
+        }else{
+           
+            return view('config/respaldo' , ['mensaje' => "Se completo correctamente el respaldo de ".$database_name ]);
+        }
     }
     /**
      * Store a newly created resource in storage.

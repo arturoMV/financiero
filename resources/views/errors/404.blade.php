@@ -43,7 +43,7 @@
             <h3>Movimientos Presupuestarios</h3>
         </div>
         <div class="col-xs-12 col-md-6">
-            <a href="/financiero/public"><img src="/img/logo.png" alt="UCR" class="img-responsive"></a>
+            <a href="/"><img src="/img/logo.png" alt="UCR" class="img-responsive"></a>
             <h3>Sede del Pacifico</h3>
         </div>
     </header>   
@@ -52,7 +52,7 @@
     <div class="col-md-11 col-md-offset-1">
         <img src="/img/404.png" alt="UCR" class="img-responsive"><br><br>
         </div>
-        <a href="/financiero/public" title="Volver" class="btn btn-info pull- left">Volver al Inicio</a>      
+        <a href="/" title="Volver" class="btn btn-info pull- left">Volver al Inicio</a>      
 
     </div>    
     </body>
