@@ -59,7 +59,7 @@ class="active"
 
       <div class="form-group">
         <div class="col-md-4 col-md-offset-3">
-          <button type="button" class="btn btn-succsess" data-toggle="modal" data-target="#myModal2">Confirmar</button>
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal2">Confirmar</button>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Eliminar</button>
         </div>
       </div>

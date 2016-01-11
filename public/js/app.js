@@ -1,5 +1,6 @@
 'use strict'
-angular.module("starter",['coordinacionCtrl','presupuestoCtrl','partidaCtrl','usuarioCtrl', 'facturaCtrl', 'transferenciaCtrl', 'transaccionCtrl'])
+angular.module("starter",['coordinacionCtrl','presupuestoCtrl','partidaCtrl','usuarioCtrl', 'facturaCtrl', 
+    'transferenciaCtrl', 'transaccionCtrl', 'reservaCtrl'])
 .controller("mainCtrl", function($scope, $http) {
 
 	app.directive('ngMax', function () {

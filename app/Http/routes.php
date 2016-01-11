@@ -63,11 +63,13 @@ Route::post('presupuesto/{presupuesto}/put', 'PresupuestoController@update');
 //Partida routes...
 Route::resource('partida', 'PartidaController');
 Route::post('partida/{partida}/delete', 'PartidaController@destroy');
+Route::post('partida/{partida}/borrar', 'PartidaController@destroyPresupuestoPartida');
 Route::post('partida/{partida}/put', 'PartidaController@update');
 Route::get('partida/{id}/agregar', 'PartidaController@agregarPartida');
 Route::post('partida/{id}/agregar', 'PartidaController@asignarPartida');
 Route::get('partida/editar/{id}', 'PartidaController@editPresupuestoPartida');
 Route::post('partida/editar/{id}', 'PartidaController@updatePresupuestoPartida');
+
 Route::post('/transferencia/verificar', 'PartidaController@transferencia');
 Route::get('/transferencia/{transferencia}', 'PartidaController@verTransferencia');
 
@@ -203,6 +205,11 @@ Route::get('/partidas', function () {
 Route::get('/transaccionesReporte', function () {
     $transacciones = Factura::all();
     return $transacciones;
+});
+
+Route::get('/reservas', function () {
+    $reservas = DB::table('treserva')->get();
+    return $reservas;
 });
 
 Route::get('/usuarios', function () {

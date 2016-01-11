@@ -63,14 +63,17 @@ class="active"
               </div>
 
 
-              <div class="col-md-6 form-group ">
+               <div class="form-group">
+                <div class="col-md-4 col-md-offset-3">
                 @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
                 <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Confirmar</button>
                 @endif
                 @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Partida', Auth::user()->id))
                 <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal2">Eliminar</button>
                 @endif
-              </div> 
+              </div> </div>
+
+           
 
               <div class="col-md-5">
                 @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
@@ -120,6 +123,34 @@ class="active"
                       @endif
                     </div>
                   </form>
+
+                     <form class="col-md-1" action="/financiero/public/partida/<%$presupuesto_partida->id%>/borrar" method="post">
+      <input type="hidden" name="_token" value="<% csrf_token() %>">
+      @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Partida', Auth::user()->id))
+      <div class="modal fade" id="myModal2" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Confirmar</h4>
+            </div>
+            <div class="modal-body">
+              <p>Estas seguro de que quieres eliminar la partida. 
+              <br>No se podra borrar esta partida si
+              <ul>
+                <li>Existen facturas asociadas a esta partida</li>
+                <li>Existen transferencias de esta o a esta partida</li>
+              </ul></p>
+              <input type="submit" class="btn btn-danger"name="delete" value="Eliminar">
+              <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Cancelar</button>
+
+            </div>
+          </div> 
+        </div>
+      </div> 
+      @endif
+    </form>
                 </div >
 
               </section> 

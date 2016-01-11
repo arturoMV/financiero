@@ -10,11 +10,11 @@ class="active"
 
 @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
 <section class="container-fluid" ng-controller="partidaTemplate"><br>
-	@if ($mensaje)
+	@if (count($mensaje)>0)
 	<div class="alert alert-success">
-		<strong>Bien! </strong>Se agrego una nueva Partida al sistema<br><br>
+		<strong>Bien! </strong>Se realizaron cambios<br><br>
 		<ul>
-			<li>Ahora puede agregar esta partida a los presupuestos</li>
+			<li><%$mensaje%></li>
 		</ul>
 	</div> 
 	@endif 

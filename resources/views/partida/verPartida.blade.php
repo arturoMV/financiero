@@ -41,9 +41,11 @@
       </div>
       @endif
 
-       <div class="col-md-6 form-group ">
+       <div class="col-md-12 form-group">
         @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
-          <input type="submit" name="" class="btn btn-warning" value="Editar">
+          <input type="submit" name="" class="btn btn-warning" value="Editar Partida">
+
+          <a href="/financiero/public/partida/editar/<% $presupuesto_partida->id %>" class="btn btn-warning" title="Cambiar presupuesto">Editar</a>
         @endif
         @if(count($transferenciasA)>0 || count($transferenciasDe)>0)
             <a href="#lista-transferencias" class="btn btn-info">Ver Transferencias</a>
@@ -55,8 +57,7 @@
       <hr>
   <h3>Estado de la partida</h3>
 <div class="">
-  <h4>Presupuesto Incial: <small>{{<%$presupuesto_partida->iPresupuestoInicial%> | currency: "₡":0}}</small>
-  <a href="/financiero/public/partida/editar/<% $presupuesto_partida->id %>" class="btn btn-xs btn-warning" title="Cmdiar presupuesto">Editar presupuesto</a><br>
+  <h4>Presupuesto Incial: <small>{{<%$presupuesto_partida->iPresupuestoInicial%> | currency: "₡":0}}</small> <br>
   Presupuesto Modificado: <small>{{<%$presupuesto_partida->iPresupuestoModificado%> | currency: "₡":0}}</small> <br>
   Gasto: <small>{{<%$presupuesto_partida->iGasto%> | currency: "₡":0}} </small> <br>
   @if($presupuesto_partida->iReserva>0)

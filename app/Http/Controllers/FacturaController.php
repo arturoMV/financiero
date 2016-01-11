@@ -115,8 +115,36 @@ class FacturaController extends Controller
         }
 
         foreach ($listaFactura as $fac) {
+            $fac->save();
+            if($tipo == "Solicitud GECO"){
+                DB::table('treserva')->insert([
+                    'vReserva' => $fac->idFactura,
+                    'vDocumento' => $fac->vDocumento,
+                    'vDetalle' => $fac->vDetalleFactura,
+                    'iMontoFactura' => $fac->iMontoFactura,
+                    'tPartida_idPartida' => $fac->tPartida_idPartida]);
+            }
+
+            if($tipo == "Pases Adicionales"){
+                DB::table('treserva')->where('vReserva', $fac->vDetalleFactura)
+                ->increment('iMontoFactura', $fac->iMontoFactura);
+                $reserva = DB::table('treserva')->where('vReserva', $fac->vDetalleFactura)->first();
+                $fac->vDetalleFactura = 'Aumento en la reserva '.$reserva->vDocumento.' '.$reserva->vDetalle;
+            }
+
+            if($tipo == "Pases Anulacion"){
+                DB::table('treserva')->where('vReserva', $fac->vDetalleFactura)->decrement('iMontoFactura', $fac->iMontoFactura);
+                $reserva = DB::table('treserva')->where('vReserva', $fac->vDetalleFactura)->first();
+                $fac->vDetalleFactura = 'Reduccion en la reserva '.$reserva->vDocumento.' '.$reserva->vDetalle;
+            }
+            if($tipo == "Cancelacion GECO"){
+                $reserva = DB::table('treserva')->where('vReserva', $fac->vDetalleFactura)->first();
+                DB::table('treserva')->where('vReserva', $fac->vDetalleFactura)->delete();
+                $fac->vDetalleFactura = 'Cancelacion de la reserva '.$reserva->vDocumento.' '.$reserva->vDetalle;   
+            }
 
             $fac->save();
+          
         }
 
         return redirect('transaccion/create')->with('mensaje','s');        
@@ -147,9 +175,9 @@ class FacturaController extends Controller
 
             $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
 
-        $presupuesto_partida->calcularSaldo();
-        $presupuesto_partida->calcularGasto();
-        $presupuesto_partida->presupuestoModificado();
+            $presupuesto_partida->calcularSaldo();
+            $presupuesto_partida->calcularGasto();
+            $presupuesto_partida->presupuestoModificado();
 
             return view('transaccion/verTransaccion',
                 ['factura'=>$factura,

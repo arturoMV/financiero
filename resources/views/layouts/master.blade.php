@@ -27,7 +27,9 @@
 	<script src="{!! asset('js/controllers/transferenciaTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/transferencia.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/transaccionTemplate.js') !!}"  type="text/javascript"></script>
-	<script src="{!! asset('js/services/transaccion.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/transaccion.js') !!}"  type="text/javascript"></script>	
+	<script src="{!! asset('js/controllers/reservaTemplate.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/reserva.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
 
 	<title>Movimientos Presupuestarios - @yield('title')</title>
