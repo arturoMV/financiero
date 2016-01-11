@@ -10,7 +10,7 @@ class="active"
 <section>
   <div class="wrapper">
     <h2>Detalles de la Unidad Ejecutora</h2>
-    <form class="col-md-7 form-horizontal" action="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>/edit" method="get"> 
+    <form class="col-md-7 form-horizontal" action="/coordinacion/<%$coordinacion->idCoordinacion%>/edit" method="get"> 
       <div class="form-group">
         <label class="col-md-4 control-label">ID Unidad:</label>
         <p class="col-md-2 form-control-static"><%$coordinacion->idCoordinacion%></p>
@@ -77,7 +77,7 @@ class="active"
                   <div class="alert alert-info col-md-1 col-md-offset-1">
                     Saldo: <%round( $presupuesto->calcularSaldoPorcentaje(),2) %>%
                   </div>
-                    <a href="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>" class="btn btn-info pull-right">Ver Más</a>  
+                    <a href="/presupuesto/<%$presupuesto->idPresupuesto%>" class="btn btn-info pull-right">Ver Más</a>  
                 
                 </div>
               </div>

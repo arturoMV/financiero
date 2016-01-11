@@ -20,7 +20,7 @@ class="active"
         </ul>
     </div> 
     @endif 
-    <form action="/financiero/public/presupuesto" class="form-horizontal" method="post">
+    <form action="/presupuesto" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       
       
@@ -38,13 +38,13 @@ class="active"
         <div class="form-group">
         <label class="col-md-4 control-label">Nombre</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" required name="vNombrePresupuesto" placeholder="Nombre descriptivo del presupuesto">
+          <input type="text" class="form-control" required name="vNombrePresupuesto" placeholder="Nombre descriptivo del presupuesto" pattern="[a-zA-Z0-9-]+" title="Este campor solo acepta letras y numeros" >
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label">Año</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" required name="anno" value="<% $config->iValor %>" readonly>
+          <input type="text" class="form-control" required name="anno" value="<% $date = date('Y') %>" readonly>
         </div>
       </div>
 

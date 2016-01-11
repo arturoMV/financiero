@@ -7,14 +7,14 @@
 	@parent
 	<section>
 	<br><br>
-	<h2>Configuracion del Sistema <br>
+	<h2>Configuración del Sistema <br>
 	<small>Eligue el  periodo de trabjo del sistema</small></h2>
 		@if($cambio)
 			<div class="col-md-6 alert alert-success">
 				<h4>Se guardo satisfactoriamente, el año de trabajo es <%$config->iValor%></h4>	
 			</div>
 		@endif
-		<form class="form-horizontal col-md-12" action="/financiero/public/configuracion" method="post">
+		<form class="form-horizontal col-md-12" action="/configuracion" method="post">
 		{!! csrf_field() !!}
 	        <div class="form-group">
         		<label class="col-md-2 control-label">Año de trabajo</label>

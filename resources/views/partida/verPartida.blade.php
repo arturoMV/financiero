@@ -9,20 +9,20 @@
     @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
     <section>
     <div class="wrapper">
-      <form class="col-md-12 form-horizontal" action="/financiero/public/partida/<% $partida->idPartida%>/edit" method="get">
+      <form class="col-md-12 form-horizontal" action="/partida/<% $partida->idPartida%>/edit" method="get">
         <h2>Detalles de la partida</h2>
 
       <div class="form-group">
         <label class="col-md-4 control-label">Unidad Ejecutora</label>
         <p class="col-md-8 form-control-static">
-        <a href="/financiero/public/coordinacion/<%$coordinacion->idCoordinacion%>" title="">
+        <a href="/coordinacion/<%$coordinacion->idCoordinacion%>" title="">
         <%$coordinacion->idCoordinacion%>-<% $coordinacion->vNombreCoordinacion %></a></p>         
       </div>
 
       <div class="form-group">
         <label class="col-md-4 control-label">Presupuesto</label>
         <p class="col-md-8 form-control-static">
-        <a href="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>" title=""><%$presupuesto->vNombrePresupuesto%> - 
+        <a href="/presupuesto/<%$presupuesto->idPresupuesto%>" title=""><%$presupuesto->vNombrePresupuesto%> - 
         <%$presupuesto->anno%></a></p>         
       </div>
       <div class="form-group">
@@ -45,7 +45,7 @@
         @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
           <input type="submit" name="" class="btn btn-warning" value="Editar Partida">
 
-          <a href="/financiero/public/partida/editar/<% $presupuesto_partida->id %>" class="btn btn-warning" title="Cambiar presupuesto">Editar</a>
+          <a href="/partida/editar/<% $presupuesto_partida->id %>" class="btn btn-warning" title="Cambiar presupuesto">Editar</a>
         @endif
         @if(count($transferenciasA)>0 || count($transferenciasDe)>0)
             <a href="#lista-transferencias" class="btn btn-info">Ver Transferencias</a>
@@ -98,7 +98,7 @@
       <hr>
       <h4>Lista de Transaciones<small>
       <label class="pull-right"><input type="checkbox" name="" ng-model="expandir" ng-check="true" value="">Expandir Todo</label></small></h4>
-     <a href="/financiero/public/partida/informe-gastos/<%$presupuesto_partida->id%>" target="_blank" class="btn btn-info">Informe Gasto</a><br> <br> 
+     <a href="/partida/informe-gastos/<%$presupuesto_partida->id%>" target="_blank" class="btn btn-info">Informe Gasto</a><br> <br> 
 
 
       @foreach($transacciones as $transaccion)
@@ -202,7 +202,7 @@
                 <p class="col-md-8 form-control-static">{{<% $transferenciaA->iMontoTransferencia %> | currency: "₡":0}}</p>
               </div>
               <hr>
-              <a href="/financiero/public/transferencia/<%$transferenciaA->idTransferencia%>" class="btn btn-info pull-right">Ver Más</a>
+              <a href="/transferencia/<%$transferenciaA->idTransferencia%>" class="btn btn-info pull-right">Ver Más</a>
 
             </div>
           </div class="<%$count++%>">
@@ -243,7 +243,7 @@
                 <p class="col-md-8 form-control-static">{{<% $transferenciaDe->iMontoTransferencia %> | currency: "₡":0}}</p>
               </div>
               <hr>
-              <a href="/financiero/public/transferencia/<%$transferenciaDe->idTransferencia%>" class="btn btn-info pull-right">Ver Más</a>
+              <a href="/transferencia/<%$transferenciaDe->idTransferencia%>" class="btn btn-info pull-right">Ver Más</a>
             </div>
           </div class="<%$count++%>">
           @endforeach

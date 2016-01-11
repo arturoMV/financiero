@@ -9,7 +9,7 @@ class="active"
 @if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 <section>
   <div class="wrapper">
-    <form class="col-md-12 form-horizontal" action="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>/edit" method="get"> 
+    <form class="col-md-12 form-horizontal" action="/presupuesto/<%$presupuesto->idPresupuesto%>/edit" method="get"> 
     <h2>Detalles del Presupuesto</h2>
       
       <div  class="form-group">
@@ -63,10 +63,10 @@ class="active"
         <input type="submit" name="" class="btn btn-warning" value="Editar">
         @endif
         @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id))
-        <a href="/financiero/public/partida/<%$presupuesto->idPresupuesto%>/agregar" class="btn btn-primary">Agregar Partida</a>
+        <a href="/partida/<%$presupuesto->idPresupuesto%>/agregar" class="btn btn-primary">Agregar Partida</a>
         @endif
-        <a href="/financiero/public/presupuesto/informe-gastos/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de Gastos</a>
-        <a href="/financiero/public/presupuesto/informe-fin-gestion/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de fin de Gestion</a>
+        <a href="/presupuesto/informe-gastos/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de Gastos</a>
+        <a href="/presupuesto/informe-fin-gestion/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de fin de Gestion</a>
       </div> 
     </form
     <div class="col-md-12 <% $count = 0 %>">
@@ -142,7 +142,7 @@ class="active"
 @endif
 <div class="alert alert-info col-md-1 col-md-offset-1">
   Saldo: <% round($partida->calcularSaldoPorcentaje(),2) %>%
-</div>              <a href="/financiero/public/partida/<%$partida->id%>" class="btn btn-info pull-right">Ver Más</a>
+</div>              <a href="/partida/<%$partida->id%>" class="btn btn-info pull-right">Ver Más</a>
             </div>
           </div class="<%$count++%>">
           @endforeach

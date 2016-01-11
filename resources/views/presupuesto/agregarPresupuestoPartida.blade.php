@@ -28,7 +28,7 @@ class="active"
     </div> 
     @endif 
 
-    <form action="/financiero/public/partida/<%$presupuesto->idPresupuesto%>/agregar" class="form-horizontal" method="post">
+    <form action="/partida/<%$presupuesto->idPresupuesto%>/agregar" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">Coordinacion</label>
@@ -57,7 +57,7 @@ class="active"
         <div class="form-group">
           <label class="col-md-4 control-label">Monto Presupuestado</label>
           <div class="col-md-6">
-            <input type="number" class="form-control" rows="5" required name="iPresupuestoInicial"></textarea>
+            <input type="number" class="form-control" required name="iPresupuestoInicial" min="1"></textarea>
           </div>
         </div>
 

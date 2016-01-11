@@ -3,7 +3,7 @@ angular.module('transferenciaCtrl')
 	var transferencias = [];
 	
 	transferencias = $q.defer();
-	$http.get("/financiero/public/transferencias").then(function(data){
+	$http.get("/transferencias").then(function(data){
 		transferencias.resolve(data);
 	});
 

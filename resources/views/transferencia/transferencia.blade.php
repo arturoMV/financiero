@@ -28,7 +28,7 @@ class="active"
 		<div class="container-fluid">
 			<input type="text" id="partidaName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
 			@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Transferencia', Auth::user()->id))
-			<a href="/financiero/public/create/transferencia" class="btn btn-success crear-partida pull-right">Nueva Transferencia</a>
+			<a href="/create/transferencia" class="btn btn-success crear-partida pull-right">Nueva Transferencia</a>
 			@endif
 		</div>
 	</div>
@@ -63,7 +63,7 @@ class="active"
 					<td>{{transferencia.docDe}}</td>
 					<td>{{transferencia.monTransDe | currency: "₡":0}}</td>
 					<td>
-						<a href="/financiero/public/transferencia/{{transferencia.codTransDe}}"  class="btn btn-info" title="Ver detalles de la transferencia">Ver</a>
+						<a href="/transferencia/{{transferencia.codTransDe}}"  class="btn btn-info" title="Ver detalles de la transferencia">Ver</a>
 					</td>
 					
 				</tr>

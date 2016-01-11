@@ -64,7 +64,7 @@
           </div>
 
           <!-- Ventana Modal de mensaje de confirmacion al seleccionar rol -->
-          <form class="col-md-1" action="/financiero/public/usuario/<% $usuario->id %>/cambiar" method="post">
+          <form class="col-md-1" action="/usuario/<% $usuario->id %>/cambiar" method="post">
             <input type="hidden" name="_token" value="<% csrf_token() %>">
             <input type="hidden" name="idRol" value="<% $rl->idRol %>">
             <div class="modal fade" id="seleccionar<%$rl->idRol%>" role="dialog">
@@ -88,7 +88,7 @@
           </form>
 
           <!-- Ventana Modal de editar permisos de rol -->
-          <form  class="form" action="/financiero/public/usuario/<% $rl->idRol %>/put" method="post">
+          <form  class="form" action="/usuario/<% $rl->idRol %>/put" method="post">
             <div class="modal fade" id="editar<%$rl->idRol%>" role="dialog">
               <div class="modal-dialog">
                 <!-- Modal content-->
@@ -140,7 +140,7 @@
     </div>
 
     <!-- Ventana Modal de crear rol -->
-    <form  class="form-vertical" action="/financiero/public/usuario/rol/<% $usuario->id %>" method="post">
+    <form  class="form-vertical" action="/usuario/rol/<% $usuario->id %>" method="post">
       {!! csrf_field() !!}
       <div class="modal fade" id="crear" role="dialog">
         <div class="modal-dialog">

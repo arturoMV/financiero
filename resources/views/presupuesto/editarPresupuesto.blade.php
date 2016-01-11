@@ -9,7 +9,7 @@ class="active"
 <section>
   <div class="wrapper col-md-10">
     <br>
-    <form class="col-md-10 form-horizontal" action="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>/put" 
+    <form class="col-md-10 form-horizontal" action="/presupuesto/<%$presupuesto->idPresupuesto%>/put" 
       method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">    
       @if (count($errors) > 0)
@@ -41,7 +41,7 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre</label>
         <div class="col-md-6">
-          <input type="text" class="form-control" value="<%$presupuesto->vNombrePresupuesto%>" name="vNombrePresupuesto"  placeholder="Saldo">
+          <input type="text" class="form-control" value="<%$presupuesto->vNombrePresupuesto%>" name="vNombrePresupuesto"  placeholder="Nombre de presupuesto" pattern="[a-zA-Z0-9-]+" title="Este campor solo acepta letras y numeros">
         </div>
       </div>
        <div class="form-group">
@@ -82,7 +82,7 @@ class="active"
       </div>
     </form>
 
-    <form class="col-md-1" action="/financiero/public/presupuesto/<%$presupuesto->idPresupuesto%>/delete" method="post">
+    <form class="col-md-1" action="/presupuesto/<%$presupuesto->idPresupuesto%>/delete" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">
       @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Presupuesto', Auth::user()->id))
       <div class="modal fade" id="myModal" role="dialog">

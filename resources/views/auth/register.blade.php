@@ -16,7 +16,7 @@
 @endif
 <div class="col-md-10">
 <h3>Registro</h3>
-    <form method="POST" class="form-horizontal" action="/financiero/public/auth/register">
+    <form method="POST" class="form-horizontal" action="/auth/register">
         <input type="hidden" name="_token" value="<% csrf_token() %>">
         <div class="form-group">
             <label class="col-md-4 control-label">Nombre</label>

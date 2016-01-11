@@ -20,19 +20,22 @@ class="active"
         </ul>
     </div> 
     @endif 
+    <script type="text/javascript">
+    
+    </script>
 
-    <form action="/financiero/public/partida" class="form-horizontal" method="post">
+    <form action="/partida" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">Codigo de Paritda</label>
         <div class="col-md-4">
-          <input type="text" class="form-control" name="codPartida" required placeholder="0-00-00-00">
+          <input type="text" class="form-control" name="codPartida" id="codPartida" value="" required placeholder="0-00-00-00">
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre de Partida</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" name="vNombrePartida" required placeholder="Nombre que identifica el gasto">
+            <input type="text" class="form-control" name="vNombrePartida"  required placeholder="Nombre que identifica el gasto" pattern="[a-zA-Z0-9-]+" title="Este campor solo acepta letras y numeros">
         </div>
         </div>
       
@@ -74,6 +77,7 @@ class="active"
       </div>
 
       </form>
+    </div>
       @else
       Debe estar autenticado y tener permisos para ver esta pagina
       @endif

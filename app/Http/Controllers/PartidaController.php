@@ -25,7 +25,7 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('partida/partida',['mensaje'=>false,'error' => true]);
+        return view('partida/partida',['mensaje'=>null,'error' => true]);
     }
 
     /**
@@ -59,10 +59,8 @@ class PartidaController extends Controller
 
             return view('/partida/partida',['mensaje'=>'Se agrego una nueva partida. Ahora puede agregarla a un presupuesto']);
         } catch(\Illuminate\Database\QueryException $ex){ 
-            return view('/partida/nuevaPartida',
-                ['presupuestos' => $presupuestos,
-                'config' => $config])
-                ->withErrors(['error', 'Error al insertar, ya existe una partida con ese identificador']);
+            return view('/partida/nuevaPartida')
+                ->withErrors(['Error al insertar, ya existe una partida con ese identificador']);
 
         }
     }
@@ -262,15 +260,26 @@ class PartidaController extends Controller
     public function asignarPartida($id, Request $request)
     {   
         try{
+            
+            $partidas = DB::table('tpresupuesto_tpartida')
+            ->where('tPresupuesto_idPresupuesto',  $id)->get();
+
+            foreach ($partidas as $partida) {
+                if($partida->tPartida_idPartida == $request->tPartida_idPartida ){
+                    return Redirect::back()
+                    ->withErrors(['errors'=> 'Este presupuesto ya tiene esta partida asignada']);
+                }
+            } 
             $presupuesto_partida = new Presupuesto_Partida;
 
             $presupuesto_partida->tPresupuesto_idPresupuesto = $id;
             $presupuesto_partida->tPartida_idPartida = $request->tPartida_idPartida;
             $presupuesto_partida->iPresupuestoInicial = $request->iPresupuestoInicial;
             $presupuesto_partida->iPresupuestoModificado = $request->iPresupuestoInicial;
-            $presupuesto_partida->presupuestoModificado();
-            $presupuesto_partida->calcularSaldo();
             $presupuesto_partida->calcularGasto();
+            $presupuesto_partida->calcularReserva();
+            $presupuesto_partida->calcularSaldo();
+            $presupuesto_partida->presupuestoModificado();
             $presupuesto_partida->save();
 
             $presupuesto = Presupuesto::find($id);
@@ -285,10 +294,8 @@ class PartidaController extends Controller
                 'mensaje'=>false]);
 
         } catch(\Illuminate\Database\QueryException $ex){ 
-
-        return Redirect::back()
-            ->withErrors(['errors'=> 'El partida esta asignada a un presupuesto']);
-        
+            return Redirect::back()
+            ->withErrors(['errors'=> 'El partida esta asignada a un presupuesto']);        
         }
 
     }
@@ -300,6 +307,12 @@ class PartidaController extends Controller
             $presupuesto_partidaA = Presupuesto_Partida::find($request->partidaA);
             $usuario = Auth::user();
                //  return dd($presupuesto_partidaDe);
+            if ($presupuesto_partidaDe->tPresupuesto_idPresupuesto == $presupuesto_partidaA->tPresupuesto_idPresupuesto  &&
+            $presupuesto_partidaDe->tPartida_idPartida == $presupuesto_partidaA->tPartida_idPartida) {
+                 return Redirect::back()
+                    ->withErrors(['errors'=> 'No se puede realizar una transferencia a la misma partida']);
+
+            }
             if($presupuesto_partidaDe != null && $presupuesto_partidaA != null){
                 if ($request->iMontoTransferencia <= $presupuesto_partidaDe->iSaldo 
                     && $request->iMontoTransferencia) {

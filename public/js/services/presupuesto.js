@@ -3,7 +3,7 @@ angular.module('presupuestoCtrl')
 	var presupuestos = [];
 	
 	presupuestos = $q.defer();
-	$http.get("/financiero/public/presupuestos").then(function(data){
+	$http.get("/presupuestos").then(function(data){
 		presupuestos.resolve(data);
 	});
 

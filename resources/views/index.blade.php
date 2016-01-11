@@ -10,10 +10,10 @@
 	<section class="contenido">
 		
  		<div id="slider" class="img-responsive"> 
-			<img src="/financiero/public/img/slide-4.jpg" class="img-responsive">
-			<img src="/financiero/public/img/slide-3.jpg" class="img-responsive">
-			<img src="/financiero/public/img/slide-2.jpg" class="img-responsive">
-			<img src="/financiero/public/img/slide-1.jpg" class="img-responsive">
+			<img src="/img/slide-4.jpg" class="img-responsive">
+			<img src="/img/slide-3.jpg" class="img-responsive">
+			<img src="/img/slide-2.jpg" class="img-responsive">
+			<img src="/img/slide-1.jpg" class="img-responsive">
 
 		</div>
 

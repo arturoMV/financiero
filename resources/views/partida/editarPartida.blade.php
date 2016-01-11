@@ -9,7 +9,7 @@ class="active"
 <section>
   <div class="wrapper">
     <br>
-    <form class="col-md-12 form-horizontal" action="/financiero/public/partida/<%$partida->idPartida%>/put" 
+    <form class="col-md-12 form-horizontal" action="/partida/<%$partida->idPartida%>/put" 
       method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">    
       
@@ -87,7 +87,7 @@ class="active"
       </div>
     </form>
 
-    <form class="col-md-1" action="/financiero/public/partida/<%$partida->idPartida%>/delete" method="post">
+    <form class="col-md-1" action="/partida/<%$partida->idPartida%>/delete" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">
       @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Partida', Auth::user()->id))
       <div class="modal fade" id="myModal" role="dialog">

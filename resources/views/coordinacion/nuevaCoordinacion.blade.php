@@ -18,18 +18,19 @@ class="active"
             </ul>
      </div> 
     @endif
-    <form action="/financiero/public/coordinacion" class="form-horizontal" method="post">
+    <form action="/coordinacion" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">Numero Coordinacion</label>
         <div class="col-md-4">
-          <input type="text" class="form-control" ng-model="id" name="idCoordinacion" placeholder="Numero de la Coordinacion">
+          <input type="number" class="form-control" ng-model="id" name="idCoordinacion" placeholder="Numero de la Coordinacion" required>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre</label>
         <div class="col-md-4">
-          <input type="text" class="form-control" ng-model="nombre" name="vNombreCoordinacion" placeholder="Nombre de la Coordinacion">
+          <input type="text" class="form-control" ng-model="nombre" name="vNombreCoordinacion" placeholder="Nombre de la Coordinacion" 
+          pattern="[a-zA-Z0-9-]+" title="Este campor solo acepta letras y numeros" required>
         </div>
       </div>
       <div class="form-group">
@@ -39,7 +40,7 @@ class="active"
       </div>
 
       <div class="col-md-5">
-        @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
+        @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion'))
         <div class="modal fade" id="myModal" role="dialog">
           <div class="modal-dialog">
             <!-- Modal content-->
@@ -49,10 +50,10 @@ class="active"
                 <h4 class="modal-title">Confirmar</h4>
               </div>
               <div class="modal-body">
-              <p>Estas seguro de que quieres agregar la coordinacion.</p>
+              <p>Estas seguro de que quieres agregar la coordinación.</p>
                 <p>
                     <div class="form-group">
-                      <label class="col-md-6 control-label">Numero de Cooordinación</label>
+                      <label class="col-md-6 control-label">Número de Cooordinación</label>
                       <p class="col-md-6 form-control-static">
                         {{id}}  </p>         
                         </div>
