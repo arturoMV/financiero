@@ -1,6 +1,9 @@
 angular.module("coordinacionCtrl",[])
 .controller("coordinacionTemplate", function($scope, CoordinacionService, $http) {
 	$scope.modelC = [];
+
+	$scope.maximo = [{max:0}];
+	
 	var init = function() {
 		getAllCoordinaciones();
 	};

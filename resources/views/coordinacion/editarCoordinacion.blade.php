@@ -23,7 +23,7 @@
       <div class="form-group">
         <label class="col-md-4 control-label">ID Coordinacion</label>
         <div class="col-md-8" ng-init="id=<%$coordinacion->idCoordinacion%>">
-          <input type="text" class="form-control" ng-model="id" name="idCoordinacion" value="<%$coordinacion->idCoordinacion%>" placeholder="ID de Coordinacion">
+          <input type="text" class="form-control" ng-model="id" name="idCoordinacion" value="<%$coordinacion->idCoordinacion%>" placeholder="ID de Coordinacion" readonly min="1" required>
         </div>
       </div>
 
@@ -31,7 +31,7 @@
         <label class="col-md-4 control-label">Nombre Coordinacion</label>
         <div class="col-md-8">
           <input type="text" class="form-control" ng-model="nomb" name="vNombreCoordinacion" 
-           placeholder="Nombre de la Coordinacion" ng-value="<%$coordinacion->vNombreCoordinacion%>">
+           placeholder="Nombre de la Coordinacion" ng-value="<%$coordinacion->vNombreCoordinacion%>"  pattern="[a-zA-Z0-9-]+" title="Este campor solo acepta letras y numeros" required>
         </div>
       </div>
       <div class="form-group">
@@ -73,7 +73,6 @@
             </div>
           </div> 
         </div>
-
       </form>
 
       <form class="col-md-1" action="/coordinacion/<%$coordinacion->idCoordinacion%>/delete" method="post">

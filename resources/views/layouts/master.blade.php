@@ -14,7 +14,8 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="/js/jquery-1.11.3.min.js"  type="text/javascript"></script>
 	<script src="/js/bootstrap.min.js"></script> 
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script src="/js/angular.min.js"></script>
+	<script src="/js/jquery.maskedinput-1.3.min.js"></script>
 	<script src="{!! asset('js/app.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/controllers/coordinacionTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/coordinacion.js') !!}"  type="text/javascript"></script>
@@ -31,6 +32,8 @@
 	<script src="{!! asset('js/controllers/reservaTemplate.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/reserva.js') !!}"  type="text/javascript"></script>
 	<script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
+	<script src="{!! asset('js/services/mascara.js') !!}"  type="text/javascript"></script>
+
 
 	<title>Movimientos Presupuestarios - @yield('title')</title>
 
@@ -49,7 +52,7 @@
 	<header id="header" class="container-fluid">
 		
 		<div class="col-xs-12 col-md-6">
-			<a href="/financiero/public"><img src="/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
+			<a href="/"><img src="/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
 		</div>
 		<div class="col-xs-12 col-md-6" style="text-align: right;">
 			<h1>Sistema de Financiero</h1>

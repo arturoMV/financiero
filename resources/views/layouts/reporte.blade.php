@@ -31,10 +31,7 @@
 		<script src="{!! asset('js/controllers/reservaTemplate.js') !!}"  type="text/javascript"></script>
 		<script src="{!! asset('js/services/reserva.js') !!}"  type="text/javascript"></script>
 		<script src="{!! asset('js/services/factura.js') !!}"  type="text/javascript"></script>
-
-
 		<title>Financiero - @yield('title')</title>
-
 	</head>
 	<body>
 	<header  class="container-fluid">
@@ -48,12 +45,9 @@
 	</header>
 	<section>
 		<div class="col-md-11 col-offset-1">
-
 			<h4 class="push-right text-right"> <% $date = date('d/m/Y h:i:s a') %></h4><br> 
 		</div>
 		@yield('content')<br>
-
 	</section>
-
 	</body>
 </html>

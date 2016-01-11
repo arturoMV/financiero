@@ -9,7 +9,7 @@
 	class="active"
 	@endsection
 	@section('content')
-	<section class="contenido" style="height: auto">
+	<section class="contenido" style="height: auto" ng-contoller="facturaTemplate">
 	<br>
 
 	@if (count($errors) > 0)
@@ -30,8 +30,12 @@
 			<h4>Selecione una Coordinacion de la cual va a transferir presupuesto</h4>
 		</p>
 
-		<form class="form-horizontal" ng-controller="coordinacionTemplate" action="/transferencia/verificar" method="post">
+		<form class="form-horizontal" ng-controller="coordinacionTemplate" action="/transferencia/verificar" method="post" 
+		ng-init="maximo">
             <input type="hidden" name="_token" value="<% csrf_token() %>">
+            <div ng-repeat="a in maximo">
+            	
+            
 			<div class="container-fluid search-container form-horizontal" ng-controller="presupuestoTemplate">
 				<div class="container-fluid" ng-controller="partidaTemplate" >
 					<div class="col-md-6">
@@ -64,7 +68,7 @@
 										<strong>Presupuesto Incial: <small>{{partida.iPresupuestoInicial | currency: "₡":0}}</small><br>
   											Presupuesto Modificado: <small>{{partida.iPresupuestoModificado | currency: "₡":0}}</small> <br>
 									  		Gasto: <small>{{partida.iGasto | currency: "₡":0}} </small> <br>
-									  		Saldo: <small>{{partida.iSaldo | currency: "₡":0}}</small></strong>
+									  		Saldo: <small ng-init="a.maximo = partida.iSaldo">{{partida.iSaldo | currency: "₡":0}}</small></strong><br>
 											<input type="hidden" name="partidaDe" required value="{{partida.id}}">
 									</div>
 								</div>
@@ -113,7 +117,7 @@
 						<div class="form-group">
         					<label class="col-md-4 control-label">Monto de Transferencia</label>
         					<div class="col-md-5">
-          					<input type="number" min="0" class="form-control" required ng-model="x" name="iMontoTransferencia"  placeholder="Monto de Transferencia">
+          					<input type="number" min="0" max="{{a.maximo}}" class="form-control" required  name="iMontoTransferencia"  placeholder="Monto de Transferencia">
         					</div>
      					 {{x | currency: "₡":0}}
 
@@ -130,6 +134,7 @@
 					</div>
 										
 				</div>
+			</div>
 			</div>
 		</form>
 		@endif

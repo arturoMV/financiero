@@ -9,6 +9,7 @@ use App\Coordinacion;
 use Redirect;
 use DB;
 use App\Presupuesto;
+use Auth;
 class CoordinacionController extends Controller
 {
     /**
@@ -44,7 +45,11 @@ class CoordinacionController extends Controller
             'idCoordinacion'=> $request->input('idCoordinacion'),
             'vNombreCoordinacion'=>$request->input('vNombreCoordinacion'),
             ));
-        return view('/coordinacion/coordinacion', ['mensaje' =>'Se agrego una nueva Coordinacion, no se podra ver esta coordinacion hasta que se haya definido cuales usuarios pueden manejarla']);
+
+        DB::table('tusuario_tcoordinacion')->insert(
+                ['tUsuario_idUsuario' => Auth::user()->id , 'tCoordi_idCoordinacion' => $request->input('idCoordinacion')]);
+            
+        return view('/coordinacion/coordinacion', ['mensaje' =>'Se agrego una nueva Coordinacion']);
         } catch (\Illuminate\Database\QueryException $ex) {
         return view('/coordinacion/nuevaCoordinacion',['errors' => 'Esa Unidad Ejecutora ya existe']);
 
