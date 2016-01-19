@@ -5,7 +5,7 @@ class="active"
 @endsection
 @section('content')
 @parent
-@if(Auth::user())
+@if(Auth::user() AND  Auth::user()->tienePermiso('Agregar Transaccion') AND $date = date('Y') == $anno->iValor)
 <section class="container-fluid">
     <br>
     @if (count($errors) > 0)
@@ -167,7 +167,7 @@ class="active"
                                   </div>
                                   <div ng-if="tipo != 'Cancelacion GECO' && tipo != 'Pases Anulacion' && tipo != 'Pases Adicionales'">
                                     <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="0"
-                                      max="{{x.maximo}}">
+                                      max="{{x.maximo}}" min="{{x.maximo}}">
                                   </div>
                                 </div>
                                 <br>
@@ -193,6 +193,12 @@ class="active"
     </div>
 </section>
 @else
-Debe estar autenticado y tener permisos para ver esta pagina
+@if(date('Y') != $anno->iValor)
+    Solo se pueden agregar movimientos al presente año. <br> 
+   Para agregar un nuevo movimiento presupuestatio debe <br><br>
+   <a href="/configuracion" class="btn btn-info">Configurar Año de Sistema</a>
+@else
+    Debe estar autenticado y tener permisos para ver esta pagina
+@endif
 @endif
 @endsection

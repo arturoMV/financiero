@@ -12,7 +12,6 @@ use App\User;
 use Redirect;
 use Auth;
 use App\Transferencia;
-
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -25,7 +24,12 @@ class PartidaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        return view('partida/partida',['mensaje'=>null,'error' => true]);
+        $anno = DB::table('tconfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','Periodo')
+        ->where('tUsuario_idUsuario', Auth::user()->id)
+        ->first();
+        return view('partida/partida',['mensaje'=>null,'error' => true, 'anno' => $anno]);
     }
 
     /**
@@ -57,7 +61,12 @@ class PartidaController extends Controller
 
             $partida->save();
 
-            return view('/partida/partida',['mensaje'=>'Se agrego una nueva partida. Ahora puede agregarla a un presupuesto']);
+            $anno = DB::table('tconfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','Periodo')
+            ->where('tUsuario_idUsuario', Auth::user()->id)
+            ->first();
+            return view('/partida/partida',['mensaje'=>'Se agrego una nueva partida. Ahora puede agregarla a un presupuesto', 'anno' => $anno]);
         } catch(\Illuminate\Database\QueryException $ex){ 
             return view('/partida/nuevaPartida')
                 ->withErrors(['Error al insertar, ya existe una partida con ese identificador']);
@@ -196,8 +205,13 @@ class PartidaController extends Controller
         try{
             $partida = Partida::find($id);
             $partida->forceDelete();
+            $anno = DB::table('tconfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','Periodo')
+            ->where('tUsuario_idUsuario', Auth::user()->id)
+            ->first();
 
-            return view('partida/partida', ['partida' => $partida,'mensaje'=>false]);
+            return view('partida/partida', ['partida' => $partida,'mensaje'=>false, 'anno' => $anno]);
         } catch(\Illuminate\Database\QueryException $ex){ 
             $partida = Partida::find($id);
 
@@ -215,7 +229,12 @@ class PartidaController extends Controller
             $partida = Presupuesto_Partida::find($id);
             $partida->forceDelete();
 
-            return view('partida/partida', ['partida' => $partida,'mensaje'=>"false"]);
+            $anno = DB::table('tconfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','Periodo')
+            ->where('tUsuario_idUsuario', Auth::user()->id)
+            ->first();
+            return view('partida/partida', ['partida' => $partida,'mensaje'=>"false", 'anno' => $anno]);
         } catch(\Illuminate\Database\QueryException $ex){ 
             $partida = Partida::find($id);
 
@@ -251,7 +270,7 @@ class PartidaController extends Controller
         } catch(\Illuminate\Database\QueryException $ex){ 
 
         return Redirect::back()
-            ->withErrors(['errors'=> 'Error al agregar la partida   ']);
+            ->withErrors(['errors'=> 'Error al agregar la partida']);
         
         }
 
@@ -295,7 +314,7 @@ class PartidaController extends Controller
 
         } catch(\Illuminate\Database\QueryException $ex){ 
             return Redirect::back()
-            ->withErrors(['errors'=> 'El partida esta asignada a un presupuesto']);        
+            ->withErrors(['errors'=> 'La partida esta asignada a un presupuesto']);        
         }
 
     }

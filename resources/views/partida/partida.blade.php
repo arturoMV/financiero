@@ -26,7 +26,7 @@ class="active"
 		</ul>
 	</div> 
 	@endif 
-	<h3> Lista de Partidas</h3>
+	<h3> Lista de Partidas <small><% $anno->iValor%> </small></h3>
 	<div class="container-fluid search-container form-horizontal">
 		<div class="container-fluid">
 			<input type="text" id="partidaName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">

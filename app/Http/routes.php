@@ -144,8 +144,8 @@ Route::get('/presupuesto/informe-fin-gestion/{idPresupuesto}',function($idPresup
 //Factura routes...
 Route::resource('transaccion', 'FacturaController');
 Route::get('transaccion/create', 'FacturaController@create');
-Route::post('transaccion/{partida}/delete', 'FacturaController@destroy');
-Route::post('transaccion/{partida}/put', 'FacturaController@update');
+Route::post('transaccion/{transaccion}/delete', 'FacturaController@destroy');
+
 
 //User routes...
 Route::resource('usuario', 'UsuarioController');
@@ -185,8 +185,8 @@ Route::get('/partidas', function () {
     $p = Presupuesto_Partida::all();
 
     foreach ($p as $x) {
-        $x->calcularGasto();
         $x->calcularReserva();
+        $x->calcularGasto();
         $x->calcularSaldo();
     }
 
@@ -211,7 +211,7 @@ Route::get('/transaccionesReporte', function () {
 });
 
 Route::get('/reservas', function () {
-    $reservas = DB::table('treserva')->get();
+    $reservas = DB::table('treserva')->where('deleted_at', null)->get();
     return $reservas;
 });
 
@@ -308,33 +308,6 @@ Route::get('/transferencias', function (){
 });
 
 
-//Modificacion de la sintaxis
+//Modificacion de la sintaxis de laravel blade
 Blade::setContentTags('<%', '%>'); // for variables and all things Blade
 Blade::setEscapedContentTags('[[', ']]'); // for escaped data
-
-/*
-
-        SELECT * FROM
-        (
-        SELECT  `idTransferencia` as `codTransDe` ,  `vDocumento` as `docDe`,  `iMontoTransferencia` as `monTransDe`,  `idCoordinacion` as `idCoorDe`,  `vNombreCoordinacion` as `nomCoorDe`,  `vNombrePresupuesto` as `nomPresDe`,  `anno` as `annoDe`,  `codPartida` as `codParDe` 
-        FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
-        WHERE tPresupuestoPartidaDE = id
-        AND tPresupuesto_idPresupuesto = idPresupuesto
-        AND tPartida_idPartida = idPartida
-        AND tCoordinacion_idCoordinacion = idCoordinacion
-        )t1
-        LEFT JOIN
-        (
-        SELECT  `idTransferencia` as `codTransA` ,  `vDocumento` as `docA`,  `iMontoTransferencia` as `monTransA`,  `idCoordinacion` as `idCoorA`,  `vNombreCoordinacion` as `nomCoorA`,  `vNombrePresupuesto` as `nomPresA`,  `anno` as `annoA`,  `codPartida` as `codParA`
-        FROM ttranferencia_partida, tcoordinacion, tpartida, tpresupuesto, tpresupuesto_tpartida
-        WHERE tPresupuestoPartidaA = id
-        AND tPresupuesto_idPresupuesto = idPresupuesto
-        AND tPartida_idPartida = idPartida
-        AND tCoordinacion_idCoordinacion = idCoordinacion
-        )t2
-        ON t1.codTransDE = t2.codTransA
-        
-
-
-
-*/

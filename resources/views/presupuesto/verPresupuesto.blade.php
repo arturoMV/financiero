@@ -62,7 +62,7 @@ class="active"
         @if(Auth::user() AND Auth::user()->tienePermiso('Editar Presupuesto', Auth::user()->id))
         <input type="submit" name="" class="btn btn-warning" value="Editar">
         @endif
-        @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id))
+        @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida', Auth::user()->id) AND $date = date('Y') == $presupuesto->anno)
         <a href="/partida/<%$presupuesto->idPresupuesto%>/agregar" class="btn btn-primary">Agregar Partida</a>
         @endif
         <a href="/presupuesto/informe-gastos/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de Gastos</a>

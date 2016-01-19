@@ -8,7 +8,7 @@ class="active"
 <section>
   <div class="wrapper col-md-10">
     <br>
-    @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
+    @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion) AND date('Y') == $presupuesto->anno)
 
     @if (count($errors) > 0)
     <div class="alert alert-danger">
@@ -70,7 +70,11 @@ class="active"
 
       </form>
       @else
-      Debe estar autenticado y tener permisos para ver esta pagina
+      @if($date = date('Y') != $presupuesto->anno)
+        No puede agregar una partida a un presupusto que no sea del presente año
+      @else
+        Debe estar autenticado y tener permisos para ver esta pagina
+      @endif
       @endif
   </section> 
   @endsection

@@ -11,6 +11,7 @@ use App\Presupuesto_Partida;
 use App\Partida;
 use Redirect;
 use DB;
+use Auth;
 
 
 class PresupuestoController extends Controller
@@ -21,8 +22,13 @@ class PresupuestoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('/presupuesto/presupuesto');
+    {   
+        $anno = DB::table('tconfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','Periodo')
+        ->where('tUsuario_idUsuario', Auth::user()->id)
+        ->first();
+        return view('/presupuesto/presupuesto', ['anno' => $anno]);
     }
 
     /**
@@ -74,7 +80,13 @@ class PresupuestoController extends Controller
 
         $presupueto->save();
 
-        return view('/presupuesto/presupuesto');
+        $anno = DB::table('tconfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','Periodo')
+        ->where('tUsuario_idUsuario', Auth::user()->id)
+        ->first();
+
+        return view('/presupuesto/presupuesto', ['anno' => $anno]);
     } catch(\Illuminate\Database\QueryException $ex){ 
         return view('/presupuesto/nuevoPresupuesto',
             ['coordinaciones' => $coordinaciones,
@@ -156,7 +168,13 @@ class PresupuestoController extends Controller
 
         $presupueto->save();
 
-        return view('/presupuesto/presupuesto');
+        $anno = DB::table('tconfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','Periodo')
+        ->where('tUsuario_idUsuario', Auth::user()->id)
+        ->first();
+
+        return view('/presupuesto/presupuesto', ['anno' => $anno]);
     }catch(\Illuminate\Database\QueryException $e){
         return Redirect::back()
             ->withErrors(['Error al modificar los datos'])
@@ -177,7 +195,13 @@ class PresupuestoController extends Controller
 
             $presupuesto->forceDelete($id);
 
-            return view('/presupuesto/presupuesto');
+            $anno = DB::table('tconfiguracion')
+        ->select('iValor')
+        ->where('vConfiguracion','Periodo')
+        ->where('tUsuario_idUsuario', Auth::user()->id)
+        ->first();
+
+            return view('/presupuesto/presupuesto', ['anno' => $anno]);
         }catch (\Illuminate\Database\QueryException $e) {
 
             return Redirect::back()
