@@ -18,6 +18,10 @@ use App\Presupuesto_Partida;
 use App\Factura;
 
 //rutas de aplicaccion
+Route::get('/verRespaldosRealizados', function () {
+    return view('respaldos/index');
+});
+
 Route::get('/', function () {
     return view('index');
 });
