@@ -54,7 +54,7 @@ return [
     |
     */
 
-  'from' => ['address' => 'r2robsr@gmail.com', 'name' => 'ArturoMadrigal'],
+  'from' => ['address' => 'mov.presupuestarios.sp@gmail.com', 'name' => 'Movimientos Presupuestarios Sede del Pacífico'],
 
     /*
     |--------------------------------------------------------------------------

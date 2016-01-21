@@ -21,15 +21,15 @@ class="active"
     <form action="/coordinacion" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
-        <label class="col-md-4 control-label">Numero Coordinacion</label>
+        <label class="col-md-4 control-label">Numero Coordinación</label>
         <div class="col-md-4">
-          <input type="number" class="form-control" ng-model="id" name="idCoordinacion" placeholder="Numero de la Coordinacion" required>
+          <input type="number" class="form-control" ng-model="id" name="idCoordinacion" placeholder="Numero de la Coordinación" min="1" required>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre</label>
         <div class="col-md-4">
-          <input type="text" class="form-control" ng-model="nombre" name="vNombreCoordinacion" placeholder="Nombre de la Coordinacion" 
+          <input type="text" class="form-control" ng-model="nombre" name="vNombreCoordinacion" placeholder="Nombre de la Coordinación" 
           pattern="[a-zA-Z0-9-]+" title="Este campor solo acepta letras y numeros" required>
         </div>
       </div>

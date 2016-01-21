@@ -21,14 +21,14 @@
       <input type="hidden" name="_token" value="<% csrf_token() %>">    
 
       <div class="form-group">
-        <label class="col-md-4 control-label">ID Coordinacion</label>
+        <label class="col-md-4 control-label">Número Coordinación</label>
         <div class="col-md-8" ng-init="id=<%$coordinacion->idCoordinacion%>">
-          <input type="text" class="form-control" ng-model="id" name="idCoordinacion" value="<%$coordinacion->idCoordinacion%>" placeholder="ID de Coordinacion" readonly min="1" required>
+          <input type="text" class="form-control" ng-model="id" name="idCoordinacion" value="<%$coordinacion->idCoordinacion%>" placeholder="ID de Coordinación" readonly min="1" required>
         </div>
       </div>
 
       <div class="form-group" ng-init="nomb = '<% $coordinacion->vNombreCoordinacion %>'">
-        <label class="col-md-4 control-label">Nombre Coordinacion</label>
+        <label class="col-md-4 control-label">Nombre Coordinación</label>
         <div class="col-md-8">
           <input type="text" class="form-control" ng-model="nomb" name="vNombreCoordinacion" 
            placeholder="Nombre de la Coordinacion" value="<%$coordinacion->vNombreCoordinacion%>"  pattern="[a-zA-Z0-9-]+" title="Este campor solo acepta letras y numeros" required>

@@ -31,7 +31,7 @@ class="active"
     <form action="/partida/<%$presupuesto->idPresupuesto%>/agregar" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
-        <label class="col-md-4 control-label">Coordinacion</label>
+        <label class="col-md-4 control-label">Coordinación</label>
         <div class="col-md-6">
           <input type="text" class="form-control" name="coordo" readonly value="<%$coordinacion->idCoordinacion%>-<%$coordinacion->vNombreCoordinacion%>">
         </div>

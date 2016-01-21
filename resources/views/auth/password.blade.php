@@ -16,6 +16,15 @@
     </div> 
     @endif
 
+    @if ($mensaje) != null)
+    <div class="alert alert-success">
+        <strong>Bien!</strong>Se introdujo un correo válido<br><br>
+        <ul>
+            <li><% $mensaje %></li>
+        </ul>
+    </div> 
+    @endif
+
     <form method="POST" class="form-horizontal" action="/password/email">
         {!! csrf_field() !!}
 

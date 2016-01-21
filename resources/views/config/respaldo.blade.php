@@ -29,8 +29,8 @@
 					</ul>
 				</div> 
 			@endif 
-			<p><h5>Presione el boton el boton para respaldar los archivos de la base de datos.<br>
-			Esta operacion puede tardar varios minutos</h5></p>
+			<p><h5>Presione el botón para respaldar los archivos de la base de datos.<br>
+			Esta operación puede tardar varios minutos</h5></p>
 			<input type="submit" value = "Respaldar" class="btn btn-primary">
 			
 		</form>

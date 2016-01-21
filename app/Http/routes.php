@@ -214,6 +214,7 @@ Route::get('/partidas', function () {
     'tpresupuesto_tpartida.iPresupuestoModificado','tpresupuesto_tpartida.iGasto','tpresupuesto_tpartida.iReserva', 'tpresupuesto_tpartida.iSaldo')
     ->where('tUsuario_idUsuario', '=' , Auth::user()->id)
     ->where('anno','=',$config->iValor)
+    ->orderBy('codPartida')
     ->get();
     
     return $presupuestoPartida;	

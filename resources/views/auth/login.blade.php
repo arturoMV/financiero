@@ -35,19 +35,19 @@
 
         <div class="checkbox col-md-4 col-md-offset-4">
             <label class="control-label">
-                <input type="checkbox" name="remember"> Recuerdame!
+                <input type="checkbox" name="remember"> Recuérdame!
             </label>
         </div>
 
         <div class="checkbox col-md-4 col-md-offset-4">
             <label class="control-label">
-            <a href="/password/email" class="link">¿Olvido su contraseña?</a>
+            <a href="/password/email" class="link">¿Olvidó su contraseña?</a>
             </label>
         </div>
 
         <div class="col-md-4 col-md-offset-4">
             <button type="submit" class="btn btn-primary">
-                Iniciar Sesion
+                Iniciar Sesión
             </button>
         </div>
     </form>

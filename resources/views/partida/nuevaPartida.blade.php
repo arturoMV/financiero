@@ -27,7 +27,7 @@ class="active"
     <form action="/partida" class="form-horizontal" method="post">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
-        <label class="col-md-4 control-label">Codigo de Paritda</label>
+        <label class="col-md-4 control-label">Código de Paritda</label>
         <div class="col-md-4">
           <input type="text" class="form-control" name="codPartida" id="codPartida" value="" required placeholder="0-00-00-00">
         </div>
@@ -40,7 +40,7 @@ class="active"
         </div>
       
         <div class="form-group">
-          <label class="col-md-4 control-label">Descripcion</label>
+          <label class="col-md-4 control-label">Descripción</label>
           <div class="col-md-6">
             <textarea class="form-control" rows="5" required name="vDescripcion"></textarea>
           </div>

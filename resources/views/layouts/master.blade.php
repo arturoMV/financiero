@@ -43,9 +43,9 @@
 	<div class="container-fluid">
 		@if(Auth::user())
 		<h5 class="pull-right">Bienvenido: <%Auth::user()->name  %> <br>
-		 <a class="btn btn-danger pull-right cerrar" href="/auth/logout" title="login">Cerrar Sesion</a> </h5>
+		 <a class="btn btn-danger pull-right cerrar" href="/auth/logout" title="login">Cerrar Sesión</a> </h5>
 		@else
-			<a  href="/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesion</a>
+			<a  href="/auth/login" title="login" class="col-md-offset-10 btn btn-info login">Iniciar Sesión</a>
 			<a  href="/auth/register" title="login" class=" btn btn-info login">Registrarse</a>
 		@endif
 	</div>

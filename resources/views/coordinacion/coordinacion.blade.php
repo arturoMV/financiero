@@ -28,7 +28,7 @@
 				<input type="text" id="coordinacionName"  class="col-md-6 pull-left form-control" placeholder="Digite para buscar" ng-model="search">
 			</div>
 				@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion', Auth::user()->id))
-				<a href="/coordinacion/create" class="btn btn-success pull-right">Nueva Coordinacon</a>
+				<a href="/coordinacion/create" class="btn btn-success pull-right">Nueva Coordinación</a>
 				@endif
 			</div>
 		</div>
@@ -62,6 +62,6 @@
 		</div>
 </section>
 	@else
-		Debe estar autenticado y tener permisos para ver esta seccion
+		Debe estar autenticado y tener permisos para ver esta sección
 	@endif
 	@endsection

@@ -24,7 +24,7 @@ class="active"
     @endif  
 
       <div class="form-group">
-        <label class="col-md-4 control-label">Coordinacion</label>
+        <label class="col-md-4 control-label">Coordinación</label>
         <div class="col-md-6">
           <select name="tCoordinacion_idCoordinacion" class="form-control" required>
             <option value="0">Selecione a que unidad pertenece el Presupuesto</option>

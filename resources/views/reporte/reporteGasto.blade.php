@@ -6,8 +6,8 @@
 
 <div class="col-md-10 col-md-offset-1" >
 <br>
- 	<table class="col-md-12 table table-responsive table-bordered" ng-model="ver= true">
- 	<button class="btn btn-lg btn-info" ng-init="ver=true" ng-click="ver = false" ng-if="ver" onclick="window.print()" >Informe de Gastos</button>
+ 	<table class="col-md-12 table table-responsive table-bordered">
+ 	<button class="btn btn-lg btn-info"  onclick="window.print()" >Informe de Gastos</button>
  		<h2><%$coordinacion->idCoordinacion%>-<%$coordinacion->vNombreCoordinacion%>
  			<small><%$presupuesto->vNombrePresupuesto%>-<%$presupuesto->anno%></small>
  		</h2>

@@ -16,6 +16,6 @@
  " href="<% url('password/reset/'.$token) %>" "email me">Restablecer contraseña</a>
 <br><br>
 <h5>
-Si no realizo esta solicitud sientase libre de ignorar este mensaje.<br>
+Si no realizó esta solicitud sientase libre de ignorar este mensaje.<br>
 Su cuenta se mantiene segura</h5>
 </center>

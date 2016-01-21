@@ -34,7 +34,7 @@ class="active"
         </div>
         @if($partida->vDescripcion!="")
         <div class="form-group">
-            <label class="col-md-4 control-label">Descripcion:</label>
+            <label class="col-md-4 control-label">Descripción:</label>
             <p class="col-md-8 form-control-static"><%$partida->vDescripcion%></p>
         </div>
         @endif
@@ -156,6 +156,10 @@ class="active"
                             <p>Estas seguro de que quieres eliminar esta transacción.
                               <ul>
                                 <li>Eliminar una transacción modifica el estado de la partida</li>
+
+                                @if($transaccion->vTipoFactura == "Solicitud GECO")
+                                    <li>Eliminar una Solicitud GECO elimina todas los Pases asosciados a esta solicitud</li>
+                                @endif
                               </ul>
                             </p>
                             

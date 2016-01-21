@@ -31,21 +31,21 @@ class="active"
     <form class="col-md-12 alert container-fluid table-responsive form-horizontal" method="post" action="/transaccion" onsubmit="buttonName.disabled=true; return true;">
         {!!csrf_field()!!}
         <div class="col-md-12">
-        <h3>Nuevo Movimiento de presupuesto</h3>
+        <h3>Nuevo Movimiento de Presupuesto</h3>
         </div>
         <div class="container-fluid col-md-7">
             <div class="form-group">
-                <label class="col-md-6 control-label" >Tipo de Transaccion:</label>
+                <label class="col-md-6 control-label" >Tipo de Transacción:</label>
                 <div class="col-md-6">
                     <select name="vTipoFactura" class="form-control" required ng-model="tipo">
                         <option value="Factura credito" ng-selected="true"  >Factura Credito</option>
                         <option value="Factura pendiente" >Factura Pendiente</option>
-                        <option value="Reintegro de caja chica" >Reintegro de caja chica</option>
+                        <option value="Reintegro de caja chica" >Reintegro de Caja Chica</option>
                         <option value="Solicitud GECO" >Solicitud GECO</option>
                         <option value="Cancelacion GECO">Cancelacion GECO</option>
-                        <option value="Pases Adicionales" >Pases adicionales</option>
-                        <option value="Pases Anulacion" >Pases anulacion</option>
-                        <option value="Requisicion" >Requesicion Paq. Basico</option>
+                        <option value="Pases Adicionales" >Pases Adicionales</option>
+                        <option value="Pases Anulacion" >Pases Anulación</option>
+                        <option value="Requisicion" >Requesición Paq. Basico</option>
                         <option value="Orden de servicio" >Ordenes de Servicio</option>
                         <option value="Otros">Otros</option>
                     </select>
