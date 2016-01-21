@@ -1,10 +1,9 @@
 @extends('layouts.master')
 
 @section('content')
-
-        
-                
+            
 @if (count($errors) > 0)
+<br>
 <div class="alert alert-danger">
     <strong>Oops!</strong> Hay problemas con las entradas<br><br>
     <ul>

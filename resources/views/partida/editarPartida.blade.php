@@ -46,14 +46,14 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre de Partida</label>
         <div class="col-md-6">
-          <input type="text" class="form-control"  name="vNombrePartida" value="<%$partida->vNombrePartida%>" >
+          <input type="text" class="form-control"  name="vNombrePartida" value="<%$partida->vNombrePartida%>" pattern="[a-zA-Z0-9-ñáéíóúÑÁÉÍÓÚ]+" title="Este campor solo acepta letras y numeros">
         </div>
       </div>
   
       <div class="form-group">
         <label class="col-md-4 control-label">Saldo de la Partida</label>
         <div class="col-md-6">
-          <textarea class="form-control" name="vDescripcion" value="<%$partida->vDescripcion%>" rows="5"><%$partida->vDescripcion%></textarea>
+          <textarea class="form-control" name="vDescripcion" value="<%$partida->vDescripcion%>" rows="5" pattern="[a-zA-Z0-9-ñáéíóúÑÁÉÍÓÚ]+" title="Este campor solo acepta letras y numeros"><%$partida->vDescripcion%></textarea>
         </div>
       </div>
 

@@ -35,14 +35,14 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre de Partida</label>
         <div class="col-md-4">
-            <input type="text" class="form-control" name="vNombrePartida"  required placeholder="Nombre que identifica el gasto" pattern="[a-zA-Z0-9-]+" title="Este campor solo acepta letras y numeros">
+            <input type="text" class="form-control" name="vNombrePartida"  required placeholder="Nombre que identifica el gasto" pattern="[a-zA-Z0-9-ñáéíóúÑÁÉÍÓÚ]+" title="Este campor solo acepta letras y numeros">
         </div>
         </div>
       
         <div class="form-group">
           <label class="col-md-4 control-label">Descripción</label>
           <div class="col-md-6">
-            <textarea class="form-control" rows="5" required name="vDescripcion"></textarea>
+            <textarea class="form-control" rows="5" required name="vDescripcion" pattern="[a-zA-Z0-9-ñáéíóúÑÁÉÍÓÚ]+" title="Este campor solo acepta letras y numeros"></textarea>
           </div>
         </div>
 

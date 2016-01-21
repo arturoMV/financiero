@@ -68,7 +68,7 @@ class="active"
             <div class="form-group text-left">
                 <label class="col-md-6 control-label">Num. Documento:</label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" name="vDocumento" value="No Aplica">
+                    <input type="text" class="form-control" name="vDocumento" value="N/A">
                 </div>
             </div >
         </div>

@@ -17,8 +17,7 @@ use App\User;
 use App\Presupuesto_Partida;
 use App\Factura;
 
-
-
+//rutas de aplicaccion
 Route::get('/', function () {
     return view('index');
 });
@@ -73,10 +72,9 @@ Route::post('partida/{id}/agregar', 'PartidaController@asignarPartida');
 Route::get('partida/editar/{id}', 'PartidaController@editPresupuestoPartida');
 Route::post('partida/editar/{id}', 'PartidaController@updatePresupuestoPartida');
 
+//rutas de transferencias
 Route::post('/transferencia/verificar', 'PartidaController@transferencia');
 Route::get('/transferencia/{transferencia}', 'PartidaController@verTransferencia');
-
-
 Route::get('/transferencia', function () {
     $anno = DB::table('tconfiguracion')
             ->select('iValor')
@@ -97,6 +95,7 @@ Route::get('/create/transferencia', function () {
         return view('layouts/master');
     }});
 
+//rutas de informes
 Route::get('/presupuesto/informe-gastos/{idPresupuesto}',function($idPresupuesto){
     $config = DB::table('tconfiguracion')
     ->select('iValor')
@@ -161,7 +160,7 @@ Route::get('transaccion/create', 'FacturaController@create');
 Route::post('transaccion/{transaccion}/delete', 'FacturaController@destroy');
 
 
-//User routes...
+//Rutas de usuarios
 Route::resource('usuario', 'UsuarioController');
 Route::post('usuario/{usuario}/put', 'UsuarioController@update');
 Route::post('usuario/{usuario}/cambiar', 'UsuarioController@cambiarRol');
@@ -170,16 +169,16 @@ Route::get('usuario/{usuario}/coordinacion', 'UsuarioController@editarCoordinaci
 Route::post('usuario/{usuario}/coordinacion/put', 'UsuarioController@cambiarCoordinacion');
 
 
-// Authentication routes...
+// Rutas de autenticacion
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
-// Registration routes...
+// Turas de Registro...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
-// Password reset link request routes...
+// Rutas de reestablecimiento de contraseña...
 Route::get('password/email', 'Auth\PasswordController@getEmail');
 Route::post('password/email', 'Auth\PasswordController@postEmail');
 
