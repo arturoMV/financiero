@@ -8,6 +8,8 @@
 	@endsection
 	@section('content')
 	<section class="contenido">
+		@if(Auth::user() AND Auth::user()->tienePermiso('Respaldar Sistema'))
+
 		
 		<form action="/respaldo" method="post">
 			{!! csrf_field() !!}
@@ -32,8 +34,14 @@
 			<p><h5>Presione el botón para respaldar los archivos de la base de datos.<br>
 			Esta operación puede tardar varios minutos</h5></p>
 			<input type="submit" value = "Respaldar" class="btn btn-primary">
+			@if(Auth::user() AND Auth::user()->tienePermiso(' Ver Respaldos'))
+				<a href="/VerRespaldosRealizados" class="btn btn-info">Ver Respaldos</a>
+			@endif
 			
 		</form>
-
+		@else 
+			<br>
+			Debe estar autenticado y tener permisos para ver esta sección
+		@endif
 	</section> 
 	@endsection
