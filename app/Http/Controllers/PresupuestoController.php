@@ -17,22 +17,25 @@ use Auth;
 class PresupuestoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de presupuestos
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {   if(Auth::user()){
         $anno = DB::table('tconfiguracion')
         ->select('iValor')
         ->where('vConfiguracion','Periodo')
         ->where('tUsuario_idUsuario', Auth::user()->id)
         ->first();
         return view('/presupuesto/presupuesto', ['anno' => $anno]);
+        }else{
+            return view('/layouts/master');
+        }
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear un presupuesto
      *
      * @return \Illuminate\Http\Response
      */
@@ -49,7 +52,7 @@ class PresupuestoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo presupuesto creado
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -57,6 +60,8 @@ class PresupuestoController extends Controller
     public function store(Request $request)
     {
         try{
+            if(Auth::user()){
+            
         if($request->tCoordinacion_idCoordinacion ==0){
             return Redirect::back()
             ->withErrors(['error', 'Debe seleccionar una Coordinacion válida'])
@@ -87,6 +92,9 @@ class PresupuestoController extends Controller
         ->first();
 
         return view('/presupuesto/presupuesto', ['anno' => $anno]);
+        }else{
+            return view('layouts/master');
+        }
     } catch(\Illuminate\Database\QueryException $ex){ 
         return view('/presupuesto/nuevoPresupuesto',
             ['coordinaciones' => $coordinaciones,
@@ -97,7 +105,7 @@ class PresupuestoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un presupuesto especifico
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -118,14 +126,13 @@ class PresupuestoController extends Controller
             $partida->presupuestoModificado();
             $partida->calcularSaldo();  
             $partida->calcularSaldo();  
-
         }
         $coordinacion = Presupuesto::find($id)->coordinacion;
         return view('/presupuesto/verPresupuesto',['presupuesto' => $presupuesto],['coordinacion' => $coordinacion, 'partidas' => $partidas]);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra un formulario para editar un presupuesto especifico
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -138,7 +145,7 @@ class PresupuestoController extends Controller
         return view('/presupuesto/editarPresupuesto',['presupuesto' => $presupuesto], ['coordinaciones' => $coordinaciones]);
     }
     /**
-     * Update the specified resource in storage.
+     * Modifica un presupuesto especifico
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -147,6 +154,7 @@ class PresupuestoController extends Controller
     public function update(Request $request, $id)
     {
     try{
+        if(Auth::user()){
 
         if($request->tCoordinacion_idCoordinacion ==0){
             return Redirect::back()
@@ -175,6 +183,9 @@ class PresupuestoController extends Controller
         ->first();
 
         return view('/presupuesto/presupuesto', ['anno' => $anno]);
+        }else{
+            return view('layouts/master');
+        }
     }catch(\Illuminate\Database\QueryException $e){
         return Redirect::back()
             ->withErrors(['Error al modificar los datos'])
@@ -183,7 +194,7 @@ class PresupuestoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina un presupuesto especifico
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -191,22 +202,24 @@ class PresupuestoController extends Controller
     public function destroy($id)
     {
         try{
-            $presupuesto = Presupuesto::find($id);
+            if(Auth::user()){
+                $presupuesto = Presupuesto::find($id);
 
-            $presupuesto->forceDelete($id);
+                $presupuesto->forceDelete($id);
 
-            $anno = DB::table('tconfiguracion')
-        ->select('iValor')
-        ->where('vConfiguracion','Periodo')
-        ->where('tUsuario_idUsuario', Auth::user()->id)
-        ->first();
+                $anno = DB::table('tconfiguracion')
+                ->select('iValor')
+                ->where('vConfiguracion','Periodo')
+                ->where('tUsuario_idUsuario', Auth::user()->id)
+                ->first();
+                return view('/presupuesto/presupuesto', ['anno' => $anno]);
 
-            return view('/presupuesto/presupuesto', ['anno' => $anno]);
+            }else{
+                return view('layouts/master');
+            }
         }catch (\Illuminate\Database\QueryException $e) {
-
             return Redirect::back()
             ->withErrors(['errors'=> 'El presupuesto tiene partidas asignadas']);
-        
         }
     }
 

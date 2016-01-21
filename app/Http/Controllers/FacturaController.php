@@ -17,34 +17,28 @@ use Auth;
 
 class FacturaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+   
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para creear una nueva factura
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   if(Auth::user()){
         $anno = DB::table('tconfiguracion')
             ->select('iValor')
             ->where('vConfiguracion','Periodo')
             ->where('tUsuario_idUsuario', Auth::user()->id)
             ->first();
 
-        return view('transaccion/nuevaTransaccion', ['mensaje' => null, 'anno' => $anno]);   
+        return view('transaccion/nuevaTransaccion', ['mensaje' => null, 'anno' => $anno]);  
+        } 
+        return view('layouts/master');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda una nueva factura creada
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -73,6 +67,10 @@ class FacturaController extends Controller
                 if($campo == 3){
                     $monto = $in;
 
+                    if($monto <= 0){
+                        return redirect('transaccion/create')->withErrors('El monto de una transacción no puede ser igual a 0');
+
+                    }
                     $factura = new Factura;
 
                     $factura->vTipoFactura =  $tipo;
@@ -108,7 +106,10 @@ class FacturaController extends Controller
                 array_push($listaPartida, $presupuesto_partida);
 
                 $reserva = DB::table('treserva')->where('vReserva', $fac->vDetalleFactura)->first();
-                //return dd($reserva);  
+                //return dd($reserva); 
+                if($reserva == null){
+                     return redirect('transaccion/create')->withErrors('Debe seleccionar una reserva válida');
+                } 
                 if($reserva->iMontoFactura < $fac->iMontoFactura){
                     return redirect('transaccion/create')->withErrors('El monto de una partida excede el limite posible');
                 }
@@ -167,49 +168,9 @@ class FacturaController extends Controller
         return redirect('transaccion/create')->with('mensaje','s');        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // try{
-        //     $factura = Factura::find($id);
-
-        //     $detalles = DB::table('tfacturadetalle')
-        //     ->join('tfactura', 'idFactura','=','tFactura_idFactura')
-        //     ->select('iLinea','vDetalle','iPrecio','iCantidad','iTotalLinea')
-        //     ->where('tFactura_idFactura',$id)
-        //     ->get();
-
-        //     $presupuesto_partida = Presupuesto_Partida::find($factura->tPartida_idPartida);
-
-        //     $partida = Partida::find($presupuesto_partida->tPartida_idPartida);
-
-        //     $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
-
-        //     $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
-
-        //     $presupuesto_partida->calcularSaldo();
-        //     $presupuesto_partida->calcularGasto();
-        //     $presupuesto_partida->presupuestoModificado();
-
-        //     return view('transaccion/verTransaccion',
-        //         ['factura'=>$factura,
-        //         'detalles'=>$detalles,
-        //         'presupuesto_partida'=>$presupuesto_partida,
-        //         'partida'=>$partida,
-        //         'presupuesto'=>$presupuesto,
-        //         'coordinacion'=>$coordinacion]); 
-        // }catch(\Illuminate\Database\QueryException $ex){ 
-        //     return view('transaccion/verTransaccion/');
-        // }       
-    }
 
     /**
-     * Show the form for editing the specified resource.
+     * Calcula la reserva las partidas
      *
      * @param 
      * @return \Illuminate\Http\Response
@@ -265,23 +226,19 @@ class FacturaController extends Controller
             DB::table('treserva')->where('vReserva', $reserva->vReserva)
             ->update(['iMontoFactura'=> $montoReserva]);
 
+            $reserva =  DB::table('treserva')->where('vReserva', $reserva->vReserva)->first();
+           // return dd($reserva);
+            if($reserva->iMontoFactura <= 0){
+                DB::table('treserva')->where('vReserva', $reserva->vReserva)->delete();
+            }
+
+
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una factura en especifico
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -290,9 +247,16 @@ class FacturaController extends Controller
     {
         $factura = Factura::find($id);
 
-        $factura->deleted_by = Auth::user()->id;
 
-        $factura->delete();
+        if($factura->vTipoFactura ==   'Solicitud GECO'){
+            $facturas = Factura::all()->where('tReserva_vReserva',$factura->tReserva_vReserva);
+            foreach ($facturas as $fac) {
+                $fac->deleted_by = Auth::user()->id;
+                $fac->delete();            }
+        }else{
+            $factura->deleted_by = Auth::user()->id;
+            $factura->delete();
+        }
 
         $this->calcularReserva();
 

@@ -5,7 +5,7 @@ class="active"
 @endsection
 @section('content')
 @parent
-@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
+@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida') AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 <section>
     <div class="wrapper">
     <form class="col-md-12 form-horizontal" action="/partida/<% $partida->idPartida%>/edit" method="get">
@@ -39,7 +39,7 @@ class="active"
         </div>
         @endif
         <div class="col-md-12 form-group">
-            @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
+            @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id) AND $presupuesto->anno == date('Y'))
             <input type="submit" name="" class="btn btn-warning" value="Editar Partida">
             <a href="/partida/editar/<% $presupuesto_partida->id %>" class="btn btn-warning" title="Cambiar presupuesto">Editar</a>
             @endif
@@ -92,7 +92,7 @@ class="active"
     <h4>Lista de Transaciones<small>
         <label class="pull-right"><input type="checkbox" name="" ng-model="expandir" ng-check="true" value="">Expandir Todo</label></small>
     </h4>
-         <a href="/partida/informe-gastos/<%$presupuesto_partida->id%>" target="_blank" class="btn btn-info">Informe Gasto</a><br> <br> 
+         <a href="/partida/informe-gastos/<%$presupuesto_partida->id%>" target="_blank" class="btn btn-info">Informe Transacciones</a><br> <br> 
     @foreach($transacciones as $transaccion)
     <div class="panel panel-primary" ng-init="vert<% $count%> = false">
         <div class="panel-heading" style="height:40px">
@@ -138,11 +138,37 @@ class="active"
             </div>
             @endif
             <hr>
+            @if(Auth::user()->tienePermiso('Borrar Transaccion') AND $presupuesto->anno == date('Y'))
             <form action="/transaccion/<% $transaccion->idFactura %>/delete" method="post">
-              <input type="hidden" name="_token" value="<% csrf_token() %>">
-              <input type="submit" value="Eliminar" class="btn btn-danger pull-right">  
+                <input type="hidden" name="_token" value="<% csrf_token() %>">
+                <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal<% $transaccion->idFactura %>">Eliminar</button>
+
+                <div class="col-md-5">
+                    <div class="modal fade" id="myModal<% $transaccion->idFactura %>" role="dialog">
+                      <div class="modal-dialog modal-sm">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Confirmar</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>Estas seguro de que quieres eliminar esta transacción.
+                              <ul>
+                                <li>Eliminar una transacción modifica el estado de la partida</li>
+                              </ul>
+                            </p>
+                            
+                              <input type="submit" name="" class="btn btn-danger" value="Eliminar">
+                              <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Cancelar</button>
+                          </div>
+                        </div> 
+                      </div>
+                    </div> 
+                </div>
 
             </form>
+            @endif
         </div>
         </div class="<%$count++%>">
         @endforeach
@@ -159,7 +185,9 @@ class="active"
     @else
     <div class="col-md-12 <% $count = 0 %>">
         @endif
+        @if(count($transferenciasA)>0)
         <h4>Aumentos</h4>
+        @endif
         @foreach($transferenciasA as $transferenciaA)
         <div class="panel panel-success" ng-init="ver<% $count%> = false">
             <div class="panel-heading" style="height:70px">
@@ -194,7 +222,9 @@ class="active"
             @else
             <div class="col-md-12 <% $count = 0 %>">
                 @endif
+                @if(count($transferenciasDe)>0)
                 <h4>Reducciones</h4>
+                @endif
                 @foreach($transferenciasDe as $transferenciaDe)
                 <div class="panel panel-danger" ng-init="verr<% $count%> = false">
                     <div class="panel-heading" style="height:70px">
@@ -229,6 +259,6 @@ class="active"
     </div>
 </section>
 @else
-Debe estar autenticado y tener permisos para ver esta pagina
+    Debe estar autenticado y tener permisos para ver esta pagina
 @endif
 @endsection

@@ -13,7 +13,7 @@ use Auth;
 class CoordinacionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de las coordinaciones
      *
      * @return \Illuminate\Http\Response
      */
@@ -23,7 +23,7 @@ class CoordinacionController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario para crear una coordinacion
      *
      * @return \Illuminate\Http\Response
      */
@@ -33,7 +33,7 @@ class CoordinacionController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda una nueva coordinacion creada
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -57,7 +57,7 @@ class CoordinacionController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra una coordinacion especifica
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -71,8 +71,8 @@ class CoordinacionController extends Controller
         return view('/coordinacion/verCoordinacion',['coordinacion'=>$coordinacion],['presupuestos'=> $presupuestos]);
     }
 
-    /**[]
-     * Show the form for editing the specified resource.
+    /**
+     * Muestra el formulario para editar una coordinacion especifica
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -85,7 +85,7 @@ class CoordinacionController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Modifica una coordninacion especifica.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -111,7 +111,7 @@ class CoordinacionController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una coordinacion especifica
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

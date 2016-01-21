@@ -7,6 +7,8 @@ class="active"
 @parent
 @if(Auth::user() AND  Auth::user()->tienePermiso('Agregar Transaccion') AND $date = date('Y') == $anno->iValor)
 <section class="container-fluid">
+
+
     <br>
     @if (count($errors) > 0)
     <div class="alert alert-danger">
@@ -26,7 +28,7 @@ class="active"
         </ul>
     </div>
     @endif
-    <form class="col-md-12 alert container-fluid table-responsive form-horizontal" method="post" action="/transaccion" >
+    <form class="col-md-12 alert container-fluid table-responsive form-horizontal" method="post" action="/transaccion" onsubmit="buttonName.disabled=true; return true;">
         {!!csrf_field()!!}
         <div class="col-md-12">
         <h3>Nuevo Movimiento de presupuesto</h3>
@@ -187,18 +189,18 @@ class="active"
                 </tbody>
             </table>
             <div class="form-group">
-                <input type="submit" value="Agregar Factura" name="ssss"  class="btn btn-primary pull-right">
+                <input type="submit" value="Agregar Factura" name="buttonName"  class="btn btn-primary pull-right">
             </div>
     </form>
     </div>
 </section>
 @else
-@if(date('Y') != $anno->iValor)
-    Solo se pueden agregar movimientos al presente año. <br> 
-   Para agregar un nuevo movimiento presupuestatio debe <br><br>
-   <a href="/configuracion" class="btn btn-info">Configurar Año de Sistema</a>
-@else
-    Debe estar autenticado y tener permisos para ver esta pagina
-@endif
+    @if(date('Y') != $anno->iValor)
+        Solo se pueden agregar movimientos al presente año. <br> 
+       Para agregar un nuevo movimiento presupuestatio debe <br><br>
+       <a href="/configuracion" class="btn btn-info">Configurar Año de Sistema</a>
+    @else
+        Debe estar autenticado y tener permisos para ver esta pagina
+    @endif
 @endif
 @endsection

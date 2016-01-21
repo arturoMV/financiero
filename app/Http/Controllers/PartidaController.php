@@ -19,32 +19,34 @@ use App\Http\Controllers\Controller;
 class PartidaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de partidas
      *
      * @return \Illuminate\Http\Response
      */
     public function index(){
-        $anno = DB::table('tconfiguracion')
-        ->select('iValor')
-        ->where('vConfiguracion','Periodo')
-        ->where('tUsuario_idUsuario', Auth::user()->id)
-        ->first();
-        return view('partida/partida',['mensaje'=>null,'error' => true, 'anno' => $anno]);
+        if(Auth::user()){
+            $anno = DB::table('tconfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','Periodo')
+            ->where('tUsuario_idUsuario', Auth::user()->id)
+            ->first();
+            return view('partida/partida',['mensaje'=>null,'error' => true, 'anno' => $anno]);
+        }
+        return view('layouts/master');
+        
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra el formulario de crear partida
      *
      * @return \Illuminate\Http\Response
      */
     public function create(){
-        
-
         return view('partida/nuevaPartida');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda una nueva partida creada
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -58,7 +60,6 @@ class PartidaController extends Controller
             $partida->vNombrePartida = $request->vNombrePartida;
             $partida->vDescripcion = $request->vDescripcion;
             
-
             $partida->save();
 
             $anno = DB::table('tconfiguracion')
@@ -75,7 +76,7 @@ class PartidaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un presupuesto partida especifico
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -114,7 +115,7 @@ class PartidaController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el fomulario para editar una partida especifica
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -126,6 +127,12 @@ class PartidaController extends Controller
         return view('partida/editarPartida', ['partida' => $partida,'mensaje'=>null]);
     }
 
+    /**
+     * Muestra el formulario de editar presupuerto partida especifico
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
     public function editPresupuestoPartida($id)
     {
         $presupuesto_partida = Presupuesto_Partida::find($id);
@@ -141,6 +148,13 @@ class PartidaController extends Controller
             'presupuesto_partida' => $presupuesto_partida,'mensaje'=>null]);
     }
 
+    /**
+     * Modifica un presupuesto partida especifico
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function updatePresupuestoPartida(Request $request, $id)
     {
         try{
@@ -168,7 +182,7 @@ class PartidaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Modifica una partida especifica 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -177,7 +191,6 @@ class PartidaController extends Controller
     public function update(Request $request, $id)
     {
         try{
-
             $partida = Partida::find($id);
             $partida->codPartida = $request->codPartida; 
             $partida->vNombrePartida = $request->vNombrePartida;
@@ -195,7 +208,7 @@ class PartidaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Elimina una partida especifica
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -221,7 +234,12 @@ class PartidaController extends Controller
         }
 
     }
-
+    /**
+     * Elimina un presupuesto partida especifica
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function destroyPresupuestoPartida($id)
     {   
         try{
@@ -247,7 +265,7 @@ class PartidaController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * Muestra el formulario para agregar una partida a un presupuesto
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -276,6 +294,13 @@ class PartidaController extends Controller
 
     }
 
+    /**
+     * Asigna una partida especifica a un presupuesto especifico
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function asignarPartida($id, Request $request)
     {   
         try{
@@ -318,10 +343,21 @@ class PartidaController extends Controller
         }
 
     }
-
+    /**
+     * Agrega una trasferencia
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function transferencia(Request $request)
     {
         try{
+            $anno = DB::table('tconfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','Periodo')
+            ->where('tUsuario_idUsuario', Auth::user()->id)
+            ->first();
+            
             $presupuesto_partidaDe = Presupuesto_Partida::find($request->partidaDe);
             $presupuesto_partidaA = Presupuesto_Partida::find($request->partidaA);
             $usuario = Auth::user();
@@ -377,12 +413,15 @@ class PartidaController extends Controller
                             'transferencia' => $transferencia,
                             'usuario' => $usuario]);
                 }else{
+
                     return Redirect::back()
+                    ->with(['anno'=> $anno])
                     ->withErrors(['errors'=> 'Verifique que el monto de transferencia sea menor o 
                         igual al saldo de la partida de la cual esta realizando la transferencia']);
                  }
             } else {
                 return Redirect::back()
+                ->with(['anno'=> $anno])
                 ->withErrors(['errors'=> 'Verifique que el monto de transferencia sea menor o 
                     igual al saldo de la partida de la cual esta realizando la transferencia']);
             }
@@ -392,6 +431,12 @@ class PartidaController extends Controller
         }
     }
 
+    /**
+     * Muestra una transferencia especifica
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function verTransferencia($id)
     {   
        try{

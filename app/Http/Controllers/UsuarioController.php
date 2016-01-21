@@ -9,11 +9,11 @@ use App\User;
 use DB;
 use Redirect;
 use App\Coordinacion;
-
+use Auth;
 class UsuarioController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra una lista de todos los usuarios
      *
      * @return \Illuminate\Http\Response
      */
@@ -34,6 +34,11 @@ class UsuarioController extends Controller
         return view('config/respaldo',['mensaje'=>null]);
     }
 
+      /**
+     * Crea un respaldo de la base de datos en el servidor
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function respaldo()
     {
         define("BACKUP_PATH", "/var/www/html/");
@@ -63,7 +68,7 @@ class UsuarioController extends Controller
         }
     }
     /**
-     * Store a newly created resource in storage.
+     * Guarda un nuevo rol y sus permisos
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -88,7 +93,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un usurario especidico
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -115,7 +120,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar el rol y los permisos de un usuario especifico
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -150,7 +155,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Modifica el los permisos de un rol
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -171,6 +176,13 @@ class UsuarioController extends Controller
       return Redirect::back();
     }
 
+    /**
+     * Modifica el rol de un usuario
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function cambiarRol(Request $request, $id)
     {
        $user = User::find($id);
@@ -183,30 +195,34 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Modifica el el año de los datos que se le muestran al usuario
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function cambiarConfig(Request $request){  
         $config  = $request->input('iValor');  
 
         DB::table('tconfiguracion')
         ->where('vConfiguracion', 'Periodo')
+        ->where('tUsuario_idUsuario', Auth::user()->id)
         ->update(['iValor' => $config]);
 
         $config = DB::table('tconfiguracion')
         ->select('iValor')
         ->where('vConfiguracion','=','Periodo')
+        ->where('tUsuario_idUsuario', Auth::user()->id)
         ->first();
         return view('/config/config', ['config'=> $config, 'cambio'=>true]);
     }
 
+    /**
+     * Muestra el formulario de las coordinaciones que puede ver un usuario especifico
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function editarCoordinacion($id)
     {   
         $usuario = User::find($id);
@@ -219,6 +235,13 @@ class UsuarioController extends Controller
             'errors' => null]);
     }
 
+    /**
+     * Modifica las coordinaciones que puede ver un usuario especifico
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function cambiarCoordinacion(Request $request, $id)
     {   
         $input = $request->all();

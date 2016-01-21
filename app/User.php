@@ -23,26 +23,33 @@ class User extends Model implements AuthenticatableContract,
     use Authenticatable, Authorizable, CanResetPassword;
 
     /**
-     * The database table used by the model.
+     * Tablaa usada por el modelo
      *
      * @var string
      */
     protected $table = 'tusuario';
 
     /**
-     * The attributes that are mass assignable.
+     * Atributos del modelo
      *
      * @var array
      */
     protected $fillable = ['name', 'email', 'password'];
 
     /**
-     * The attributes excluded from the model's JSON form.
+     * Atributos ocultos del modelo
      *
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
 
+    /**
+     * Verifica si el usuario tiene un permiso de aplicacion
+     *
+     * @param  String  $nombreRol
+     * @param  String  $nombrePermiso
+     * @return boolean
+     */
     public function verificarPermiso($nombreRol, $nombrePermiso){
     
         $permisos =DB::table('trol_tiene_tpermiso')
@@ -59,6 +66,13 @@ class User extends Model implements AuthenticatableContract,
         }
     }
 
+
+    /**
+     * Verifica si el usuario autenticado tiene un permiso
+     *
+     * @param  String  $validacion
+     * @return boolean
+     */
     public function tienePermiso($validacion){
         $config = DB::table('tconfiguracion')
         ->select('iValor')
@@ -69,7 +83,7 @@ class User extends Model implements AuthenticatableContract,
         if(count($config)<=0){
         DB::table('tconfiguracion')->insert([
         'vConfiguracion' => 'Periodo',
-        'iValor' => 2016,
+        'iValor' => date('Y'),
         'tUsuario_idUsuario' => $this->id]); 
         } 
       
@@ -87,7 +101,13 @@ class User extends Model implements AuthenticatableContract,
          }
         }
     }
-
+ 
+    /**
+     * Verifica si el usuario autenticado tiene una coordinacion
+     *
+     * @param  String  $coordinacion
+     * @return boolean
+     */
     public function tieneCoordinacion($coordinacion){
       $resultado=DB::table('tusuario_tcoordinacion')
             ->select('tCoordi_idCoordinacion')
@@ -102,6 +122,13 @@ class User extends Model implements AuthenticatableContract,
         return false;
     }
 
+      /**
+     * Verifica si el usuario especifico tiene una coordinacion
+     *
+     * @param  String  $coordinacion
+     * @param  int $id
+     * @return boolean
+     */
     public function verificarCoordinacion($coordinacion, $id){
       $resultado=DB::table('tusuario_tcoordinacion')
             ->select('tCoordi_idCoordinacion')
@@ -116,6 +143,10 @@ class User extends Model implements AuthenticatableContract,
         return false;
     }
 
+    /**
+     * Agrega la configuracion de año de un usuario autenticado
+     *
+     */
     public function agregarAnno(){
         DB::table('tconfiguracion')->insert([
             'vConfiguracion' => 'Periodo',

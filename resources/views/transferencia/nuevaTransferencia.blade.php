@@ -22,12 +22,11 @@
         </ul>
     </div> 
     @endif
-		@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion', Auth::user()->id))				
+		@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Transferencia', Auth::user()->id) AND date('Y') == $anno->iValor)				
 		<h3>
-			Bienvenido al modulo de transferencias
+			Agregar transferencias
 		</h3>
 		<p>			
-			<h4>Selecione una Coordinacion de la cual va a transferir presupuesto</h4>
 		</p>
 
 		<form class="form-horizontal" ng-controller="coordinacionTemplate" action="/transferencia/verificar" method="post" 
@@ -137,7 +136,15 @@
 			</div>
 			</div>
 		</form>
-		@endif
+		@else
+			@if(date('Y') != $anno->iValor)
+        		Solo se pueden agregar Transferencias al presente año. <br> 
+       			Para agregar una nueva Transferenca presupuestatio debe <br><br>
+       			<a href="/configuracion" class="btn btn-info">Configurar Año de Sistema</a>
+    		@else
+        		Debe estar autenticado y tener permisos para ver esta pagina
+    		@endif
+    	@endif
 	</section> 
 	@endsection
 

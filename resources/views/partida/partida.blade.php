@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('title', 'Partida')
 
-
 @section('partida')
 class="active"
 @endsection
@@ -59,8 +58,8 @@ class="active"
 					<td>{{partida.iSaldo | currency:"₡":0}}</td>
 					<td><a href="/partida/{{partida.id}}"  class="btn btn-info" title="">Ver</a></td>
 					<td>
-						@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id))
-						<a href="/partida/{{partida.idPartida}}/edit" class="btn btn-warning" title="">Editar</a>
+						@if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id)  AND $anno->iValor == date('Y'))
+						<a href="/partida/editar/{{partida.id}}" class="btn btn-warning" title="">Editar</a>
 						@endif
 					</td>
 				</tr>

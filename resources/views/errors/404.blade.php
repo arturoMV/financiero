@@ -38,21 +38,21 @@
         @endif
     </div>
     <header id="header" class="container-fluid">
+        
         <div class="col-xs-12 col-md-6">
+            <a href="/home"><img src="/img/logo2.png" alt="UCR" class="img-responsive" id="imgBanner"></a>
+        </div>
+        <div class="col-xs-12 col-md-6" style="text-align: right;">
             <h1>Sistema de Financiero</h1>
             <h3>Movimientos Presupuestarios</h3>
-        </div>
-        <div class="col-xs-12 col-md-6">
-            <a href="/"><img src="/img/logo.png" alt="UCR" class="img-responsive"></a>
-            <h3>Sede del Pacifico</h3>
         </div>
     </header>   
 
     <div class="col-md-10 col-md-offset-2"><h2>Recurso no encontrado</h2>
     <div class="col-md-11 col-md-offset-1">
+        <a href="/" title="Volver" class="btn btn-info pull- left">Volver al Inicio</a>      
         <img src="/img/404.png" alt="UCR" class="img-responsive"><br><br>
         </div>
-        <a href="/" title="Volver" class="btn btn-info pull- left">Volver al Inicio</a>      
 
     </div>    
     </body>

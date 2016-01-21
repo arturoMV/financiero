@@ -107,9 +107,6 @@
 							@if(Auth::user() AND Auth::user()->tienePermiso('Respaldar Sistema', Auth::user()->id))
 							<li @yield('backup')><a href="/respaldo" title="Configurar periodo">Respaldar base de datos</a></li>
 							@endif
-
-							<li @yield('about')><a href="/about" title="Acerca de">Acerca De</a></li>					
-
 						</ul>
 					</div>
 				</div>

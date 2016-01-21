@@ -75,7 +75,7 @@
 
 	<div class="form-group">
 		<label class="control-label">Tipo de Transacción</label>
-			<select class="form-control"  ng-model="data.select"  >
+			<select class="form-control"  ng-model="data.select" ng-change="todos=false">
 				<option value="Factura credito">Factura Credito</option>
 	            <option value="Factura pendiente">Factura Pendiente</option>
 	            <option value="Reintegro de caja chica" >Reintegro de caja chica</option>
@@ -119,12 +119,7 @@
 						<td>{{transaccion.vDetalleFactura}}</td>
 						<td ng-init="tot = transaccion.iMontoFactura; transaccionTemplate.Total = transaccionTemplate.Total + tot">{{transaccion.iMontoFactura | currency:"₡":0}}</td>
 					</tr>
-					<tr>
-						<th></th>
-						<th></th>
-						<th></th>
-						<th></th>
-					</tr>
+					
 				</tbody>
 			</table>
 	</div>

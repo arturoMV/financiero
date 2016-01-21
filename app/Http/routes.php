@@ -78,10 +78,24 @@ Route::get('/transferencia/{transferencia}', 'PartidaController@verTransferencia
 
 
 Route::get('/transferencia', function () {
-    return view('transferencia/transferencia');});
+    $anno = DB::table('tconfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','Periodo')
+            ->where('tUsuario_idUsuario', Auth::user()->id)
+            ->first();
+    return view('transferencia/transferencia', ['anno'=> $anno]);});
 
 Route::get('/create/transferencia', function () {
-    return view('transferencia/nuevaTransferencia');});
+    if(Auth::user()){
+        $anno = DB::table('tconfiguracion')
+            ->select('iValor')
+            ->where('vConfiguracion','Periodo')
+            ->where('tUsuario_idUsuario', Auth::user()->id)
+            ->first();
+        return view('transferencia/nuevaTransferencia', ['anno'=> $anno]);
+    }else{
+        return view('layouts/master');
+    }});
 
 Route::get('/presupuesto/informe-gastos/{idPresupuesto}',function($idPresupuesto){
     $config = DB::table('tconfiguracion')
