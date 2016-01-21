@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-	@section('title', 'Inicio')
+	@section('title', 'Respaldar Sistema')
 
 
 	@section('backup')
