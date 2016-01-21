@@ -58,7 +58,7 @@ class="active"
               <div  class="form-group">
                 <label class="col-md-4 control-label">Presupuesto Inicial</label>
                 <div class="col-md-4" ng-init="presu = <%$presupuesto_partida->iPresupuestoInicial%>"> 
-                  <input type="number" class="form-control" ng-model="presu"   name="iPresupuestoInicial"  placeholder="presupuesto al Principio del periodo">{{presu | currency :"₡":0}}
+                  <input type="number" class="form-control" ng-model="presu"   name="iPresupuestoInicial" placeholder="presupuesto al Principio del periodo">{{presu | currency :"₡":0}}
                 </div>      
               </div>
 

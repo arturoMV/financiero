@@ -30,7 +30,7 @@ class="active"
         <label class="col-md-4 control-label">Nombre</label>
         <div class="col-md-4">
           <input type="text" class="form-control" ng-model="nombre" name="vNombreCoordinacion" placeholder="Nombre de la Coordinación" 
-          pattern="[a-zA-Z0-9-ñáéíóúÑÁÉÍÓÚ]+" title="Este campor solo acepta letras y numeros" required>
+          pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+" title="Este campor solo acepta letras y numeros" required>
         </div>
       </div>
       <div class="form-group">

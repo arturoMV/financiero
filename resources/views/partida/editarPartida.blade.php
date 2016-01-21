@@ -46,7 +46,8 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre de Partida</label>
         <div class="col-md-6">
-          <input type="text" class="form-control"  name="vNombrePartida" value="<%$partida->vNombrePartida%>" pattern="[a-zA-Z0-9-ñáéíóúÑÁÉÍÓÚ]+" title="Este campor solo acepta letras y numeros">
+          <input type="text" class="form-control"  name="vNombrePartida" value="<%$partida->vNombrePartida%>" 
+          pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+" title="Este campor solo acepta letras y numeros">
         </div>
       </div>
   

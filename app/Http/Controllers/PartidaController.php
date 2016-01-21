@@ -167,6 +167,10 @@ class PartidaController extends Controller
             $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
             $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
 
+            $presupuesto_partida->presupuestoModificado();
+            $presupuesto_partida->calcularReserva();
+            $presupuesto_partida->calcularGasto();
+            $presupuesto_partida->calcularSaldo();
 
             return view('partida/editarPresupuestoPartida', 
                 ['partida' => $partida,

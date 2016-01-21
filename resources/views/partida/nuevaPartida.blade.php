@@ -42,7 +42,7 @@ class="active"
         <div class="form-group">
           <label class="col-md-4 control-label">Descripción</label>
           <div class="col-md-6">
-            <textarea class="form-control" rows="5" required name="vDescripcion" pattern="[a-zA-Z0-9-ñáéíóúÑÁÉÍÓÚ]+" title="Este campor solo acepta letras y numeros"></textarea>
+            <textarea class="form-control" rows="5" required name="vDescripcion" pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+" title="Este campor solo acepta letras y numeros"></textarea>
           </div>
         </div>
 
