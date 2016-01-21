@@ -8,6 +8,8 @@
 	@endsection
 	@section('content')
 	<section class="contenido">
+		@if(Auth::user() AND Auth::user()->tienePermiso('Respaldar Sistema'))
+
 		
 		<form action="/respaldo" method="post">
 			{!! csrf_field() !!}
@@ -34,6 +36,9 @@
 			<input type="submit" value = "Respaldar" class="btn btn-primary">
 			
 		</form>
-
+		@else 
+			<br>
+			Debe estar autenticado y tener permisos para ver esta sección
+		@endif
 	</section> 
 	@endsection

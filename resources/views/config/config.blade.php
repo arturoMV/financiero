@@ -6,6 +6,8 @@
 	@section('content')
 	@parent
 	<section>
+	@if(Auth::user() AND Auth::user()->tienePermiso('Configurar Sistema'))
+
 	<br><br>
 	<h2>Configuración del Sistema <br>
 	<small>Eligue el  periodo de trabjo del sistema</small></h2>
@@ -28,13 +30,16 @@
 
         		</div>
       		</div>
-
         	<div class="form-group">
         		<div class="col-md-1">
 					<input type="submit" value="Guardar" class="btn btn-primary">      
 		  		</div>
       		</div>
 		</form>
+	@else
+	<br>
+		Debe estar autenticado y tener permisos para ver esta sección
+	@endif
 
 	</section> 
 	@endsection
