@@ -62,7 +62,7 @@ class="active"
             <div class="form-group">
                 <label class="col-md-5 control-label">Fecha:</label>
                 <div class="col-md-7">
-                    <input type="date"  class="form-control" name="dFechaFactura" required> 
+                    <input type="date"  class="form-control" name="dFechaFactura" max="<%date('Y-m-d')%>" required> 
                 </div>
             </div>
             <div class="form-group text-left">
@@ -93,14 +93,14 @@ class="active"
                                                 <div class="panel-body">
                                                     <div class="form-group col-md-12">
                                                         <strong>Unidad Ejecutora</strong>
-                                                        <select ng-model="coorSelected" class="form-control">
+                                                        <select ng-model="coorSelected" ng-change="pSelected = 0; partSelected = 0" class="form-control">
                                                             <option  ng-repeat="coordinacion in modelC" value="{{coordinacion.idCoordinacion}}">{{coordinacion.idCoordinacion}}-{{coordinacion.vNombreCoordinacion}}</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-12" >
                                                         <strong>Presupuesto</strong>
                                                         <select ng-model="pSelected" class="form-control">
-                                                            <option  ng-if="presupuesto.tCoordinacion_idCoordinacion == coorSelected" ng-repeat="presupuesto in modelPr" value="{{presupuesto.idPresupuesto}}">{{presupuesto.vNombrePresupuesto}}-{{presupuesto.anno}}</option>
+                                                            <option ng-if="presupuesto.tCoordinacion_idCoordinacion == coorSelected" ng-repeat="presupuesto in modelPr" value="{{presupuesto.idPresupuesto}}">{{presupuesto.vNombrePresupuesto}}-{{presupuesto.anno}}</option>
                                                         </select>
                                                     </div>
                                                     <strong>Partida</strong>

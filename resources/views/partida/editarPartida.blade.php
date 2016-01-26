@@ -39,7 +39,7 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Cod Partida</label>
         <div class="col-md-6">
-        <input type="text" class="form-control" name="codPartida" value="<%$partida->codPartida%>"  >
+        <input type="text" class="form-control" name="codPartida" id="codPartida" value="<%$partida->codPartida%>"  >
         </div>
       </div>
 
