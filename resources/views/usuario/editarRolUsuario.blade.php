@@ -14,6 +14,18 @@
   <section>
     <div class="wrapper">
       <div class=" col-md-7 form-horizontal <% $count = 0 %>">
+          @if (count($errors) > 0)
+          <div class="alert alert-danger">
+
+              <strong>Oops!</strong> Hay problemas con las entradas<br><br>
+              <ul>
+                  @foreach ($errors->all() as $error)
+                  <li><% $error %></li>
+                  @endforeach
+              </ul>
+          </div> 
+          @endif  
+
         <h3>Usuario seleccionado: <% $usuario->name %></h3>
         @foreach($rol as $rl)
        
@@ -79,7 +91,7 @@
                     <p>¿Estas seguro de que quieres seleccionar el rol 
                       <% $rl->nombreRol%> para el usuario <% $usuario->name %>?
                     </p>
-                    <input type="submit" class="btn btn-success"name="delete" value="Aceptar">
+                    <input type="submit" class="btn btn-success" name="buttonName" value="Aceptar">
                     <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
                   </div>
                 </div> 
@@ -140,7 +152,7 @@
     </div>
 
     <!-- Ventana Modal de crear rol -->
-    <form  class="form-vertical" action="/usuario/rol/<% $usuario->id %>" method="post">
+    <form  class="form-vertical" action="/usuario/rol/<% $usuario->id %>" method="post" onsubmit="buttonName.disabled=true; return true;">
       {!! csrf_field() !!}
       <div class="modal fade" id="crear" role="dialog">
         <div class="modal-dialog">
@@ -158,14 +170,14 @@
 
               <div class="form-group col-md-6">
                 <label>Descripcion:</label>
-                <input type="text" class="form-control" name="descripcionRol" requiered placeholder="Descripcion del Rol">
+                <input type="text" class="form-control" name="descripcionRol" required placeholder="Descripcion del Rol">
               </div >
               <div class="col-md-12">
                 @foreach($permisoAll as $permiso)
                 <div class="col-sm-offset-2">
                   <div class="checkbox">
                     <label>
-                      <input type="checkbox"  value="<% $permiso->idPermiso %>" name="<% $permiso->idPermiso %>">
+                      <input type="checkbox"  value="<% $permiso->idPermiso %>" id name="<% $permiso->idPermiso %>">
                       <% $permiso->nombrePermiso %>                   
                     </label>
                   </div>
@@ -175,7 +187,7 @@
 
             </div>
             <div class="modal-footer col-md-12">
-              <input type="submit" class="btn btn-success">
+              <input type="submit" class="btn btn-success"  name="buttonName" value="Crear">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
           </div> 

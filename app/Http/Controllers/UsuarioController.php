@@ -74,22 +74,27 @@ class UsuarioController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $input = $request->all();
+    {   try{
+            $input = $request->all();
 
-        $id = DB::table('tRol')->insertGetId(
-               ['nombreRol' => $request->nombreRol , 'descripcionRol' => $request->descripcionRol]);
-        $count=0;
-        DB::table('trol_tiene_tpermiso')->where('trol_idRol', '=', $id)->delete();
-        foreach ($input as $in) {
-             if ($count>2) {
-                DB::table('trol_tiene_tpermiso')->insert(
-                ['trol_idRol' => $id , 'tpermiso_idPermiso' => $in]);
-             }     
-             $count++;
+            $id = DB::table('trol')->insertGetId(
+                   ['nombreRol' => $request->nombreRol , 'descripcionRol' => $request->descripcionRol]);
+            $count=0;
+            DB::table('trol_tiene_tpermiso')->where('trol_idRol', '=', $id)->delete();
+            foreach ($input as $in) {
+                 if ($count>2) {
+                    DB::table('trol_tiene_tpermiso')->insert(
+                    ['trol_idRol' => $id , 'tpermiso_idPermiso' => $in]);
+                 }     
+                 $count++;
+            }
+
+            return view('/usuario/usuario',['mensaje'=> 'Nuevo rol de usuario creado']);
+        } catch(\Illuminate\Database\QueryException $ex){ 
+            $errors = ['',''];
+            array_push($errors, 'Ya existe un Rol con ese nombre');
+            return Redirect::back()->withErrors('Ya existe un Rol con ese nombre');
         }
-
-        return view('/usuario/usuario',['mensaje'=> 'Nuevo rol de usuario creado']);
     }
 
     /**
