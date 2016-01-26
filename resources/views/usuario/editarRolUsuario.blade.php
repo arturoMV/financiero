@@ -153,12 +153,12 @@
             <div class="modal-body col-md-12">
               <div class="form-group col-md-6">
                 <label>Nombre:</label>
-                <input type="text" class="form-control" name="nombreRol" placeholder="Nombre del Rol">
+                <input type="text" class="form-control" name="nombreRol" required placeholder="Nombre del Rol">
               </div >
 
               <div class="form-group col-md-6">
                 <label>Descripcion:</label>
-                <input type="text" class="form-control" name="descripcionRol" placeholder="Descripcion del Rol">
+                <input type="text" class="form-control" name="descripcionRol" requiered placeholder="Descripcion del Rol">
               </div >
               <div class="col-md-12">
                 @foreach($permisoAll as $permiso)
