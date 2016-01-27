@@ -104,7 +104,7 @@
 							@if(Auth::user() AND Auth::user()->tienePermiso('Configurar Sistema', Auth::user()->id))
 							<li @yield('config')><a href="/configuracion" title="Configurar periodo">Configuración de Sistema</a></li>
 							@endif		
-							@if(Auth::user() AND Auth::user()->tienePermiso('Respaldar Sistema', Auth::user()->id))
+							@if(Auth::user() AND (Auth::user()->tienePermiso('Respaldar Sistema', Auth::user()->id) OR Auth::user()->tienePermiso('Ver Respaldos', Auth::user()->id))
 							<li @yield('backup')><a href="/respaldo" title="Configurar periodo">Respaldar base de datos</a></li>
 							@endif
 						</ul>
