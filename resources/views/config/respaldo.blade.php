@@ -8,8 +8,8 @@
 	@endsection
 	@section('content')
 	<section class="contenido">
-		@if(Auth::user() AND Auth::user()->tienePermiso('Respaldar Sistema'))
 
+		@if(Auth::user() AND (Auth::user()->tienePermiso('Respaldar Sistema', Auth::user()->id) OR Auth::user()->tienePermiso('Ver Respaldos', Auth::user()->id)))
 		
 		<form action="/respaldo" method="post">
 			{!! csrf_field() !!}
