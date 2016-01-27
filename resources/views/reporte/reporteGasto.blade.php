@@ -4,6 +4,8 @@
 
 @section('content')
 
+@if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
+
 <div class="col-md-10 col-md-offset-1" >
 <br>
  	<table class="col-md-12 table table-responsive table-bordered">
@@ -30,8 +32,19 @@
  				<td <% $PM += $partida->iPresupuestoModificado %> class="alert alert-success">{{<% $partida->iPresupuestoModificado%> | currency: "₡":0}}</td>
  				<td <% $G += $partida->iGasto + $partida->iReserva%> class="alert alert-danger">{{<% $partida->iGasto + $partida->iReserva%> | currency: "₡":0}}</td>
  				<td <% $S += $partida->iSaldo %> class="alert alert-info">{{<% $partida->iSaldo%> | currency: "₡":0}}</td>
- 				<td class="alert alert-danger"><% round((($partida->iGasto+ $partida->iReserva) /$partida->iPresupuestoModificado)*100,2) %>%</td>
- 				<td class="alert alert-info"><% round(($partida->iSaldo/$partida->iPresupuestoModificado)*100,2) %>%</td>
+ 				<td class="alert alert-danger">
+				@if($partida->iPresupuestoModificado != 0)
+ 					<% round((($partida->iGasto + $partida->iReserva) /$partida->iPresupuestoModificado)*100,2) %>%
+ 				@else
+ 					0
+ 				@endif
+ 				</td>
+ 				<td class="alert alert-info">
+ 			 	@if($partida->iPresupuestoModificado != 0)
+					<% round(($partida->iSaldo/$partida->iPresupuestoModificado)*100,2) %>%</td>
+				@else
+ 					0
+ 				@endif
 
  			</tr>
  			@endforeach
@@ -41,13 +54,29 @@
  				<th>{{<% $PM %>| currency: "₡":0}}</th>
  				<th>{{<% $G %>| currency: "₡":0}}</th>
  				<th>{{<% $S %>| currency: "₡":0}}</th>
- 				<th><% round(($G/$PM)*100,2) %>%</th>
- 				<th><% round(($S/$PM)*100,2) %>%</th>
+ 				<th>
+ 					@if($PM)
+ 						<% round(($G/$PM)*100,2) %>
+ 					@else
+ 						0
+ 					@endif
+ 					%
+ 				</th>
+ 				<th>
+ 				 	@if($PM)
+						<% round(($S/$PM)*100,2) %>% 		
+					@else
+ 						0
+ 					@endif
+ 					%
+				</th>
  				
 
  			</tr>
  		</tbody>
  	</table>
  </div> 
-
+@else
+Debe estar autenticado y tener permisos para poder ver esta sección
+@endif
 @endsection

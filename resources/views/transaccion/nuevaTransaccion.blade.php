@@ -7,8 +7,6 @@ class="active"
 @parent
 @if(Auth::user() AND  Auth::user()->tienePermiso('Agregar Transaccion') AND $date = date('Y') == $anno->iValor)
 <section class="container-fluid">
-
-
     <br>
     @if (count($errors) > 0)
     <div class="alert alert-danger">

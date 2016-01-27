@@ -3,6 +3,7 @@
 
 
 @section('content')
+@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 
 <div class="col-md-10 col-md-offset-1" >
 <br>
@@ -124,6 +125,7 @@
 			</table>
 	</div>
 	</div></div>
-
-
+@else
+Debe estar autenticado y tener permisos para poder ver esta sección
+@endif
 @endsection

@@ -53,8 +53,18 @@
 				<td <% $O += $partida->getTransaccionPorTipo('Otros')%>>{{<% $partida->getTransaccionPorTipo('Otros')%> | currency: "₡":0}}</td>
 				<td <% $G += $partida->iGasto + $partida->iReserva %>>{{<% $partida->iGasto + $partida->iReserva%> | currency: "₡":0}}</td>
  				<td <% $S += $partida->iSaldo%>>{{<% $partida->iSaldo%> | currency: "₡":0}}</td>
- 				<td><% round((($partida->iGasto + $partida->iReserva)/$partida->iPresupuestoModificado)*100,2) %>%</td>
- 				<td><% round(($partida->iSaldo/$partida->iPresupuestoModificado)*100,2) %>%</td>
+ 				<td>
+					@if($partida->iPresupuestoModificado != 0)
+ 						<% round((($partida->iGasto + $partida->iReserva)/$partida->iPresupuestoModificado)*100,2) %>%</td>
+ 					@else
+ 						0
+ 					@endif
+ 				<td>
+				@if($partida->iPresupuestoModificado != 0)
+ 						<% round(($partida->iSaldo/$partida->iPresupuestoModificado)*100,2) %>%</td>
+ 					@else
+ 						0
+ 					@endif
  			</tr>
  			@endforeach
  				<th>Total</th>
@@ -73,10 +83,26 @@
  				<th>{{<% $O %> | currency: "₡":0}}</th>
  				<th>{{<% $G %> | currency: "₡":0}}</th>
  				<th>{{<% $S %> | currency: "₡":0}}</th>
-	 			<th><% round(($G/$PM)*100,2) %>%</th>
-	 			<th><% round(($S/$PM)*100,2) %>%</th>
+	 			<th>
+	 				@if($PM  != 0)
+ 						<% round(($G/$PM)*100,2) %>
+ 					@else
+ 						0
+ 					@endif
+ 					%
+ 				</th>
+	 			<th>
+		 			@if($PM  != 0)
+	 					<% round(($S/$PM)*100,2) %>
+	 				@else
+	 					0
+	 				@endif
+	 				%
+ 				</th>
  		</tbody>
  	</table>
  </div> 
+@else
+Debe estar autenticado y tener permisos para poder ver esta sección
 @endif
 @endsection
