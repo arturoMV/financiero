@@ -33,7 +33,9 @@
 			@endif 
 			<p><h5>Presione el botón para respaldar los archivos de la base de datos.<br>
 			Esta operación puede tardar varios minutos</h5></p>
+			@if(Auth::user() AND Auth::user()->tienePermiso('Respaldar Sistema'))
 			<input type="submit" value = "Respaldar" class="btn btn-primary">
+			@endif
 			@if(Auth::user() AND Auth::user()->tienePermiso('Ver Respaldos'))
 				<a href="/verRespaldosRealizados" class="btn btn-info">Ver Respaldos</a>
 			@endif
