@@ -6,7 +6,7 @@
     <br>
     <h3>Restablecer contraseña</h3>
     
-    <form method="POST"  class="form-horizontal" action="/password/reset">
+    <form method="POST"  class="form-horizontal" action="/password/reset" onsubmit="buttonName.disabled=true; return true;">
     {!! csrf_field() !!}
     <input type="hidden" name="token" value="<% $token %>">
 
@@ -43,7 +43,7 @@
     </div>
 
     <div class="col-md-4 col-md-offset-4">
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary" name="buttonName">
             Restablecer Contraseña
         </button>
     </div>

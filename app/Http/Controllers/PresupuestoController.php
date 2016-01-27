@@ -91,7 +91,7 @@ class PresupuestoController extends Controller
         ->where('tUsuario_idUsuario', Auth::user()->id)
         ->first();
 
-        return view('/presupuesto/presupuesto', ['anno' => $anno]);
+        return redirect('/presupuesto');
         }else{
             return view('layouts/master');
         }
@@ -99,7 +99,7 @@ class PresupuestoController extends Controller
         return view('/presupuesto/nuevoPresupuesto',
             ['coordinaciones' => $coordinaciones,
             'config' => $config])
-            ->withErrors(['error', 'Error al insertar, identificador duplicado']);
+            ->withErrors(['Error al insertar, identificador duplicado']);
 
     }
     }
@@ -158,7 +158,7 @@ class PresupuestoController extends Controller
 
         if($request->tCoordinacion_idCoordinacion ==0){
             return Redirect::back()
-            ->withErrors(['error', 'Debe seleccionar una Coordinacion válida'])
+            ->withErrors(['Debe seleccionar una Coordinacion válida'])
             ->withInput();
         }
         $coordinaciones = Coordinacion::all();
@@ -212,7 +212,7 @@ class PresupuestoController extends Controller
                 ->where('vConfiguracion','Periodo')
                 ->where('tUsuario_idUsuario', Auth::user()->id)
                 ->first();
-                return view('/presupuesto/presupuesto', ['anno' => $anno]);
+                return redirect('/presupuesto');
 
             }else{
                 return view('layouts/master');

@@ -14,10 +14,11 @@
 		<div class="container-fluid search-container form-horizontal">
 		<h2>Lista de Unidades Ejecutoras</h2>
 
-		@if (count($mensaje) > 0)
+		@if (count($errors) > 0)
     <div class="alert alert-success">
       <strong>Bien!</strong>Se realizaron cambios<br><br>
       <ul>
+      		
         <li><% $mensaje %></li>
       </ul>
     </div> 

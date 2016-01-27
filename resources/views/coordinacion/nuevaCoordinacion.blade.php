@@ -18,7 +18,7 @@ class="active"
             </ul>
      </div> 
     @endif
-    <form action="/coordinacion" class="form-horizontal" method="post">
+    <form action="/coordinacion" class="form-horizontal" method="post" onsubmit="buttonName.disabled=true; return true;">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">Numero Coordinación</label>
@@ -62,7 +62,7 @@ class="active"
                           <p class="col-md-6 form-control-static">{{nombre}}</p>
                         </div >
                       </p>
-                      <input type="submit" name="" class="btn btn-success" value="Agregar">
+                      <input type="submit" name="buttonName" class="btn btn-success" value="Agregar">
                       <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
                     </div>
                   </div> 

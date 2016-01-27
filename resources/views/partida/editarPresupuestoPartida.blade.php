@@ -5,7 +5,7 @@ class="active"
 @endsection
 @section('content')
 @parent
-@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
+@if(Auth::user() AND Auth::user()->tienePermiso('Editar Monto Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
 <section>
     <div class="wrapper">
         @if (count($errors) > 0)
@@ -26,7 +26,7 @@ class="active"
             </ul>
         </div>
         @endif
-        <form class="col-md-12 form-horizontal" action="/partida/editar/<%$presupuesto_partida->id%>" method="post">
+        <form class="col-md-12 form-horizontal" action="/partida/editar/<%$presupuesto_partida->id%>" method="post" onsubmit="buttonName.disabled=true; return true;">
             <h2>Editar Presupuesto de la partida</h2>
             <input type="hidden" name="_token" value="<% csrf_token() %>">  
             <div class="form-group">
@@ -107,7 +107,7 @@ class="active"
                                     <p class="col-md-8 form-control-static">{{presu | currency :"₡":0}}</p>
                                 </div>
                                 </p>
-                                <input type="submit" name="" class="btn btn-warning" value="Editar">
+                                <input type="submit" name="buttonName" class="btn btn-warning" value="Editar">
                                 <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
                             </div>
                         </div>

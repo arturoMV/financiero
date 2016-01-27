@@ -9,14 +9,15 @@ class="active"
 
 @if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))
 <section class="container-fluid" ng-controller="partidaTemplate"><br>
-	@if (count($mensaje)>0)
-	<div class="alert alert-success">
-		<strong>Bien! </strong>Se realizaron cambios<br><br>
+
+	@if (session('status'))
+    <div class="alert alert-success">
+    <strong>Bien! </strong>Se realizaron cambios<br><br>
 		<ul>
-			<li><%$mensaje%></li>
-		</ul>
-	</div> 
-	@endif 
+        	<li><% session('status') %></li>
+    	</ul>
+    </div>
+	@endif
 	@if (count($errors)>0)
 	<div class="alert alert-danger">
 		<strong>Ops! </strong>No se pudo eliminar Paritda<br><br>

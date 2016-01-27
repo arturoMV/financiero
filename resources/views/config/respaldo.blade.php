@@ -11,7 +11,7 @@
 
 		@if(Auth::user() AND (Auth::user()->tienePermiso('Respaldar Sistema', Auth::user()->id) OR Auth::user()->tienePermiso('Ver Respaldos', Auth::user()->id)))
 		
-		<form action="/respaldo" method="post">
+		<form action="/respaldo" method="post" onsubmit="buttonName.disabled=true; return true;">
 			{!! csrf_field() !!}
 
 			<br><h3>Respaldo de la Base de datos</h3>
@@ -34,7 +34,7 @@
 			<p><h5>Presione el botón para respaldar los archivos de la base de datos.<br>
 			Esta operación puede tardar varios minutos</h5></p>
 			@if(Auth::user() AND Auth::user()->tienePermiso('Respaldar Sistema'))
-			<input type="submit" value = "Respaldar" class="btn btn-primary">
+			<input type="submit" value = "Respaldar" class="btn btn-primary" name="buttonName">
 			@endif
 			@if(Auth::user() AND Auth::user()->tienePermiso('Ver Respaldos'))
 				<a href="/verRespaldosRealizados" class="btn btn-info">Ver Respaldos</a>

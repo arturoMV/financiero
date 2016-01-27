@@ -67,7 +67,8 @@ class PartidaController extends Controller
             ->where('vConfiguracion','Periodo')
             ->where('tUsuario_idUsuario', Auth::user()->id)
             ->first();
-            return view('/partida/partida',['mensaje'=>'Se agrego una nueva partida. Ahora puede agregarla a un presupuesto', 'anno' => $anno]);
+
+            return redirect('/partida')->with('status', 'Se agrego una nueva partida. Ahora puede agregarla a un presupuesto');
         } catch(\Illuminate\Database\QueryException $ex){ 
             return view('/partida/nuevaPartida')
             ->withErrors(['Error al insertar, ya existe una partida con ese identificador']);
@@ -102,7 +103,6 @@ class PartidaController extends Controller
 
         $transferenciasA = Transferencia::all()->where('tPresupuestoPartidaA', $presupuesto_partida->id);
         $transferenciasDe = Transferencia::all()->where('tPresupuestoPartidaDe', $presupuesto_partida->id);
-
 
 
         return view('partida/verPartida',['presupuesto_partida' => $presupuesto_partida,
@@ -142,7 +142,6 @@ class PartidaController extends Controller
         $presupuesto = Presupuesto::find($presupuesto_partida->tPresupuesto_idPresupuesto);
 
         $coordinacion = Coordinacion::find($presupuesto->tCoordinacion_idCoordinacion);
-
 
         return view('partida/editarPresupuestoPartida', ['partida' => $partida,'coordinacion' => $coordinacion, 'presupuesto' => $presupuesto,
             'presupuesto_partida' => $presupuesto_partida,'mensaje'=>null]);
@@ -228,7 +227,7 @@ class PartidaController extends Controller
             ->where('tUsuario_idUsuario', Auth::user()->id)
             ->first();
 
-            return view('partida/partida', ['partida' => $partida,'mensaje'=>false, 'anno' => $anno]);
+            return redirect('partida')->with('status', 'Se elimino una partida');
         } catch(\Illuminate\Database\QueryException $ex){ 
             $partida = Partida::find($id);
 
@@ -256,7 +255,7 @@ class PartidaController extends Controller
             ->where('vConfiguracion','Periodo')
             ->where('tUsuario_idUsuario', Auth::user()->id)
             ->first();
-            return view('partida/partida', ['partida' => $partida,'mensaje'=>"Se elimino la partida del presupuerto", 'anno' => $anno]);
+            return redirect('partida')->with('status', 'Se elimino una partida del presupuesto');
         } catch(\Illuminate\Database\QueryException $ex){ 
             $partida = Partida::find($id);
 

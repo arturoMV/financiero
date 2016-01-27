@@ -30,7 +30,7 @@
 		</p>
 
 		<form class="form-horizontal" ng-controller="coordinacionTemplate" action="/transferencia/verificar" method="post" 
-		ng-init="maximo">
+		ng-init="maximo" onsubmit="buttonName.disabled=true; return true;">
             <input type="hidden" name="_token" value="<% csrf_token() %>">
             <div ng-repeat="a in maximo">
             	
@@ -128,7 +128,7 @@
         					</div>
      					 </div>
      					 <div class="form-group">
-						<input type="submit" class="btn btn-info col-md-offset-9" value="Continuar">				
+						<input type="submit" class="btn btn-info col-md-offset-9" value="Transferir" name="buttonName">				
 					</div>
 					</div>
 										

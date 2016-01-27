@@ -48,8 +48,9 @@ class CoordinacionController extends Controller
 
         DB::table('tusuario_tcoordinacion')->insert(
                 ['tUsuario_idUsuario' => Auth::user()->id , 'tCoordi_idCoordinacion' => $request->input('idCoordinacion')]);
-            
-        return view('/coordinacion/coordinacion', ['mensaje' =>'Se agrego una nueva Coordinacion']);
+        
+        return redirect('/coordinacion')->withErrors('Se agrego una nueva Coordinacion');
+    
         } catch (\Illuminate\Database\QueryException $ex) {
         return view('/coordinacion/nuevaCoordinacion',['errors' => 'Esa Unidad Ejecutora ya existe']);
 

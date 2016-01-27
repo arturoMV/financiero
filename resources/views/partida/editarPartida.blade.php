@@ -9,8 +9,7 @@ class="active"
 <section>
   <div class="wrapper">
     <br>
-    <form class="col-md-12 form-horizontal" action="/partida/<%$partida->idPartida%>/put" 
-      method="post">
+    <form class="col-md-12 form-horizontal" action="/partida/<%$partida->idPartida%>/put" method="post" onsubmit="buttonName.disabled=true; return true;">
       <input type="hidden" name="_token" value="<% csrf_token() %>">    
       
      @if (count($errors) > 0)
@@ -52,7 +51,7 @@ class="active"
       </div>
   
       <div class="form-group">
-        <label class="col-md-4 control-label">Saldo de la Partida</label>
+        <label class="col-md-4 control-label">Descripción de la Partida</label>
         <div class="col-md-6">
           <textarea class="form-control" name="vDescripcion" value="<%$partida->vDescripcion%>" rows="5" pattern="[a-zA-Z0-9-ñáéíóúÑÁÉÍÓÚ]+" title="Este campor solo acepta letras y numeros"><%$partida->vDescripcion%></textarea>
         </div>
@@ -79,7 +78,7 @@ class="active"
                     <li>Verifique que los datos introducidos sean correctos</li>
                   </ul>
                 </p>
-                  <input type="submit" name="" class="btn btn-warning" value="Editar">
+                  <input type="submit" name="buttonName" class="btn btn-warning" value="Editar">
                   <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
               </div>
             </div> 
@@ -88,7 +87,7 @@ class="active"
       </div>
     </form>
 
-    <form class="col-md-1" action="/partida/<%$partida->idPartida%>/delete" method="post">
+    <form class="col-md-1" action="/partida/<%$partida->idPartida%>/delete" method="post" onsubmit="buttonName.disabled=true; return true;">
       <input type="hidden" name="_token" value="<% csrf_token() %>">
       @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Partida', Auth::user()->id))
       <div class="modal fade" id="myModal" role="dialog">
@@ -101,7 +100,7 @@ class="active"
             </div>
             <div class="modal-body">
               <p>Estas seguro de que quieres eliminar.</p>
-              <input type="submit" class="btn btn-danger"name="delete" value="Eliminar">
+              <input type="submit" class="btn btn-danger" name="buttonName" value="Eliminar">
               <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Cancelar</button>
 
             </div>

@@ -20,7 +20,7 @@ class="active"
         </ul>
     </div> 
     @endif 
-    <form action="/presupuesto" class="form-horizontal" method="post">
+    <form action="/presupuesto" class="form-horizontal" method="post" onsubmit="buttonName.disabled=true; return true;">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       
       
@@ -70,7 +70,7 @@ class="active"
                   </ul>
                 </p>
                 
-                  <input type="submit" name="" class="btn btn-success" value="Agregar">
+                  <input type="submit" name="buttonName" class="btn btn-success" value="Agregar">
                   <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
               </div>
             </div> 
@@ -78,7 +78,7 @@ class="active"
         </div> 
       </div>
     </form>
-      </form>
+  
       @else
       Debe estar autenticado y tener permisos para ver esta pagina
       @endif

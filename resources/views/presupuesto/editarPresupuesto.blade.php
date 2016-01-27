@@ -10,7 +10,7 @@ class="active"
   <div class="wrapper col-md-10">
     <br>
     <form class="col-md-10 form-horizontal" action="/presupuesto/<%$presupuesto->idPresupuesto%>/put" 
-      method="post">
+      method="post" onsubmit="buttonName.disabled=true; return true;">
       <input type="hidden" name="_token" value="<% csrf_token() %>">    
       @if (count($errors) > 0)
     <div class="alert alert-danger">
@@ -73,7 +73,7 @@ class="active"
                   <li>Verifique que los datos introducidos sean correctos</li>
                 </ul></p>
                 
-                  <input type="submit" name="" class="btn btn-warning" value="Editar">
+                  <input type="submit" name="buttonName" class="btn btn-warning" value="Editar">
                   <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
               </div>
             </div> 
@@ -82,7 +82,7 @@ class="active"
       </div>
     </form>
 
-    <form class="col-md-1" action="/presupuesto/<%$presupuesto->idPresupuesto%>/delete" method="post">
+    <form class="col-md-1" action="/presupuesto/<%$presupuesto->idPresupuesto%>/delete" method="post" onsubmit="buttonName.disabled=true; return true;">
       <input type="hidden" name="_token" value="<% csrf_token() %>">
       @if(Auth::user() AND Auth::user()->tienePermiso('Borrar Presupuesto', Auth::user()->id))
       <div class="modal fade" id="myModal" role="dialog">
@@ -95,7 +95,7 @@ class="active"
             </div>
             <div class="modal-body">
               <p>Estas seguro de que quieres eliminar.</p>
-              <input type="submit" class="btn btn-danger"name="delete" value="Eliminar">
+              <input type="submit" class="btn btn-danger"name="buttonName" value="Eliminar">
               <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Cancelar</button>
             </div>
           </div>

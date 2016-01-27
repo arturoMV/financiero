@@ -16,7 +16,7 @@
 				<h4>Se guardo satisfactoriamente, el año de trabajo es <%$config->iValor%></h4>	
 			</div>
 		@endif
-		<form class="form-horizontal col-md-12" action="/configuracion" method="post">
+		<form class="form-horizontal col-md-12" action="/configuracion" method="post" onsubmit="buttonName.disabled=true; return true;">
 		{!! csrf_field() !!}
 	        <div class="form-group">
         		<label class="col-md-2 control-label">Año de trabajo</label>
@@ -32,7 +32,7 @@
       		</div>
         	<div class="form-group">
         		<div class="col-md-1">
-					<input type="submit" value="Guardar" class="btn btn-primary">      
+					<input type="submit" value="Guardar" class="btn btn-primary" name="buttonName">      
 		  		</div>
       		</div>
 		</form>

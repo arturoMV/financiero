@@ -28,7 +28,7 @@ class="active"
     </div> 
     @endif 
 
-    <form action="/partida/<%$presupuesto->idPresupuesto%>/agregar" class="form-horizontal" method="post">
+    <form action="/partida/<%$presupuesto->idPresupuesto%>/agregar" class="form-horizontal" method="post" onsubmit="buttonName.disabled=true; return true;">
       <input type="hidden" name="_token" value="<% csrf_token() %>">  
       <div class="form-group">
         <label class="col-md-4 control-label">Coordinación</label>
@@ -64,7 +64,7 @@ class="active"
 
         <div class="form-group">
           <div class="col-md-4 col-md-offset-4">
-            <input type="submit" class="btn btn-success" value="Agregar">
+            <input type="submit" class="btn btn-success" value="Agregar" name="buttonName">
           </div>
         </div>
 

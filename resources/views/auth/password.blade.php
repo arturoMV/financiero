@@ -25,7 +25,7 @@
     </div> 
     @endif
 
-    <form method="POST" class="form-horizontal" action="/password/email">
+    <form method="POST" class="form-horizontal" action="/password/email" onsubmit="buttonName.disabled=true; return true;">
         {!! csrf_field() !!}
 
         <div class="form-group">
@@ -36,7 +36,7 @@
         </div>
       
         <div class="col-md-4 col-md-offset-4">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" name="buttonName">
                  Enviar
             </button>
         </div>
