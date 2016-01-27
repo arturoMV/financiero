@@ -247,19 +247,19 @@ class FacturaController extends Controller
     {
         $factura = Factura::find($id);
 
-
+        $partida = $factura->tPartida_idPartida;
         if($factura->vTipoFactura ==   'Solicitud GECO'){
             $facturas = Factura::all()->where('tReserva_vReserva',$factura->tReserva_vReserva);
             foreach ($facturas as $fac) {
                 $fac->deleted_by = Auth::user()->id;
-                $fac->delete();            }
+                $fac->forceDelete();            }
         }else{
             $factura->deleted_by = Auth::user()->id;
-            $factura->delete();
+            $factura->forceDelete();
         }
 
         $this->calcularReserva();
-
-        return redirect('/partida/'.$factura->tPartida_idPartida);
+    
+        return redirect('/partida/'.$partida);
     }
 }

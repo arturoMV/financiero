@@ -395,27 +395,20 @@ class PartidaController extends Controller
             $coordinacionA = Coordinacion::find($presupuestoA->tCoordinacion_idCoordinacion);
 
             $presupuesto_partidaDe->presupuestoModificado();
+                    $presupuesto_partidaDe->calcularGasto();
             $presupuesto_partidaDe->calcularSaldo();
-            $presupuesto_partidaDe->calcularGasto();
+
             $presupuesto_partidaDe->save();
 
             $presupuesto_partidaA->presupuestoModificado();
+            $presupuesto_partidaA->calcularReserva();
             $presupuesto_partidaA->calcularGasto();
             $presupuesto_partidaA->calcularSaldo();
 
             $presupuesto_partidaA->save();
 
+            return redirect('/transferencia/'.$transferencia->idTransferencia);
 
-            return view('/transferencia/verTransferencia', ['presupuesto_partidaDe' => $presupuesto_partidaDe,
-                'presupuesto_partidaA' => $presupuesto_partidaA, 
-                'coordinacionDe' => $coordinacionDe, 
-                'presupuestoDe' => $presupuestoDe, 
-                'partidaDe' => $partidaDe, 
-                'coordinacionA' => $coordinacionA,
-                'presupuestoA' => $presupuestoA,
-                'partidaA' => $partidaA,
-                'transferencia' => $transferencia,
-                'usuario' => $usuario]);
         }else{
 
             return Redirect::back()

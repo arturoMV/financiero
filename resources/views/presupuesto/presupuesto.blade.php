@@ -13,8 +13,9 @@
 		<div class="container-fluid search-container form-horizontal">
 			<h2>Lista de Presupuestos <small><% $anno->iValor%></small></h2>
 			<div class="container-fluid">
-				<input type="text" id="partidaName"  class="col-xs-6 col-md-6 col-lg-6 pull-left" placeholder="Digite para buscar" ng-model="search">
-				@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Presupuesto', Auth::user()->id)  AND $anno->iValor == date('Y'))
+				<div class="col-md-4">
+					<input type="text" id="presupuestoName"  class="col-md-6 pull-left form-control" placeholder="Digite para buscar" ng-model="search">
+				</div>				@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Presupuesto', Auth::user()->id)  AND $anno->iValor == date('Y'))
 				<a href="/presupuesto/create" class="btn btn-success pull-right">Nuevo Presupuesto</a>
 				@endif
 			</div>

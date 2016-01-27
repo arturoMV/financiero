@@ -82,7 +82,7 @@
 							@endif
 							
 						    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto', Auth::user()->id))
-							<li @yield('presupuesto')><a href="/presupuesto" title="Presupuestos de Unidad">Presuspuestos</a></li>
+							<li @yield('presupuesto')><a href="/presupuesto" title="Presupuestos de Unidad">Presupuestos</a></li>
 							@endif
 							
 							@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida', Auth::user()->id))

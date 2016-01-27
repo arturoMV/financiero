@@ -24,7 +24,6 @@
     @endif
 			<div class="container-fluid">
 			<div class="col-md-4">
-				
 				<input type="text" id="coordinacionName"  class="col-md-6 pull-left form-control" placeholder="Digite para buscar" ng-model="search">
 			</div>
 				@if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion', Auth::user()->id))

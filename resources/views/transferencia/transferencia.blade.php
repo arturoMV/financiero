@@ -22,7 +22,7 @@ class="active"
 		</ul>
 	</div> 
 	@endif 
-	<div class="container-fluid search-container form-horizontal col-md-6">
+	<div class="container-fluid search-container form-horizontal col-md-4">
 			<div class="container-fluid">
 				<input type="text" id="partidaName"  class="form-control pull-left" placeholder="Digite para buscar" ng-model="search">
 			</div>

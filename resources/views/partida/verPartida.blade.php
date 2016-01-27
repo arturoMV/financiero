@@ -41,7 +41,11 @@ class="active"
         <div class="col-md-12 form-group">
             @if(Auth::user() AND Auth::user()->tienePermiso('Editar Partida', Auth::user()->id) AND $presupuesto->anno == date('Y'))
             <input type="submit" name="" class="btn btn-warning" value="Editar Partida">
-            <a href="/partida/editar/<% $presupuesto_partida->id %>" class="btn btn-warning" title="Cambiar presupuesto">Editar</a>
+            @endif
+            @if(Auth::user() AND Auth::user()->tienePermiso('Editar Monto Partida', Auth::user()->id) AND $presupuesto->anno == date('Y'))
+            @if(count($transferenciasA)<=0 && count($transferenciasDe)<=0 && count($transacciones)<=0)
+            <a href="/partida/editar/<% $presupuesto_partida->id %>" class="btn btn-warning" title="Cambiar presupuesto">Editar Monto Presupuestado</a>
+            @endif
             @endif
             @if(count($transferenciasA)>0 || count($transferenciasDe)>0)
             <a href="#lista-transferencias" class="btn btn-info">Ver Transferencias</a>
@@ -142,35 +146,31 @@ class="active"
             <form action="/transaccion/<% $transaccion->idFactura %>/delete" method="post">
                 <input type="hidden" name="_token" value="<% csrf_token() %>">
                 <button type="button" class="btn btn-danger pull-right" data-toggle="modal" data-target="#myModal<% $transaccion->idFactura %>">Eliminar</button>
-
                 <div class="col-md-5">
                     <div class="modal fade" id="myModal<% $transaccion->idFactura %>" role="dialog">
-                      <div class="modal-dialog modal-sm">
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Confirmar</h4>
-                          </div>
-                          <div class="modal-body">
-                            <p>Estas seguro de que quieres eliminar esta transacción.
-                              <ul>
-                                <li>Eliminar una transacción modifica el estado de la partida</li>
-
-                                @if($transaccion->vTipoFactura == "Solicitud GECO")
-                                    <li>Eliminar una Solicitud GECO elimina todas los Pases asosciados a esta solicitud</li>
-                                @endif
-                              </ul>
-                            </p>
-                            
-                              <input type="submit" name="" class="btn btn-danger" value="Eliminar">
-                              <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Cancelar</button>
-                          </div>
-                        </div> 
-                      </div>
-                    </div> 
+                        <div class="modal-dialog modal-sm">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Confirmar</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Estas seguro de que quieres eliminar esta transacción.
+                                    <ul>
+                                        <li>Eliminar una transacción modifica el estado de la partida</li>
+                                        @if($transaccion->vTipoFactura == "Solicitud GECO")
+                                        <li>Eliminar una Solicitud GECO elimina todas los Pases asosciados a esta solicitud</li>
+                                        @endif
+                                    </ul>
+                                    </p>
+                                    <input type="submit" name="" class="btn btn-danger" value="Eliminar">
+                                    <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </form>
             @endif
         </div>
@@ -263,6 +263,6 @@ class="active"
     </div>
 </section>
 @else
-    Debe estar autenticado y tener permisos para ver esta pagina
+Debe estar autenticado y tener permisos para ver esta pagina
 @endif
 @endsection

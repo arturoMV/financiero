@@ -45,7 +45,7 @@
 							<div class="panel-body">
 								<div class="form-group col-md-12">
 									<strong>Unidad Ejecutora</strong>
-									<select name="" ng-model="coorSelected" class="form-control">
+									<select name="" ng-model="coorSelected" class="form-control" ng-change="pSelected = 0; partSelected = 0">
 										<option  ng-repeat="coordinacion in modelC" value="{{coordinacion.idCoordinacion}}">{{coordinacion.idCoordinacion}}-{{coordinacion.vNombreCoordinacion}}</option>
 									</select>
 								</div>
@@ -82,7 +82,7 @@
 							<div class="panel-body">
 								<div class="form-group col-md-12">
 									<strong>Unidad Ejecutora</strong>
-									<select name="" ng-model="coorSelectedA" class="form-control">
+									<select name="" ng-model="coorSelectedA" class="form-control" ng-change="pSelectedA = 0; partSelectedA = 0">
 										<option  ng-repeat="coordinacion in modelC" value="{{coordinacion.idCoordinacion}}">{{coordinacion.idCoordinacion}}-{{coordinacion.vNombreCoordinacion}}</option>
 									</select>
 								</div>

@@ -202,6 +202,7 @@ Route::get('/partidas', function () {
     $p = Presupuesto_Partida::all();
 
     foreach ($p as $x) {
+        $x->presupuestoModificado();
         $x->calcularReserva();
         $x->calcularGasto();
         $x->calcularSaldo();
