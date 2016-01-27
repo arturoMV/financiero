@@ -68,8 +68,10 @@ class="active"
         <a href="/presupuesto/informe-gastos/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de Gastos</a>
         <a href="/presupuesto/informe-fin-gestion/<%$presupuesto->idPresupuesto%>" target="_blank" class="btn btn-info">Informe de fin de Gestion</a>
       </div> 
-    </form
+    </form>
     <div class="col-md-12 <% $count = 0 %>">
+
+@if(Auth::user() AND Auth::user()->tienePermiso('Ver Partida')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
       <hr>
       <h4>Lista de Partidas
       <small>
@@ -149,6 +151,7 @@ class="active"
         </div>
       </div>
     </div>
+    @endif
     </section> 
     @else
     Debe estar autenticado y tener permisos para ver esta pagina

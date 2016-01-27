@@ -118,7 +118,7 @@ class="active"
                 <p class="col-md-8 form-control-static"><% $partida->codPartida %></p>
             </div>
             <div class="form-group">
-                <label class="col-md-4 control-label">Detalle de Transaccion:</label>
+                <label class="col-md-4 control-label">Detalle de Transacción:</label>
                 <p class="col-md-8 form-control-static"><% $transaccion->vDetalleFactura %></p>
             </div>
             <div class="form-group">
@@ -133,7 +133,7 @@ class="active"
             @endif
             @if($transaccion->vDescripcionFactura!="")
             <div class="form-group">
-                <label class="col-md-4 control-label">Observasion:</label>
+                <label class="col-md-4 control-label">Observación:</label>
                 <p class="col-md-8 form-control-static"><% $transaccion->vDescripcionFactura %></p>
             </div>
             @endif

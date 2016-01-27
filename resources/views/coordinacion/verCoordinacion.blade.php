@@ -32,6 +32,7 @@ class="active"
     </form>
     <div class="col-md-12">
     <hr>
+    @if(Auth::user() AND Auth::user()->tienePermiso('Ver Presupuesto')AND Auth::user()->tieneCoordinacion($coordinacion->idCoordinacion))
       <h3>Lista de presupuestos<small>
       <label class="pull-right"><input type="checkbox" name="" ng-model="expandir" ng-check="true" value="">Expandir Todo</label></small></h3>
     </div>
@@ -88,6 +89,7 @@ class="active"
         </div>
 
     </section> 
+    @endif
     @else
     Debe estar autenticado y tener permisos para ver esta pagina
     @endif
