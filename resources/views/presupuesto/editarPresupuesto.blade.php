@@ -95,7 +95,7 @@ class="active"
             </div>
             <div class="modal-body">
               <p>Estas seguro de que quieres eliminar.</p>
-              <input type="submit" class="btn btn-danger"name="buttonName" value="Eliminar">
+              <input type="submit" class="btn btn-danger" name="buttonName" value="Eliminar">
               <button type="button" class="btn btn-success pull-right" data-dismiss="modal">Cancelar</button>
             </div>
           </div>
