@@ -162,18 +162,13 @@ class="active"
                             <div class="form-group">
                                 <div class="col-md-12">
                                   <div ng-if="tipo == 'Cancelacion GECO' || tipo == 'Pases Anulacion' || tipo == 'Pases Adicionales'">
-                                    <div ng-if="tipo == 'Cancelacion GECO' && tipo != 'Pases Anulacion' && tipo != 'Pases Adicionales'">
-                                        <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="{{x.maximo}}" max="{{x.maximo}}">
-                                     </div>
-                                    <div ng-if="tipo == 'Pases Anulacion' || tipo == 'Pases Adicionales'">
-                                        <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="1" max="{{x.maximo}}">
-                                    </div>
+                                    <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="1"
+                                        max="{{x.maximo}}" >
                                   </div>
                                   <div ng-if="tipo != 'Cancelacion GECO' && tipo != 'Pases Anulacion' && tipo != 'Pases Adicionales'">
                                     <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="1"
                                       max="{{x.maximo}}">
                                   </div>
-
                                 </div>
                                 <br>
                                 <br>
@@ -183,7 +178,7 @@ class="active"
                                 <br>
                                 <br>
                                 <br>
-                                <br>  
+                                <br>
                                 <br>
                                 <button type="button" class="btn btn-sm btn-danger"  ng-click="eliminarFila($index)">Remover fila</button>
                             </div>
