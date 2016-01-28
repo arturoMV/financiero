@@ -60,7 +60,7 @@ class="active"
             <div class="form-group">
                 <label class="col-md-5 control-label">Fecha:</label>
                 <div class="col-md-7">
-                    <input type="date"  class="form-control" name="dFechaFactura" max="<%date('Y-m-d')%>" required placeholder="AAAA-MM-DD"> 
+                    <input type="date"  class="form-control" name="dFechaFactura" max="<%date('Y-m-d')%>" required placeholder="AAAA-MM-DD" maxlength="10"> 
                 </div>
             </div>
             <div class="form-group text-left">
@@ -162,13 +162,18 @@ class="active"
                             <div class="form-group">
                                 <div class="col-md-12">
                                   <div ng-if="tipo == 'Cancelacion GECO' || tipo == 'Pases Anulacion' || tipo == 'Pases Adicionales'">
-                                    <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="1"
-                                        max="{{x.maximo}}" >
+                                    <div ng-if="tipo == 'Cancelacion GECO' && tipo != 'Pases Anulacion' && tipo != 'Pases Adicionales'">
+                                        <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="{{x.maximo}}" max="{{x.maximo}}">
+                                     </div>
+                                    <div ng-if="tipo == 'Pases Anulacion' || tipo == 'Pases Adicionales'">
+                                        <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="1" max="{{x.maximo}}">
+                                    </div>
                                   </div>
                                   <div ng-if="tipo != 'Cancelacion GECO' && tipo != 'Pases Anulacion' && tipo != 'Pases Adicionales'">
                                     <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="1"
                                       max="{{x.maximo}}">
                                   </div>
+
                                 </div>
                                 <br>
                                 <br>
