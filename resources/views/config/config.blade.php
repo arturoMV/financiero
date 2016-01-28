@@ -10,7 +10,7 @@
 
 	<br><br>
 	<h2>Configuración del Sistema <br>
-	<small>Eligue el  periodo de trabjo del sistema</small></h2>
+	<small>Seleccione el año de trabajo</small></h2>
 		@if($cambio)
 			<div class="col-md-6 alert alert-success">
 				<h4>Se guardo satisfactoriamente, el año de trabajo es <%$config->iValor%></h4>	
