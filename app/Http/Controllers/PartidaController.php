@@ -361,7 +361,7 @@ class PartidaController extends Controller
             ->where('tUsuario_idUsuario', Auth::user()->id)
             ->first();
 
-            if($request->partidaDe ==null || $request->partidaDe){
+            if($request->partidaDe ==null || $request->partidaA == null){
                 return back()->withErrors(['errors'=> 'Debe selecionar una partida de transferencia y una a la cual transferir']);
 ;
             }
