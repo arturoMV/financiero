@@ -57,7 +57,7 @@ class="active"
         <div class="form-group">
           <label class="col-md-4 control-label">Monto Presupuestado</label>
           <div class="col-md-6">
-            <input type="number" class="form-control" required name="iPresupuestoInicial" min="1" ng-model="monto">
+            <input type="number" class="form-control" required name="iPresupuestoInicial" min="0" ng-model="monto">
             {{monto | currency: "₡ ":0}}          </div>
         </div>
 
