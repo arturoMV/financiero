@@ -60,7 +60,7 @@ class="active"
             <div class="form-group">
                 <label class="col-md-5 control-label">Fecha:</label>
                 <div class="col-md-7">
-                    <input type="date"  class="form-control" name="dFechaFactura" max="<%date('Y-m-d')%>" required> 
+                    <input type="date"  class="form-control" name="dFechaFactura" max="<%date('Y-m-d')%>" required placeholder="AAAA-MM-DD"> 
                 </div>
             </div>
             <div class="form-group text-left">
@@ -162,12 +162,12 @@ class="active"
                             <div class="form-group">
                                 <div class="col-md-12">
                                   <div ng-if="tipo == 'Cancelacion GECO' || tipo == 'Pases Anulacion' || tipo == 'Pases Adicionales'">
-                                    <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="0"
+                                    <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="1"
                                         max="{{x.maximo}}" >
                                   </div>
                                   <div ng-if="tipo != 'Cancelacion GECO' && tipo != 'Pases Anulacion' && tipo != 'Pases Adicionales'">
-                                    <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="0"
-                                      max="{{x.maximo}}" min="{{x.maximo}}">
+                                    <input type="number" class="form-control" required name="iMontoFactura{{$index}}" min="1"
+                                      max="{{x.maximo}}">
                                   </div>
                                 </div>
                                 <br>
