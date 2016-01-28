@@ -150,7 +150,7 @@ class User extends Model implements AuthenticatableContract,
     public function agregarAnno(){
         DB::table('tconfiguracion')->insert([
             'vConfiguracion' => 'Periodo',
-            'iValor' => 2016,
+            'iValor' => date('Y'),
             'tUsuario_idUsuario' => $this->id]);  
     }
 }
