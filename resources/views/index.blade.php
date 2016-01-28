@@ -7,8 +7,11 @@
 		class="active"
 	@endsection
 	@section('content')
-	<section class="contenido">
-		
+	@if(Auth::user())
+		<section class="contenido">
+	@else
+		<section>
+	@endif
  		<div id="slider" class="img-responsive"> 
 			<img src="/img/slide-4.jpg" class="img-responsive">
 			<img src="/img/slide-3.jpg" class="img-responsive">

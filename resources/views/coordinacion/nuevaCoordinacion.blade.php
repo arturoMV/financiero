@@ -23,13 +23,13 @@ class="active"
       <div class="form-group">
         <label class="col-md-4 control-label">Numero Coordinación</label>
         <div class="col-md-4">
-          <input type="number" class="form-control" ng-model="id" name="idCoordinacion" placeholder="Numero de la Coordinación" min="1" required>
+          <input type="number" class="form-control" name="idCoordinacion" placeholder="Numero de la Coordinación" min="1" required>
         </div>
       </div>
       <div class="form-group">
         <label class="col-md-4 control-label">Nombre</label>
         <div class="col-md-4">
-          <input type="text" class="form-control" ng-model="nombre" name="vNombreCoordinacion" placeholder="Nombre de la Coordinación" 
+          <input type="text" class="form-control" name="vNombreCoordinacion" placeholder="Nombre de la Coordinación" 
           pattern="[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ\s]+" title="Este campor solo acepta letras y numeros" required>
         </div>
       </div>
@@ -42,7 +42,7 @@ class="active"
       <div class="col-md-5">
         @if(Auth::user() AND Auth::user()->tienePermiso('Agregar Coordinacion'))
         <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-sm">
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
@@ -51,17 +51,7 @@ class="active"
               </div>
               <div class="modal-body">
               <p>Estas seguro de que quieres agregar la coordinación.</p>
-                <p>
-                    <div class="form-group">
-                      <label class="col-md-6 control-label">Número de Cooordinación</label>
-                      <p class="col-md-6 form-control-static">
-                        {{id}}  </p>         
-                        </div>
-                        <div class="form-group">
-                          <label class="col-md-6 control-label">Nombre de coodinacion</label>
-                          <p class="col-md-6 form-control-static">{{nombre}}</p>
-                        </div >
-                      </p>
+              
                       <input type="submit" name="buttonName" class="btn btn-success" value="Agregar">
                       <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
                     </div>
