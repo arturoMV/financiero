@@ -361,6 +361,10 @@ class PartidaController extends Controller
             ->where('tUsuario_idUsuario', Auth::user()->id)
             ->first();
 
+            if($request->partidaDe ==null || $request->partidaDe){
+                return back()->withErrors(['errors'=> 'Debe selecionar una partida de transferencia y una a la cual transferir']);
+;
+            }
             $presupuesto_partidaDe = Presupuesto_Partida::find($request->partidaDe);
             $presupuesto_partidaA = Presupuesto_Partida::find($request->partidaA);
             $usuario = Auth::user();
