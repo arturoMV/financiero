@@ -3,20 +3,24 @@ body{
  }
 
 .contenido{
-	height: 500px;	
+	height: 400px;	
 }
 
 .content{
 	height: 400px;	
 }
-
-
-aside{
-	height: 500px;
+.cerrar
+{
+	margin-top: 3%;
+}
+.tabla {
+    white-space: nowrap;
+    max-width: none;
+    width: auto;
 }
 
-header{
-	height: 150px;
+
+#header{
 	position: relative;
 	background-color: #4483c7; 
 	background-image: -webkit-linear-gradient(#2e8dd5 0%, #5bbbeb 100%);
@@ -25,10 +29,15 @@ header{
 	color: #FFF;
 }
 
-#wrapper {
-  display: block;
-  margin: 0 auto;
-  padding: 10px 17px;
+textarea{
+	resize:none;
+}
+section{
+	min-height: 350px;
+}
+.crear-partida
+{
+	max-width: 150px;
 }
 
 a{
@@ -36,5 +45,26 @@ a{
 	color: #444;
 	font-size: 18px;
 }
+.login
+{
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+section
+{
+	width: 100%;
+	padding: 0;
+}
+.search
+{
+	padding-left: 0 !important; 
+}
+.search-container
+{
+	margin-bottom: 2%;
+}
 
-
+#imgBanner{
+	width: 90%;
+	height: auto;
+}
